@@ -1,0 +1,35 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+    <%- include('./parts/head.ejs')%>
+
+<body>
+<!-- partial:index.partial.html -->
+<div class="container" id="container">
+	<div class="form-container sign-in-container">
+		<form action="/Clientsignup" method="post">
+		<img src="img/logo (2).png" alt="">
+			<h2>Sign Up</h2>
+			<input type="email" name="email" placeholder="userName"/>
+			<input type="text" name="phoneNumber" placeholder="PhoneNumber"/>
+			<input type="password" name="password" placeholder="Password"  />
+			<input type="password" name="confirmPassword" placeholder="Confirm Password" />
+			
+			<button>Sign Up</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-right">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- partial -->
+<script  src="js/script.js"></script>
+
+</body>  
+</html>
+
+
