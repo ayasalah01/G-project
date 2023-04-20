@@ -20,18 +20,8 @@ const getSignup = (req,res,next) =>{
 }
 
 const createNewUser = async(req,res,next)=>{
-    try {
-        return User.findOne({email:req.body.email})
-        .then(user =>{
-            if(user) {
-                console.log("email is exist")
-            //res.render("clientSignup",{message:"email is exist"})
-        }
-        else{
-            return securePassword (req.body.password);
-        }
-    })
-        .then(hashPassword  =>{
+    try{
+        const hashPassword = await securePassword (req.body.password);
         const user = new User({
             email : req.body.email,
             phoneNumber: req.body.phoneNumber,
@@ -45,13 +35,48 @@ const createNewUser = async(req,res,next)=>{
         else{
             res.render("clientSignup",{message:"your registration has been failed"})
         }
-    })
+    } catch(err) {
+        console.log(err.message)
+    }
+}
+// login 
+const getSignin =(req,res,next)=>{
+    try {
+        try {
+            res.render("signin")
+        } catch (error) {
+            console.log(error.message);
+        }
     } catch (error) {
-        console.log(error.message);
+        console.log(error.message)
+    }
+}
+const postSignin = async(req,res,next)=>{
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+
+        const userData = await User.findOne({email:email})
+        if(userData){
+            const passwordMatch = await bcrypt.compare(password,userData.password);
+            if (passwordMatch){
+                res.redirect("HomeAfterlogin")
+            }
+            else{
+                res.render("signin",{message:"email and password is incorrect"})
+            }
+        }
+        else{
+            res.render("signin",{message:"email and password is incorrect"})
+        }
+    } catch (error) {
+        console.log(error.message)
     }
 }
 
 module.exports ={
     getSignup,
-    createNewUser
+    createNewUser,
+    getSignin,
+    postSignin
 }
