@@ -2,7 +2,7 @@ const isLogin = (req,res,next)=>{
     try {
         if(req.session.user_id){}
         else{
-            res.redirect("/")
+            res.redirect("/signin")
         }
         next();
     } catch (error) {
@@ -13,7 +13,7 @@ const isLogin = (req,res,next)=>{
 const isLogout = (req,res,next)=>{
     try {
         if(req.session.user_id){
-            res.redirect("/HomeAfterlogin")
+            res.redirect("/")
         }
         next();
     } catch (error) {

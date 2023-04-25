@@ -23,11 +23,10 @@ app.use(express.urlencoded({extended:false}));
 //for router
 const homeController = require("./routes/homeRoute")
 const userRoute = require("./routes/userRoute");
+const SPRouter = require("./routes/spRoute")
 app.use("/",homeController);
 app.use("/",userRoute);
-
-
-
+app.use("/",SPRouter);
 
 
 app.listen(3000, ()=>{

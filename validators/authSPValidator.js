@@ -1,6 +1,6 @@
 const { check } = require('express-validator');
-const validatorMiddleware = require('../../middlewares/validatorMiddleware');
-const User = require('../../models/authmodel');
+const validatorMiddleware = require('../middlewares/validatorMiddleware');
+const User = require('../models/spModel');
 
 exports.signupValidator = [
 check('serviceName').not().isEmpty().withMessage('serviceName is required'),
@@ -16,11 +16,6 @@ check('email')
         }
     })
     ),
-check('phoneNumber')
-    .notEmpty()
-    .withMessage('phone number required')
-    .isMobilePhone()
-    .withMessage("Invalid format"),
 check('Address')
     .not().isEmpty()
     .withMessage('Address is required'),

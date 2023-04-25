@@ -12,6 +12,7 @@ const auth = require("../middlewares/authMiddleware");
 
 router.get("/",homeController.getHome);
 router.get("/HomeAfterlogin",auth.isLogin,homeController.getHomeAfterlogin);
+router.get("/HomeSPAfterlogin",homeController.getHomeSPAfterlogin)
 
 
 module.exports = router;

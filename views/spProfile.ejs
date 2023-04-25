@@ -19,7 +19,7 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="/HomeAfterlogin">Home</a></li>
+                                            <li><a href="/HomeSPAfterlogin">Home</a></li>
                                             <li><a href="#">Services <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="Cinemas.html">Cinemas</a></li>
@@ -34,7 +34,7 @@
                                                 </ul>
                                                 </li>
                                             <li><a href="Search-2.html">Search</a></li>
-                                            <li><a class="active" href="/clientProfile">Your Profile</a></li>
+                                            <li><a class="active" href="/spProfile">Your Profile</a></li>
                                             <li><a href="/setting">Settings</a></li>
                                         </ul>
                                     </nav>
@@ -103,25 +103,25 @@
 <hr>
 <div class="row">
 <div class="col-sm-3">
-<h6 class="mb-0">Phone</h6>
+<h6 class="mb-0">Address</h6>
 </div>
 <div class="col-sm-9 text-secondary">
-    <%= user.phoneNumber %>
+    <%= user.Address %>
 </div>
 </div>
 <hr>
 <div class="row">
 <div class="col-sm-3">
-<h6 class="mb-0">Address</h6>
+<h6 class="mb-0">Category</h6>
 </div>
 <div class="col-sm-9 text-secondary">
-    <%= user.location %>
+    <%= user.category %>
     </div>
 </div>
 <hr>
 <div class="row">
 <div class="col-sm-12">
-<a class="btn btn-info " target="__blank" href="/setting">Edit</a>
+<a class="btn btn-info " target="__blank" href="/spSetting">Edit</a>
 </div>
 </div>
 </div>

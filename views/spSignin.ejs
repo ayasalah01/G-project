@@ -1,0 +1,43 @@
+<html class="no-js" lang="zxx">
+    <%- include('./parts/head.ejs') %> 
+    <body>
+        <!-- partial:index.partial.html -->
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <form action="/spSignin" method="post">
+                <img src="img/logo (2).png" alt="">
+                    <h2>Sign Up</h2>
+                    <button><a href="/clientSignup">Client</a></button>
+                    <button><a href="/spSignup">Service Provider</a></button>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="/SPsignin" method="post">
+                <img src="img/logo (2).png" alt="">
+                    <h2>Sign In</h2>
+                    <input type="email" name="email" placeholder="Username" />
+                    <input type="password" name="password" placeholder="Password" />
+                    <a href="/spforgetPassword">Forgot your password?</a>
+                    <button>Sign In</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- partial -->
+        <script  src="js/script.js"></script>
+        
+        </body>  
+        </html>

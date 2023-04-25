@@ -13,8 +13,16 @@ const getHomeAfterlogin = (req,res,next) =>{
         console.log(error.message);
     }
 }
+const getHomeSPAfterlogin = (req,res,next) =>{
+    try {
+        res.render("HomeSPAfterlogin");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 module.exports ={
     getHome,
-    getHomeAfterlogin
+    getHomeAfterlogin,
+    getHomeSPAfterlogin
 }

@@ -8,7 +8,7 @@
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center no-gutters">
-                         <div class="col-xl-2 col-lg-2">
+                        <div class="col-xl-2 col-lg-2">
                             <div class="logo-img">
                                 <a href="index.html">
                                     <img src="img/logo (2).png" alt="">
@@ -19,9 +19,9 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="/HomeAfterlogin">Home</a></li>
+                                        <li><a href="/HomeSPAfterlogin">Home</a></li>
                                         <li><a href="#">Services <i class="ti-angle-down"></i></a>
-										  <ul class="submenu">
+										<ul class="submenu">
                                                 <li><a href="Cinemas.html">Cinemas</a></li>
                                                 <li><a href="Hotels.html">Hotels</a></li>
 												<li><a href="Bazaars.html">Bazaars</a></li>
@@ -34,8 +34,8 @@
                                             </ul>
 											</li>
                                         <li><a href="Search-2.html">Search</a></li>
-										<li><a href="/clientProfile">Your Profile</a></li>
-										<li><a class="active" href="/setting">Settings</a></li>
+										<li><a href="/spProfile">Your Profile</a></li>
+										<li><a class="active" href="/spSetting">Settings</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -123,13 +123,13 @@ Our Application
     <input type="text" class="form-control" id="url" name="phoneNumber" value="<%= user.phoneNumber%>" placeholder="Phone Number" >
     </div>
     <div class="form-group">
-        <label for="location">Location</label>
-        <input type="text" class="form-control" id="location" placeholder="Enter your location" value="<%= user.location%>">
+        <label for="location">Address</label>
+        <input type="text" class="form-control" id="location" placeholder="Enter your location" value="<%= user.Address%>">
         </div>
         <div class="form-group small text-muted">
         All of the fields on this page are optional and can be deleted at any time, and by filling them out, you're giving us consent to share this data wherever your user profile appears.
         </div>
-        <input type="submit" style="background-color:#114c70;" value="Update Profile">
+        <input type="submit" class="btn btn-info " target="__blank" value="Update Profile">
         
 </form>
 </div>
@@ -147,7 +147,7 @@ Our Application
 <label class="d-block text-danger">Delete Account</label>
 <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain.</p>
 </div>
-<input type="submit" style="background-color:#114c70;" value="Delete Account">
+<input type="submit" class="btn btn-info " target="__blank" value="Delete Account">
 </form>
 </div>
 <div class="tab-pane" id="security">
@@ -161,7 +161,7 @@ Our Application
 <input type="password" class="form-control mt-1" name="newpassword" placeholder="New password">
 <input type="password" class="form-control mt-1" name="passwordConfirm" placeholder="Confirm new password">
 <hr>
-<input type="submit" style="background-color:#114c70;" value="change">
+<input type="submit" class="btn btn-info " target="__blank" value="change">
 </div>
 </form>
 </div>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+	<%- include('./parts/head.ejs')%>
+
+<body>
+<!-- partial:index.partial.html -->
+<div class="container" id="container">
+	<div class="form-container sign-in-container">
+		<form action="/spSignup" method="post">
+		<img src="img/logo (2).png" alt="">
+			<h2>Sign Up</h2>
+			<input type="text" name="serviceName" placeholder="Service Name" />
+			<input type="email" name="email" placeholder="Username"  />
+			<input type="text" name="Address" placeholder="Address" />
+			<input type="password" name="password" placeholder="Password"  />
+			<input type="password" name="passwordConfirm" placeholder="Confirm Password"  />
+			<select name="category" id="membership">
+				<option value="Hotel">Hotel</option>
+				<option value="Cinema">Cinema</option>
+				<option value="Bazaar">Bazaar</option>
+				<option value="Resort & Village">Resort & Village</option>
+				<option value="Natural Preserves">Natural Preserves</option>
+                <option value="Tourism Company">Tourism Company</option>
+				<option value="Restaurant & Cafe">Restaurant & Cafe</option>
+				<option value="Archaeological Sites">Archaeological Sites</option>
+				<option value="Transportation Company">Transportation Company</option>
+            </select>
+			<button>Sign Up</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-right">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- partial -->
+<script  src="js/script.js"></script>
+
+</body>  
+</html>
