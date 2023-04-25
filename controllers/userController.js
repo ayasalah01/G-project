@@ -1,7 +1,48 @@
 const bcrypt = require("bcrypt");
+const session = require("express-session");
+const randomstring = require("randomstring");
+const nodemailer = require("nodemailer");
 
 const User = require("../models/userModel");
+const config = require("../config/config");
 
+
+
+//const send mail
+const sendResetPasswordMail = (email,token)=>{
+    try {
+        const transporter = nodemailer.createTransport
+        ({
+            host:'smtp.gmail.com',
+            port:587,
+            secure:false,
+            requireTLS:true,
+            auth:{
+                user:config.emailUser,
+                pass:config.passwordUser
+            }
+        });
+            const mailOptions = {
+                from: config.emailUser,
+                to: email,
+                subject: 'password Reset',
+                html:'<p>Hi please click here to <a href="http://localhost:3000/resetPassword?token='+token+'">Reset</a> your password.</p>'
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+// bycrpt password
 const securePassword = (password)=>{
     try {
         const hashedPassword = bcrypt.hash(password,10);
@@ -11,9 +52,12 @@ const securePassword = (password)=>{
     }
 }
 
+// signup
 const getSignup = (req,res,next) =>{
     try {
-        res.render("clientSignup")
+        res.render("clientSignup",{
+            pageTitle:"Signup"
+        })
     } catch (error) {
         console.log(error.message);
     }
@@ -30,10 +74,10 @@ const createNewUser = async(req,res,next)=>{
         });
         const userData = user.save();
         if(userData){
-            res.render("home1",{message:"your registration has been successfully"});
+            res.render("signin",{pageTitle:"Signin",message:"your registration has been successfully"});
         }
         else{
-            res.render("clientSignup",{message:"your registration has been failed"})
+            res.render("clientSignup",{pageTitle:"Signup",message:"your registration has been failed"})
         }
     } catch(err) {
         console.log(err.message)
@@ -43,7 +87,9 @@ const createNewUser = async(req,res,next)=>{
 const getSignin =(req,res,next)=>{
     try {
         try {
-            res.render("signin")
+            res.render("signin",{
+                pageTitle:"Signin",
+            })
         } catch (error) {
             console.log(error.message);
         }
@@ -60,17 +106,163 @@ const postSignin = async(req,res,next)=>{
         if(userData){
             const passwordMatch = await bcrypt.compare(password,userData.password);
             if (passwordMatch){
-                res.redirect("HomeAfterlogin")
+                req.session.user_id = userData._id
+                res.redirect("/HomeAfterlogin")
             }
             else{
-                res.render("signin",{message:"email and password is incorrect"})
+                res.render("signin",{pageTitle:"Signin",message:"email and password is incorrect"})
             }
         }
         else{
-            res.render("signin",{message:"email and password is incorrect"})
+            res.render("signin",{pageTitle:"Signin",message:"email and password is incorrect"})
         }
     } catch (error) {
         console.log(error.message)
+    }
+}
+// logout
+const userlogout = (req,res,next)=>{
+    try {
+        if(req.session){
+
+            req.session.destroy((error)=>{
+                if(error){
+                    console.log(error);
+                }
+            });
+        }
+        res.redirect("/")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+//forget password
+const getforget_Password = (req,res,next)=>{
+    try {
+        res.render('forgetPassword',{
+            pageTitle:"ForgetPassword"
+        });
+    } catch (error) {
+        console.log(error)
+        
+    }
+    
+}
+const postforget_Password = async(req,res,next)=>{
+    try {
+        const email = req.body.email;
+        const userData = await User.findOne({email:email});
+        if(userData)
+        {
+            const randomString = randomstring.generate();
+            const updatedData = User.updateOne({email:email},{$set:{token:randomString}});
+            sendResetPasswordMail(userData.email,randomString);
+            res.render('forgetPassword',{pageTitle:"ForgetPassword",message:"please check your email"})
+        }
+        else{
+            res.render('forgetPassword',{pageTitle:"ForgtPassword",message:"user email is incorrect"})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+
+}
+const getReset_Password = async(req,res,next)=>{
+    try {
+        const token = req.query.token;
+
+        const tokenData = await User.findOne({token:token});
+        if(tokenData){
+            res.render("resetPassword",{pageTitle:"ResetPassword",user_id:tokenData._id});
+        }
+        else{
+            res.render("404",{message:"token is invalid"});
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+        
+}
+const postReset_Password = (req,res,next)=>{
+    try {
+        const password = req.body.password;
+        const user_id = req.body.user_id;
+        console.log(user_id);
+        const secure_Password = securePassword(password);
+        User.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password,token:""}})
+        res.redirect("/signin")
+
+    } catch (error) {
+        console.log(error)
+
+    }
+}
+//user profile
+const getUserProfile = async(req,res,next)=>{
+    try {
+        const userData = await User.findById({_id:req.session.user_id});
+        res.render('clientProfile',{user:userData});
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const editUserProfile = async(req,res,next)=>{
+    try {
+        //const id = req.query.id;
+        const userData = await User.findById({_id:req.session.user_id})
+        if(userData){
+            res.render("setting",{user:userData})
+
+        }
+        else{
+            res.redirect("/HomeAfterlogin")
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const updateProfile = async(req,res,next)=>{
+    try {
+        const userData = await User.findByIdAndUpdate({_id:req.body.user_id},{$set:{name:req.body.name,email:req.body.email,phoneNumber:req.body.phoneNumber}})
+        res.redirect("/HomeAfterlogin")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const deleteUserProfile = async(req,res,next)=>{
+    try {
+        //const id = req.query.id;
+        const userData = await User.findById({_id:req.session.user_id})
+        if(userData){
+            res.render("edit",{user:userData})
+
+        }
+        else{
+            res.redirect("/HomeAfterlogin")
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const deleteUserAccount = async(req,res,next)=>{
+    try {
+        User.deleteOne({email:req.body.email});
+        res.redirect("/")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const updatePassword = async(req,res,next)=>{
+    const session = req.session;
+    if (session.email){
+        const oldPassword = req.body.password;
+        const newPassword = req.body.newpassword;
+        const confirmPassword = req.body.cnfirmpassword;
+        User.findOne({email:session.email})
+
     }
 }
 
@@ -78,5 +270,16 @@ module.exports ={
     getSignup,
     createNewUser,
     getSignin,
-    postSignin
+    postSignin,
+    userlogout,
+    getforget_Password,
+    postforget_Password,
+    getReset_Password,
+    postReset_Password,
+    getUserProfile,
+    editUserProfile,
+    updateProfile,
+    deleteUserProfile,
+    deleteUserAccount,
+    updatePassword
 }

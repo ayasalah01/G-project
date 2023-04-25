@@ -19,6 +19,8 @@
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
     "mongodb": "^4.13.0",
-    "mongoose": "^6.9.2"
+    "mongoose": "^6.9.2",
+    "nodemailer": "^6.9.1",
+    "randomstring": "^1.2.3"
   }
 }

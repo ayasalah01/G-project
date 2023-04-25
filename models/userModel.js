@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
+    name:{
+        type:String,
+        default:""
+    },
     email:{
         type:String,
         required:[true,'email is required'],
@@ -16,6 +20,10 @@ const userSchema = mongoose.Schema({
         type:String,
         required:[true,'password is required']
     },
+    location:{
+        type:String,
+        default:"Fayoum"
+    },
     is_admin:{
         type:Number,
         required:true
@@ -23,6 +31,10 @@ const userSchema = mongoose.Schema({
     is_varified:{
         type:Number,
         default:0
+    },
+    token:{
+        type:String,
+        default:""
     }
     
 });

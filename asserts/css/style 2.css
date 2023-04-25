@@ -10,6 +10,7 @@
 .has-search .form-control {
     padding-left: 2.375rem;
 	color:#023859;
+	box-shadow:#023859;
 }
 
 .has-search .form-control-feedback {
@@ -25,9 +26,10 @@
 }
 .main .input-group .form-control{
 	color:#023859;
-	background-color:#f1f1e6;
+	background-color:#fff;
 	height: 45px;
 	border-radius: 50px;
+	box-shadow:#023859;
 }
 .main .input-group .input-group-append button{
 	background-color:#023859;
@@ -37,5 +39,5 @@
 }
 .main .input-group .input-group-append button:hover{
 	background-color:#daa520;
-	color:#f1f1e6;
+	color:#fff;
 }

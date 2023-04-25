@@ -41,6 +41,9 @@
 .Post_area .post form{
   margin: 25px 25px;
 }
+.Post_area .post form textarea{
+	border-radius:10px;
+}
 .Post_area .post form .content,
 .audience .list li .column{
   display: flex;

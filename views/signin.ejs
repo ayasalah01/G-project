@@ -8,9 +8,16 @@
                 <img src="img/logo (2).png" alt="">
                     <h2>Sign Up</h2>
                     <button><a href="/Clientsignup">Client</a></button>
-                    <button><a href="/SPsignup">Service Provider</a></button>
+                    <button><a href="/spSignup">Service Provider</a></button>
                 </form>
             </div>
+            <%
+                if(typeof message !== "undefined"){
+                    %>
+                    <h4><%=message %></h4>
+                    <%
+                }
+            %>
             <div class="form-container sign-in-container">
                 <form action="/signin" method="post">
                 <img src="img/logo (2).png" alt="">

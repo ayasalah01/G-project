@@ -6,7 +6,15 @@ const getHome = (req,res,next) =>{
         console.log(error.message);
     }
 }
+const getHomeAfterlogin = (req,res,next) =>{
+    try {
+        res.render("HomeAfterlogin");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 module.exports ={
-    getHome
+    getHome,
+    getHomeAfterlogin
 }
