@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 const session = require("express-session");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
+const jwt = require("jsonwebtoken");
+const validationResult = require("express-validator").validationResult;
 
 const User = require("../models/userModel");
 const config = require("../config/config");
@@ -56,7 +58,9 @@ const securePassword = (password)=>{
 const getSignup = (req,res,next) =>{
     try {
         res.render("clientSignup",{
-            pageTitle:"Signup"
+            pageTitle:"Signup",
+            authError:req.flash('authError')[0],
+            validationErrors:req.flash('validationErrors')
         })
     } catch (error) {
         console.log(error.message);
@@ -73,11 +77,17 @@ const createNewUser = async(req,res,next)=>{
             is_admin: 0
         });
         const userData = user.save();
-        if(userData){
-            res.render("signin",{pageTitle:"Signin",message:"your registration has been successfully"});
+        if(validationResult(req).isEmpty()){
+            res.render("signin",{pageTitle:"Signin",message:"your registration has been successfully"})
+            .catch(err =>{
+                console.log(err)
+                req.flash('authError',err)
+                res.redirect('/clientSignup',{pageTitle:"Signup"}) 
+            })
         }
         else{
-            res.render("clientSignup",{pageTitle:"Signup",message:"your registration has been failed"})
+            req.flash('validationErrors',validationResult(req).array())
+            res.redirect("clientSignup",{pageTitle:"Signup"})
         }
     } catch(err) {
         console.log(err.message)
@@ -149,6 +159,55 @@ const getforget_Password = (req,res,next)=>{
     
 }
 const postforget_Password = async(req,res,next)=>{
+    /*
+    const {email} = req.body
+    try {
+        const oldUser = await User.findOne({email});
+        if (!oldUser){
+            return res.send("there is no user matches this email ")
+        }
+        const secret = config.JWT_SECRET + oldUser.password
+        const payload = {
+            email:oldUser.email,
+            id: oldUser._id
+        }
+        const token = jwt.sign(payload,secret,
+            {
+                expiresIn :"15m"
+            })
+            const link = `http://localhost:3000/resetPassword/${oldUser._id}/${token}`
+            const transporter = nodemailer.createTransport({
+                host:'smtp.gmail.com',
+                port:587,
+                secure:false,
+                requireTLS:true,
+                auth: {
+                    user: config.emailUser,
+                    pass:config.passwordUser
+                }
+            });
+            
+            var mailOptions = {
+                from: config.emailUser,
+                to: oldUser.email,
+                subject: 'password Reset',
+                html:'<p>Hi please click here to <a href=`http://localhost:3000/resetPassword/${oldUser._id}/${token}`>Reset</a> your password.</p>'
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+            console.log(link)
+        } 
+        catch (error) {
+            res.send(error)
+            console.log(error)
+        }
+    }*/
     try {
         const email = req.body.email;
         const userData = await User.findOne({email:email});
@@ -165,13 +224,30 @@ const postforget_Password = async(req,res,next)=>{
     } catch (error) {
         console.log(error.message)
     }
-
 }
-const getReset_Password = async(req,res,next)=>{
+
+
+const getReset_Password = (req,res,next)=>{
+    /*
+    const {id,token} = req.params;
+    const oldUser =  User.findOne({_id:id});
+    if (!oldUser){
+        return res.send("there is no user matches this email ")
+    }
+    const secret = config.JWT_SECRET + oldUser.password;
+    try {
+        const verify = jwt.verify(token,secret)
+        res.render("resetPassword")
+    } 
+    catch (error) {
+        res.send("not valid")
+        console.log(error)
+    }  
+    */
     try {
         const token = req.query.token;
 
-        const tokenData = await User.findOne({token:token});
+        const tokenData = User.findOne({token:token});
         if(tokenData){
             res.render("resetPassword",{pageTitle:"ResetPassword",user_id:tokenData._id});
         }
@@ -184,6 +260,35 @@ const getReset_Password = async(req,res,next)=>{
         
 }
 const postReset_Password = (req,res,next)=>{
+    /*
+    const {id ,token} = req.params;
+    const {password} = req.body;
+    const oldUser = User.findOne({_id:id});
+        if (!oldUser){
+            return res.send("there is no user matches this email ")
+        }
+    const secret = config.JWT_SECRET + oldUser.password;
+    try {
+        const verify = jwt.verify(token,secret);
+        const newencryptedPassword = securePassword(password);
+        User.updateOne(
+            {
+                _id:id
+            },
+            {
+                $set:{
+                    password:newencryptedPassword
+                },
+            }
+        );
+        res.json({status:"password updated"})
+    } 
+    catch (error) {
+        res.send(error)
+        //res.send("some thing wrong")
+        console.log(error)
+    }  
+    */
     try {
         const password = req.body.password;
         const user_id = req.body.user_id;
@@ -256,13 +361,14 @@ const deleteUserAccount = async(req,res,next)=>{
 }
 
 const updatePassword = async(req,res,next)=>{
-    const session = req.session;
-    if (session.email){
-        const oldPassword = req.body.password;
-        const newPassword = req.body.newpassword;
-        const confirmPassword = req.body.cnfirmpassword;
-        User.findOne({email:session.email})
-
+    try {
+        //const user_id = req.session.user_id;
+        //const password = req.body.password;
+        const hashPassword = await securePassword (req.body.password);
+        User.findByIdAndUpdate({_id:req.body.user_id},{$set:{password:hashPassword}});
+        res.redirect("/HomeAfterlogin");
+    } catch (error) {
+        console.log(error.message);
     }
 }
 

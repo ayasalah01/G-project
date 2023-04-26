@@ -29,5 +29,5 @@ router.get("/setting",userController.editUserProfile);
 router.post("/setting",userController.updateProfile);
 //router.get("/edit",userController.deleteUserProfile);
 router.post("/delete",userController.deleteUserAccount);
-router.post("/edit",userController.updatePassword);
+router.post("/change",userController.updatePassword);
 module.exports = router;

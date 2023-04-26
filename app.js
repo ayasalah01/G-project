@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyparser = require('body-parser');
+const flash = require("connect-flash");
 
 
 const mongoose  = require('mongoose')
@@ -16,9 +17,11 @@ const app = express();
 app.set('view engine' , 'ejs')
 app.set('views','views')
 
-
+app.use(express.json());
 app.use(express.static(path.join(__dirname,'asserts')))     //to use style files 
 app.use(express.urlencoded({extended:false}));
+app.use(flash());
+
 
 //for router
 const homeController = require("./routes/homeRoute")

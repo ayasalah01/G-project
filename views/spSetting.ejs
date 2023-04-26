@@ -107,7 +107,7 @@ Our Application
 <div class="tab-pane active" id="profile">
 <h6>YOUR PROFILE INFORMATION</h6>
 <hr>
-<form method="post">
+<form  method="post">
     <input type="hidden" name="user_id" value="<%=user._id%>"/>
     <div class="form-group">
         <label for="fullName">Full Name</label>
@@ -136,7 +136,7 @@ Our Application
 <div class="tab-pane" id="account">
 <h6>ACCOUNT SETTINGS</h6>
 <hr>
-<form action="/delete" method="post">
+<form action="/spDelete" method="post">
     <input type="hidden" name="user_id" value="<%=user._id%>"/>
 <div class="form-group">
 <label for="username">Username</label>
@@ -153,7 +153,7 @@ Our Application
 <div class="tab-pane" id="security">
 <h6>SECURITY SETTINGS</h6>
 <hr>
-<form action="/change" method="post">
+<form action="/spChange" method="post">
 <div class="form-group">
 <label class="d-block">Change Password</label>
 <input type="hidden" name="user_id" value="<%=user._id%>"/>

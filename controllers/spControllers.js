@@ -26,7 +26,7 @@ const sendResetPasswordMail = (email,token)=>{
                 from: config.emailUser,
                 to: email,
                 subject: 'password Reset',
-                html:'<p>Hi please click here to <a href="http://localhost:3000/resetPassword?token='+token+'">Reset</a> your password.</p>'
+                html:'<p>Hi please click here to <a href="http://localhost:3000/spresetPassword?token='+token+'">Reset</a> your password.</p>'
             };
             
             transporter.sendMail(mailOptions, function(error, info){
@@ -151,16 +151,17 @@ const getforget_Password = (req,res,next)=>{
 const postforget_Password = async(req,res,next)=>{
     try {
         const email = req.body.email;
-        const userData =  ServiceProvider.findOne({email:email});
+        const userData =  await ServiceProvider.findOne({email:email});
+        console.log(userData.email)
         if(userData)
         {
             const randomString = randomstring.generate();
             const updatedData = ServiceProvider.updateOne({email:email},{$set:{token:randomString}});
             sendResetPasswordMail(userData.email,randomString);
-            res.render('forgetPassword',{pageTitle:"ForgetPassword",message:"please check your email"})
+            res.render('spforgetPassword',{pageTitle:"ForgetPassword",message:"please check your email"})
         }
         else{
-            res.render('forgetPassword',{pageTitle:"ForgtPassword",message:"user email is incorrect"})
+            res.render('spforgetPassword',{pageTitle:"ForgtPassword",message:"user email is incorrect"})
         }
     } catch (error) {
         console.log(error.message)
@@ -189,7 +190,7 @@ const postReset_Password = (req,res,next)=>{
         const user_id = req.body.serviceProvider_id;
         console.log(user_id);
         const secure_Password = securePassword(password);
-        User.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password,token:""}})
+        ServiceProvider.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password,token:""}})
         res.redirect("/spSignin")
 
     } catch (error) {
@@ -210,10 +211,9 @@ const getUserProfile = async(req,res,next)=>{
 const editUserProfile = async(req,res,next)=>{
     try {
         
-        const userData = await ServiceProvider.findById({_id:req.session.serviceProvider_id})
+        const userData = await ServiceProvider.findById({_id:req.session.serviceProvider_id});
         if(userData){
             res.render("spSetting",{user:userData})
-
         }
         else{
             res.redirect("/HomeSPAfterlogin")
@@ -225,7 +225,7 @@ const editUserProfile = async(req,res,next)=>{
 
 const updateProfile = async(req,res,next)=>{
     try {
-        const userData = await ServiceProvider.findByIdAndUpdate({_id:req.body.serviceProvider_id},{$set:{name:req.body.name,serviceName:req.body.serviceName,email:req.body.email,Address:req.body.Address}})
+        const userData = await ServiceProvider.findByIdAndUpdate({_id:req.body.user_id},{$set:{name:req.body.name,serviceName:req.body.serviceName,email:req.body.email,phoneNumber:req.body.phoneNumber,Address:req.body.Address}})
         res.redirect("/HomeSPAfterlogin")
     } catch (error) {
         console.log(error.message)
@@ -240,7 +240,7 @@ const deleteUserProfile = async(req,res,next)=>{
 
         }
         else{
-            res.redirect("/HomeAfterlogin")
+            res.redirect("/HomeSPAfterlogin")
         }
     } catch (error) {
         console.log(error.message)
@@ -257,13 +257,14 @@ const deleteUserAccount = async(req,res,next)=>{
 }
 
 const updatePassword = async(req,res,next)=>{
-    const session = req.session;
-    if (session.email){
-        const oldPassword = req.body.password;
-        const newPassword = req.body.newpassword;
-        const confirmPassword = req.body.cnfirmpassword;
-        User.findOne({email:session.email})
-
+    try {
+        //const user_id = req.session.serviceProvider_id;
+        const password = req.body.password;
+        const newPassword = await securePassword(password);
+        const changeData = ServiceProvider.findByIdAndUpdate({_id:req.body.user_id},{$set:{password:newPassword}});
+            res.redirect("/HomeSPAfterlogin");
+    } catch (error) {
+        console.log(error.message);
     }
 }
 

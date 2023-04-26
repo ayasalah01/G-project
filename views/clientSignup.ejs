@@ -10,12 +10,42 @@
 		<img src="img/logo (2).png" alt="">
 			<h2>Sign Up</h2>
 			<input type="email" name="email" placeholder="userName"/>
+			<% let emailError = validationErrors.find(err => err.param === 'email') %>
+            <% if (emailError){ %>
+				<div class="alert alert-danger" role="alert">
+					<%= emailError.msg %>
+				</div>
+            <% }%>
 			<input type="text" name="phoneNumber" placeholder="PhoneNumber"/>
+			<% let phoneNumberError = validationErrors.find(err => err.param === 'phoneNumber') %>
+            <% if (phoneNumberError){ %>
+                <div class="alert alert-danger" role="alert">
+                    <%= phoneNumberError.msg %>
+				</div>
+            <% }%>
 			<input type="password" name="password" placeholder="Password"  />
+			<% let passwordError = validationErrors.find(err => err.param === 'password') %>
+            <% if (passwordError){ %>
+                <div class="alert alert-danger" role="alert">
+                    <%= passwordError.msg %>
+				</div>
+            <% }%>
 			<input type="password" name="passwordConfirm" placeholder="passwordConfirm" />
+			<% let passwordConfirmError = validationErrors.find(err => err.param === 'passwordConfirm') %>
+            <% if (passwordConfirmError){ %>
+                <div class="alert alert-danger" role="alert">
+                    <%= passwordConfirmError.msg %>
+				</div>
+            <% }%>
 			
 			<button>Sign Up</button>
 		</form>
+		<br>
+		<% if(authError){ %>
+		<p class="alert alert-danger">
+			<%= authError%>
+		</p>
+		<% } %>
 	</div>
 	<div class="overlay-container">
 		<div class="overlay">
