@@ -11,13 +11,6 @@
                     <button><a href="/spSignup">Service Provider</a></button>
                 </form>
             </div>
-            <%
-                if(typeof message !== "undefined"){
-                    %>
-                    <h4><%=message %></h4>
-                    <%
-                }
-            %>
             <div class="form-container sign-in-container">
                 <form action="/signin" method="post">
                 <img src="img/logo (2).png" alt="">
@@ -25,9 +18,12 @@
                     <input type="email" name="email" placeholder="Username" />
                     <input type="password" name="password" placeholder="Password" />
                     <a href="/forgetPassword">Forgot your password?</a>
+                    <a href="/verification">verification </a>
+                    <% if(typeof message !== "undefined"){ %>
+                        <h4><%=message %></h4>
+                        <% } %>
                     <button>Sign In</button>
                 </form>
-                <br>
             </div>
             <div class="overlay-container">
                 <div class="overlay">

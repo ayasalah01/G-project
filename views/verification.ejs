@@ -5,16 +5,12 @@
     <!-- partial:index.partial.html -->
     <div class="container" id="container">
         <div class="form-container sign-in-container">
-            <form action="/forgetPassword" method="post">
+            <form action="/verification" method="post">
             <img src="img/logo (2).png" alt="">
-                <h2>Forgot Password??</h2>
-                <p style="color:#023859">Enter your registered email ID to reset the password</p>
+                <h2>verification Email</h2>
+                <p style="color:#023859">Enter your registered email ID </p>
                 <input type="email" name="email" placeholder="Email" required />
-                <% if(typeof message !== "undefined"){ %>
-                    <h4><%=message %></h4>
-                    <% } %>
-                <br>
-                <input type="submit" style="background-color:#114c70; color: #000;" value="Rest Password">
+                <input type="submit" style="background-color:#114c70; color: #000;" value="Send verification link">
             </form>
         </div>
         <div class="overlay-container">

@@ -8,7 +8,40 @@ const validationResult = require("express-validator").validationResult;
 const User = require("../models/userModel");
 const config = require("../config/config");
 
+//const send verfiy mail
+const sendVerificationMail = (email,user_id)=>{
+    try {
+        const transporter = nodemailer.createTransport
+        ({
+            host:'smtp.gmail.com',
+            port:587,
+            secure:false,
+            requireTLS:true,
+            auth:{
+                user:config.emailUser,
+                pass:config.passwordUser
+            }
+        });
+            const mailOptions = {
+                from: config.emailUser,
+                to: email,
+                subject: 'For verification Mail',
+                html:'<p>Hi please click here to <a href="http://localhost:3000/verify?id='+user_id+'">Verify</a> your Email.</p>'
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            })
 
+    } catch (error) {
+        console.log(error)
+    }
+
+}
 
 //const send mail
 const sendResetPasswordMail = (email,token)=>{
@@ -59,8 +92,6 @@ const getSignup = (req,res,next) =>{
     try {
         res.render("clientSignup",{
             pageTitle:"Signup",
-            authError:req.flash('authError')[0],
-            validationErrors:req.flash('validationErrors')
         })
     } catch (error) {
         console.log(error.message);
@@ -76,21 +107,26 @@ const createNewUser = async(req,res,next)=>{
             password : hashPassword,
             is_admin: 0
         });
-        const userData = user.save();
-        if(validationResult(req).isEmpty()){
-            res.render("signin",{pageTitle:"Signin",message:"your registration has been successfully"})
-            .catch(err =>{
-                console.log(err)
-                req.flash('authError',err)
-                res.redirect('/clientSignup',{pageTitle:"Signup"}) 
-            })
+        const userData = await user.save();
+        if(userData){
+            sendVerificationMail(req.body.email,userData._id);
+            res.render("signin",{pageTitle:"Signin",message:"your registration has been successfully Please verify your email"});
         }
         else{
-            req.flash('validationErrors',validationResult(req).array())
-            res.redirect("clientSignup",{pageTitle:"Signup"})
+            res.render("signin",{pageTitle:"Signin",message:"your registration has been failed"});
         }
     } catch(err) {
         console.log(err.message)
+    }
+}
+//verify your email
+const verifyMail = async(req,res,next)=>{
+    try {
+        const updateinfo = await User.updateOne({_id:req.query.id},{$set:{is_varified:1 }});
+        console.log(updateinfo);
+        res.render("verifyEmail")
+    } catch (error) {
+        console.log(error.message);
     }
 }
 // login 
@@ -113,11 +149,17 @@ const postSignin = async(req,res,next)=>{
         const password = req.body.password;
 
         const userData = await User.findOne({email:email})
+        console.log(userData.email);
         if(userData){
             const passwordMatch = await bcrypt.compare(password,userData.password);
             if (passwordMatch){
-                req.session.user_id = userData._id
+                if(userData.is_varified === 0){
+                    res.render("signin",{pageTitle:"Signin",message:"please verify your Email"})
+                }
+                else{
+                    req.session.user_id = userData._id
                 res.redirect("/HomeAfterlogin")
+                }
             }
             else{
                 res.render("signin",{pageTitle:"Signin",message:"email and password is incorrect"})
@@ -214,7 +256,7 @@ const postforget_Password = async(req,res,next)=>{
         if(userData)
         {
             const randomString = randomstring.generate();
-            const updatedData = User.updateOne({email:email},{$set:{token:randomString}});
+            const updatedData = await User.updateOne({email:email},{$set:{token:randomString}});
             sendResetPasswordMail(userData.email,randomString);
             res.render('forgetPassword',{pageTitle:"ForgetPassword",message:"please check your email"})
         }
@@ -227,7 +269,7 @@ const postforget_Password = async(req,res,next)=>{
 }
 
 
-const getReset_Password = (req,res,next)=>{
+const getReset_Password = async(req,res,next)=>{
     /*
     const {id,token} = req.params;
     const oldUser =  User.findOne({_id:id});
@@ -247,7 +289,7 @@ const getReset_Password = (req,res,next)=>{
     try {
         const token = req.query.token;
 
-        const tokenData = User.findOne({token:token});
+        const tokenData = await User.findOne({token:token});
         if(tokenData){
             res.render("resetPassword",{pageTitle:"ResetPassword",user_id:tokenData._id});
         }
@@ -259,7 +301,7 @@ const getReset_Password = (req,res,next)=>{
     }
         
 }
-const postReset_Password = (req,res,next)=>{
+const postReset_Password = async(req,res,next)=>{
     /*
     const {id ,token} = req.params;
     const {password} = req.body;
@@ -292,10 +334,12 @@ const postReset_Password = (req,res,next)=>{
     try {
         const password = req.body.password;
         const user_id = req.body.user_id;
-        console.log(user_id);
         const secure_Password = securePassword(password);
-        User.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password,token:""}})
-        res.redirect("/signin")
+        const updated = await User.updateOne({_id:user_id},{$set:{password:secure_Password}} )
+            console.log(updated);
+            res.redirect("/signin")    
+        
+       // await updated.clone();
 
     } catch (error) {
         console.log(error)
@@ -371,10 +415,37 @@ const updatePassword = async(req,res,next)=>{
         console.log(error.message);
     }
 }
+const getVerification = (req,res,next)=>
+{
+    try {
+        res.render("verification",{pageTitle:"verification Email"});
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+const sendVerificationLink = async (req,res,next)=>{
+    try {
+        const email = req.body.email;
+        const userData = await User.findOne({email:email});
+        console.log(userData.email)
+        if(userData){
+            sendVerificationMail(userData.email,userData._id);
+            res.render("verification",{pageTitle:"verification Email",message:"Reset verification Mail"});
+        }
+        else{
+            res.render("verification",{pageTitle:"verification Email",message:"this mail is not exist"})
+        }
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
 
 module.exports ={
     getSignup,
     createNewUser,
+    verifyMail,
     getSignin,
     postSignin,
     userlogout,
@@ -387,5 +458,7 @@ module.exports ={
     updateProfile,
     deleteUserProfile,
     deleteUserAccount,
-    updatePassword
+    updatePassword,
+    getVerification,
+    sendVerificationLink
 }
