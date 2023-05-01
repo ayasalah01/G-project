@@ -24,12 +24,14 @@ app.use(flash());
 
 
 //for router
-const homeController = require("./routes/homeRoute")
+const adminRouter = require("./routes/adminRoute");
+const homeRoute = require("./routes/homeRoute")
 const userRoute = require("./routes/userRoute");
 const SPRouter = require("./routes/spRoute")
-app.use("/",homeController);
+app.use("/",homeRoute);
 app.use("/",userRoute);
 app.use("/",SPRouter);
+app.use("/admin",adminRouter);
 
 
 app.listen(3000, ()=>{

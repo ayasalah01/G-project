@@ -9,7 +9,7 @@ router.use(session({secret:config.sessionSecret}));
 const {
     signupValidator,
     loginValidator
-}= require("../validators/authSPValidator")
+}= require("../utils/validators/authSPValidator")
 
 const spController = require("../controllers/spControllers");
 
@@ -17,6 +17,7 @@ const spController = require("../controllers/spControllers");
 
 router.get("/spSignup",spController.getSignup);
 router.post("/spSignup",signupValidator,spController.createNewUser);
+router.get("/spVerify",spController.verifyMail);
 router.get("/spSignin",spController.getSignin);
 router.post("/spSignin",loginValidator,spController.postSignin);
 router.get("/logout",spController.userlogout);
@@ -27,7 +28,8 @@ router.post("/spresetPassword",spController.postReset_Password);
 router.get("/spProfile",spController.getUserProfile);
 router.get("/spSetting",spController.editUserProfile);
 router.post("/spSetting",spController.updateProfile);//id 
-//router.get("/edit",userController.deleteUserProfile);
 router.post("/spDelete",spController.deleteUserAccount);
 router.post("/spChange",spController.updatePassword);
+router.get("/spVerification",spController.getVerification);
+router.post("/spVerification",spController.sendVerificationLink);
 module.exports = router;

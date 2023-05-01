@@ -3,7 +3,6 @@ const session = require("express-session");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const validationResult = require("express-validator").validationResult;
 
 const User = require("../models/userModel");
 const config = require("../config/config");
@@ -99,7 +98,7 @@ const getSignup = (req,res,next) =>{
 }
 
 const createNewUser = async(req,res,next)=>{
-    try{
+    try{       
         const hashPassword = await securePassword (req.body.password);
         const user = new User({
             email : req.body.email,
@@ -115,7 +114,8 @@ const createNewUser = async(req,res,next)=>{
         else{
             res.render("signin",{pageTitle:"Signin",message:"your registration has been failed"});
         }
-    } catch(err) {
+    } 
+    catch(err) {
         console.log(err.message)
     }
 }
@@ -132,17 +132,14 @@ const verifyMail = async(req,res,next)=>{
 // login 
 const getSignin =(req,res,next)=>{
     try {
-        try {
             res.render("signin",{
                 pageTitle:"Signin",
             })
-        } catch (error) {
-            console.log(error.message);
-        }
     } catch (error) {
         console.log(error.message)
     }
 }
+
 const postSignin = async(req,res,next)=>{
     try {
         const email = req.body.email;
@@ -201,55 +198,6 @@ const getforget_Password = (req,res,next)=>{
     
 }
 const postforget_Password = async(req,res,next)=>{
-    /*
-    const {email} = req.body
-    try {
-        const oldUser = await User.findOne({email});
-        if (!oldUser){
-            return res.send("there is no user matches this email ")
-        }
-        const secret = config.JWT_SECRET + oldUser.password
-        const payload = {
-            email:oldUser.email,
-            id: oldUser._id
-        }
-        const token = jwt.sign(payload,secret,
-            {
-                expiresIn :"15m"
-            })
-            const link = `http://localhost:3000/resetPassword/${oldUser._id}/${token}`
-            const transporter = nodemailer.createTransport({
-                host:'smtp.gmail.com',
-                port:587,
-                secure:false,
-                requireTLS:true,
-                auth: {
-                    user: config.emailUser,
-                    pass:config.passwordUser
-                }
-            });
-            
-            var mailOptions = {
-                from: config.emailUser,
-                to: oldUser.email,
-                subject: 'password Reset',
-                html:'<p>Hi please click here to <a href=`http://localhost:3000/resetPassword/${oldUser._id}/${token}`>Reset</a> your password.</p>'
-            };
-            
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
-            console.log(link)
-        } 
-        catch (error) {
-            res.send(error)
-            console.log(error)
-        }
-    }*/
     try {
         const email = req.body.email;
         const userData = await User.findOne({email:email});
@@ -270,22 +218,6 @@ const postforget_Password = async(req,res,next)=>{
 
 
 const getReset_Password = async(req,res,next)=>{
-    /*
-    const {id,token} = req.params;
-    const oldUser =  User.findOne({_id:id});
-    if (!oldUser){
-        return res.send("there is no user matches this email ")
-    }
-    const secret = config.JWT_SECRET + oldUser.password;
-    try {
-        const verify = jwt.verify(token,secret)
-        res.render("resetPassword")
-    } 
-    catch (error) {
-        res.send("not valid")
-        console.log(error)
-    }  
-    */
     try {
         const token = req.query.token;
 
@@ -302,44 +234,16 @@ const getReset_Password = async(req,res,next)=>{
         
 }
 const postReset_Password = async(req,res,next)=>{
-    /*
-    const {id ,token} = req.params;
-    const {password} = req.body;
-    const oldUser = User.findOne({_id:id});
-        if (!oldUser){
-            return res.send("there is no user matches this email ")
-        }
-    const secret = config.JWT_SECRET + oldUser.password;
-    try {
-        const verify = jwt.verify(token,secret);
-        const newencryptedPassword = securePassword(password);
-        User.updateOne(
-            {
-                _id:id
-            },
-            {
-                $set:{
-                    password:newencryptedPassword
-                },
-            }
-        );
-        res.json({status:"password updated"})
-    } 
-    catch (error) {
-        res.send(error)
-        //res.send("some thing wrong")
-        console.log(error)
-    }  
-    */
     try {
         const password = req.body.password;
         const user_id = req.body.user_id;
         const secure_Password = securePassword(password);
-        const updated = await User.updateOne({_id:user_id},{$set:{password:secure_Password}} )
-            console.log(updated);
-            res.redirect("/signin")    
-        
-       // await updated.clone();
+        const updatedinfo = await User.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password ,token:""}})
+        .exec()
+        .then(updatedinfo =>{
+            console.log(updatedinfo);
+            res.redirect("/signin")  
+        });  
 
     } catch (error) {
         console.log(error)
@@ -379,29 +283,16 @@ const updateProfile = async(req,res,next)=>{
         console.log(error.message)
     }
 }
-const deleteUserProfile = async(req,res,next)=>{
-    try {
-        //const id = req.query.id;
-        const userData = await User.findById({_id:req.session.user_id})
-        if(userData){
-            res.render("edit",{user:userData})
-
-        }
-        else{
-            res.redirect("/HomeAfterlogin")
-        }
-    } catch (error) {
-        console.log(error.message)
-    }
-}
-
 const deleteUserAccount = async(req,res,next)=>{
+    if(req.body.user_id === req.session.user_id)
+    {
     try {
-        User.deleteOne({email:req.body.email});
+        const user = await User.findByIdAndDelete({_id:req.body.user_id});
         res.redirect("/")
     } catch (error) {
         console.log(error.message)
     }
+}
 }
 
 const updatePassword = async(req,res,next)=>{
@@ -431,7 +322,7 @@ const sendVerificationLink = async (req,res,next)=>{
         console.log(userData.email)
         if(userData){
             sendVerificationMail(userData.email,userData._id);
-            res.render("verification",{pageTitle:"verification Email",message:"Reset verification Mail"});
+            res.render("signin",{pageTitle:"Signin",message:"Reset verification Mail"});
         }
         else{
             res.render("verification",{pageTitle:"verification Email",message:"this mail is not exist"})
@@ -456,7 +347,6 @@ module.exports ={
     getUserProfile,
     editUserProfile,
     updateProfile,
-    deleteUserProfile,
     deleteUserAccount,
     updatePassword,
     getVerification,

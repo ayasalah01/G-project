@@ -9,7 +9,7 @@ router.use(session({secret:config.sessionSecret}));
 const {
     signupValidator,
     loginValidator
-}= require("../validators/authValidator")
+}= require("../utils/validators/authValidator")
 
 const userController = require("../controllers/userController");
 const auth = require("../middlewares/authMiddleware");
@@ -30,7 +30,6 @@ router.post("/verification",userController.sendVerificationLink);
 router.get("/clientProfile",userController.getUserProfile);
 router.get("/setting",userController.editUserProfile);
 router.post("/setting",userController.updateProfile);
-//router.get("/edit",userController.deleteUserProfile);
 router.post("/delete",userController.deleteUserAccount);
 router.post("/change",userController.updatePassword);
 module.exports = router;
