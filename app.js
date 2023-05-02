@@ -22,7 +22,6 @@ app.use(express.static(path.join(__dirname,'asserts')))     //to use style files
 app.use(express.urlencoded({extended:false}));
 app.use(flash());
 
-
 //for router
 const adminRouter = require("./routes/adminRoute");
 const homeRoute = require("./routes/homeRoute")

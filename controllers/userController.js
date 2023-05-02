@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/userModel");
+const Pay = require("../models/payModel");
 const config = require("../config/config");
 
 //const send verfiy mail
@@ -332,6 +333,29 @@ const sendVerificationLink = async (req,res,next)=>{
         console.log(error.message);
     }
 }
+const getPayment = (req,res,next)=>{
+    try {
+        res.render("pay");
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+const postPayment = async(req,res,next)=>{
+    try {
+        const pay = new Pay({
+            image:req.body.image
+        });
+        const data = await pay.save();
+        if(data){
+            res.render('pay',{message:"payment process has been successfully "})
+        }
+        else{
+            res.render('pay',{message:"payment process has been failed please try again "})
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 module.exports ={
     getSignup,
@@ -350,5 +374,7 @@ module.exports ={
     deleteUserAccount,
     updatePassword,
     getVerification,
-    sendVerificationLink
+    sendVerificationLink,
+    getPayment,
+    postPayment
 }

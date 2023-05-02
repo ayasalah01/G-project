@@ -277,9 +277,9 @@ const editUserProfile = async(req,res,next)=>{
 
 const updateProfile = async(req,res,next)=>{
     try {
-        const user_id = await req.body.serviceProvider_id
-        console.log(user_id);
-        const userData = await ServiceProvider.findByIdAndUpdate({_id:user_id},{$set:{name:req.body.name,serviceName:req.body.serviceName,email:req.body.email,phoneNumber:req.body.phoneNumber,Address:req.body.Address}})
+        req.body.serviceProvider_id = req.session.serviceProvider_id
+        console.log(req.body.serviceProvider_id);
+        const userData = await ServiceProvider.findByIdAndUpdate({_id:req.body.serviceProvider_id},{$set:{name:req.body.name,serviceName:req.body.serviceName,email:req.body.email,phoneNumber:req.body.phoneNumber,Address:req.body.Address}})
         res.redirect("/HomeSPAfterlogin")
     } catch (error) {
         console.log(error.message)

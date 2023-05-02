@@ -35,7 +35,7 @@ const userSchema = mongoose.Schema({
     token:{
         type:String,
         default:""
-    }
+    },
     
 });
 module.exports= mongoose.model("user",userSchema);

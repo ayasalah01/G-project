@@ -2,6 +2,20 @@ const express = require("express");
 const router = require('express').Router();
 const session = require("express-session");
 const config = require("../config/config");
+const multer = require("multer");
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,path.join(__dirname,"../public/userImages"));
+    },
+    filename:(req,file,cb)=>{
+        const name = Date.now()+'-'+file.originalname;
+        cb(null,name);
+    }
+})
+const upload = multer({storage:storage});
+
 
 router.use(session({secret:config.sessionSecret}));
 
@@ -32,4 +46,6 @@ router.get("/setting",userController.editUserProfile);
 router.post("/setting",userController.updateProfile);
 router.post("/delete",userController.deleteUserAccount);
 router.post("/change",userController.updatePassword);
+router.get("/pay",userController.getPayment);
+router.post("/pay",upload.single('image'),userController.postPayment);
 module.exports = router;
