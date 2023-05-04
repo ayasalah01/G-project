@@ -22,7 +22,7 @@
                     <% if(typeof message !== "undefined"){ %>
                         <h4><%=message %></h4>
                         <% } %>
-                    <button>Sign In</button>
+                    <button id="signIn">Sign In</button>
                 </form>
                 <br>
             </div>
@@ -43,6 +43,17 @@
         </div>
         <!-- partial -->
         <script  src="js/script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript">
+            var socket = io("http://localhost:3000")
+            $("#signIn").on( "click", function() {
+            var email =  $("#email").val() 
+            socket.emit("signIn",{
+                "email":email
+            })
+            } );
+            </script>
         
         </body>  
         </html>

@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path');
 const bodyparser = require('body-parser');
 const flash = require("connect-flash");
+const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server)
 
 
 const mongoose  = require('mongoose')
@@ -10,9 +13,10 @@ const DB_URL = "mongodb://127.0.0.1:27017/mydatabase"
 mongoose.set('strictQuery',false)
 mongoose.connect(DB_URL,{useNewUrlParser:true},(err)=>{
     if(err) return err;
-    console.log("connected to database")
+    console.log("connected to database");
 })  
-const app = express();
+
+
 
 app.set('view engine' , 'ejs')
 app.set('views','views')
@@ -33,6 +37,13 @@ app.use("/",SPRouter);
 app.use("/admin",adminRouter);
 
 
-app.listen(3000, ()=>{
-    console.log('connected to server')
+server.listen(3000, function(){
+    console.log('connected to server');
+
+    io.on("connection",function(socket){
+        console.log("Auth value:"+socket.id);
+        socket.on("signIn",function(details){
+            socket.broadcast.emit("signIn",details);
+        })
+    })
 })

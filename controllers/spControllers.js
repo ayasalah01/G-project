@@ -8,75 +8,6 @@ const config = require("../config/config");
 const sendMail = require("../utils/sendEmail");
 
 
-//send verify mail
-const sendVerificationMail = (email,serviceProvider_id)=>{
-    try {
-        const transporter = nodemailer.createTransport
-        ({
-            host:'smtp.gmail.com',
-            port:587,
-            secure:false,
-            requireTLS:true,
-            auth:{
-                user:config.emailUser,
-                pass:config.passwordUser
-            }
-        });
-            const mailOptions = {
-                from: config.emailUser,
-                to: email,
-                subject: 'For verification Mail',
-                html:'<p>Hi please click here to <a href="http://localhost:3000/spVerify?id='+serviceProvider_id+'">Verify</a> your Email.</p>'
-            };
-            
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            })
-
-    } catch (error) {
-        console.log(error)
-    }
-
-}
-
-//const send mail
-const sendResetPasswordMail = (email,token)=>{
-    try {
-        const transporter = nodemailer.createTransport
-        ({
-            host:'smtp.gmail.com',
-            port:587,
-            secure:false,
-            requireTLS:true,
-            auth:{
-                user:config.emailUser,
-                pass:config.passwordUser
-            }
-        });
-            const mailOptions = {
-                from: config.emailUser,
-                to: email,
-                subject: 'password Reset',
-                html:'<p>Hi please click here to <a href="http://localhost:3000/spresetPassword?token='+token+'">Reset</a> your password.</p>'
-            };
-            
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            })
-
-    } catch (error) {
-        console.log(error)
-    }
-
-}
 // bycrpt password
 const securePassword = (password)=>{
     try {
@@ -111,7 +42,7 @@ const createNewUser = async(req,res,next)=>{
         const userData = await user.save();
         console.log(userData._id)
         if(userData){
-            sendVerificationMail(req.body.email,userData._id)
+            sendMail.sendSPVerificationMail(req.body.email,userData._id)
             res.render("spSignin",{pageTitle:"Signin",message:"your registration has been successfully Please verfiy your email"});
         }
         else{
@@ -209,7 +140,7 @@ const postforget_Password = async(req,res,next)=>{
         {
             const randomString = randomstring.generate();
             const updatedData = ServiceProvider.updateOne({email:email},{$set:{token:randomString}});
-            sendResetPasswordMail(userData.email,randomString);
+            sendMail.sendSPResetPasswordMail(userData.email,randomString);
             res.render('spforgetPassword',{pageTitle:"ForgetPassword",message:"please check your email"})
         }
         else{
@@ -324,7 +255,7 @@ const sendVerificationLink = async (req,res,next)=>{
         const userData = await ServiceProvider.findOne({email:email});
         console.log(userData.email)
         if(userData){
-            sendVerificationMail(userData.email,userData._id);
+            sendMail.sendSPVerificationMail(userData.email,userData._id);
             res.render("spSignin",{pageTitle:"Signin",message:"Reset verification Mail"});
         }
         else{

@@ -7,76 +7,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Pay = require("../models/payModel");
 const config = require("../config/config");
+const sendMail = require("../utils/sendEmail")
 
-//const send verfiy mail
-const sendVerificationMail = (email,user_id)=>{
-    try {
-        const transporter = nodemailer.createTransport
-        ({
-            host:'smtp.gmail.com',
-            port:587,
-            secure:false,
-            requireTLS:true,
-            auth:{
-                user:config.emailUser,
-                pass:config.passwordUser
-            }
-        });
-            const mailOptions = {
-                from: config.emailUser,
-                to: email,
-                subject: 'For verification Mail',
-                html:'<p>Hi please click here to <a href="http://localhost:3000/verify?id='+user_id+'">Verify</a> your Email.</p>'
-            };
-            
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            })
-
-    } catch (error) {
-        console.log(error)
-    }
-
-}
-
-//const send mail
-const sendResetPasswordMail = (email,token)=>{
-    try {
-        const transporter = nodemailer.createTransport
-        ({
-            host:'smtp.gmail.com',
-            port:587,
-            secure:false,
-            requireTLS:true,
-            auth:{
-                user:config.emailUser,
-                pass:config.passwordUser
-            }
-        });
-            const mailOptions = {
-                from: config.emailUser,
-                to: email,
-                subject: 'password Reset',
-                html:'<p>Hi please click here to <a href="http://localhost:3000/resetPassword?token='+token+'">Reset</a> your password.</p>'
-            };
-            
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            })
-
-    } catch (error) {
-        console.log(error)
-    }
-
-}
 // bycrpt password
 const securePassword = (password)=>{
     try {
@@ -109,7 +41,7 @@ const createNewUser = async(req,res,next)=>{
         });
         const userData = await user.save();
         if(userData){
-            sendVerificationMail(req.body.email,userData._id);
+            sendMail.sendVerificationEmail(req.body.email,userData._id);
             res.render("signin",{pageTitle:"Signin",message:"your registration has been successfully Please verify your email"});
         }
         else{
@@ -156,6 +88,7 @@ const postSignin = async(req,res,next)=>{
                 }
                 else{
                     req.session.user_id = userData._id
+                    //res.session.is_admin= userData.is_admin
                 res.redirect("/HomeAfterlogin")
                 }
             }
@@ -206,7 +139,7 @@ const postforget_Password = async(req,res,next)=>{
         {
             const randomString = randomstring.generate();
             const updatedData = await User.updateOne({email:email},{$set:{token:randomString}});
-            sendResetPasswordMail(userData.email,randomString);
+            sendMail.sendResetPasswordMail(userData.email,randomString);
             res.render('forgetPassword',{pageTitle:"ForgetPassword",message:"please check your email"})
         }
         else{
@@ -239,12 +172,10 @@ const postReset_Password = async(req,res,next)=>{
         const password = req.body.password;
         const user_id = req.body.user_id;
         const secure_Password = securePassword(password);
-        const updatedinfo = await User.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password ,token:""}})
-        .exec()
-        .then(updatedinfo =>{
-            console.log(updatedinfo);
-            res.redirect("/signin")  
-        });  
+        console.log(password)
+        await User.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password ,token:""}});
+        res.redirect("/signin")  
+        
 
     } catch (error) {
         console.log(error)
@@ -322,7 +253,7 @@ const sendVerificationLink = async (req,res,next)=>{
         const userData = await User.findOne({email:email});
         console.log(userData.email)
         if(userData){
-            sendVerificationMail(userData.email,userData._id);
+            sendMail.sendVerificationEmail(userData.email,userData._id);
             res.render("signin",{pageTitle:"Signin",message:"Reset verification Mail"});
         }
         else{

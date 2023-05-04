@@ -22,6 +22,7 @@ const postSignin = async(req,res,next)=>{
                 }
                 else{
                     req.session.user_id = userData._id
+                    req.session.is_admin = userData.is_admin
                 res.redirect("/admin/home")
                 }
             }
