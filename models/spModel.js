@@ -25,7 +25,7 @@ const serviceProviderSchema = mongoose.Schema({
     category:{
         type:String,
         required:true,
-        enum:["Hotel","Cinema","Bazaar","Resort & Village","Natural Preserves","Tourism Company","Archaeological Sites","Restaurant & Cafe","Transportation Company"]
+        enum:["Hotel","Cinema","Bazaar","Resort & Village","Natural Preserve","Tourism Company","Archaeological Site","Restaurant & Cafe","Transportation Company"]
     },
     phoneNumber:{
         type:String,
@@ -37,7 +37,13 @@ const serviceProviderSchema = mongoose.Schema({
     token:{
         type:String,
         default:""
+    },
+    User_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"user"
+
     }
+
 
 });
 module.exports = mongoose.model("serviceProvider",serviceProviderSchema);

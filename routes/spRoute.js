@@ -32,4 +32,6 @@ router.post("/spDelete",spController.deleteUserAccount);
 router.post("/spChange",spController.updatePassword);
 router.get("/spVerification",spController.getVerification);
 router.post("/spVerification",spController.sendVerificationLink);
+router.get("/HomeSPAfterlogin",spController.getHomeSPAfterlogin)
+router.post("/HomeSPAfterlogin",spController.createPost);
 module.exports = router;

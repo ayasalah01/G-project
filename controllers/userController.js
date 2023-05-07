@@ -5,9 +5,11 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/userModel");
+const ServiceProvider = require("../models/spModel")
 const Pay = require("../models/payModel");
+const Chat = require("../models/chatModel");
 const config = require("../config/config");
-const sendMail = require("../utils/sendEmail")
+const sendMail = require("../utils/sendEmail");
 
 // bycrpt password
 const securePassword = (password)=>{
@@ -88,7 +90,7 @@ const postSignin = async(req,res,next)=>{
                 }
                 else{
                     req.session.user_id = userData._id
-                    //res.session.is_admin= userData.is_admin
+                    
                 res.redirect("/HomeAfterlogin")
                 }
             }
@@ -288,6 +290,52 @@ const postPayment = async(req,res,next)=>{
     }
 }
 
+//chat dashborad
+const loadChatDashboard = async(req,res,next)=>{
+    try {
+        const userData = await User.findById({_id:req.session.user_id});
+        //const users = await ServiceProvider.find().populate("User_id").select("email")
+        const users = await ServiceProvider.find()
+        res.render("clientChat",{
+            user:userData,
+            users:users
+            
+        })
+        console.log(users);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const saveChat = async(req,res,next)=>{
+    try {
+        const chat = new Chat({
+            sender_id :req.body.sender_id,
+            receiver_id:req.body.receiver_id,
+            message:req.body.message
+        })
+        const newChat = await chat.save();
+        res.status(200).send({success:true,msg:"chat inserted",data:newChat});
+    } catch (error) {
+        res.status(400).send({success:false,msg:error.message});
+    }
+}
+const ChatDashboard = async(req,res,next)=>{
+    try {
+        const userData = await User.findById({_id:req.session.user_id});
+        //const users = await ServiceProvider.find().populate("User_id").select("email")
+        const users = await ServiceProvider.find()
+        res.render("chat",{
+            user:userData,
+            users:users
+            
+        })
+        console.log(users);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports ={
     getSignup,
     createNewUser,
@@ -307,5 +355,8 @@ module.exports ={
     getVerification,
     sendVerificationLink,
     getPayment,
-    postPayment
+    postPayment,
+    loadChatDashboard,
+    saveChat,
+    ChatDashboard
 }

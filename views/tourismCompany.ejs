@@ -1,0 +1,222 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<%- include('./parts/homehead.ejs')%>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- header-start -->
+    <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid p-0">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo-img">
+                                <a href="index.html">
+                                    <img src="img/logo (2).png" alt="">
+                                </a>
+                            </div>
+                        </div>
+						<div class="col-xl-5 col-lg-6">
+                            <div class="main-menu  d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li><a href="/HomeAfterlogin">Home</a></li>
+                                        <li><a class="active" href="/tourismCompany">Tourism Companies</a></li>
+                                        <li><a href="Search-2.html">Search</a></li>
+										<li><a href="clientProfile.ejs">Your Profile</a></li>
+										<li><a href="setting.ejs">Settings</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+						 <div class="col-xl-5 col-lg-4 d-none d-lg-block">
+                            <div class="book_room">
+                                <div class="book_btn d-none d-lg-block">
+                                    <a class="popup-with-form" href="#log-out-form">Sign Out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header-end -->
+
+   <div class="row">
+                <div class="col-xl-12">
+                    <div class="section_title text-center mb-100">
+                    </div>
+                </div>
+            </div>
+	<!--================Blog Area =================-->
+	<section class="blog_area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar">
+                        <% for (let user of data) { %>
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="<%= user.image%>" alt="">
+                            </div>
+                            <div class="blog_details">
+                                <a class="d-inline-block" href="single-blog.html">
+                                    <h2>Google inks pact for new 35-storey office</h2>
+                                </a>
+                                <p><%= user.postDetails%></p>
+                                <ul class="blog-info-link">
+                                    <li><a class="popup-with-form" href="#test-form"><i class="fa fa-book"></i>Order</a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i> Chat</a></li>
+                                </ul>
+                            </div>
+                            <% } %>
+                        </article>
+
+                        
+                        
+
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a href="#" class="page-link">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+
+	<!-- form itself end-->
+        <form id="log-out-form" class="white-popup-block mfp-hide">
+                <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3>Are You Sure You Want To Sign Out?</h3>
+							<a href="Home-1.html" class="boxed-btn3">Yes</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </form>
+    <!-- form itself end -->
+	
+    <!-- form itself end-->
+        <form id="test-form" class="white-popup-block mfp-hide">
+                <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3>Choose Your Order</h3>
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <input id="datepicker" placeholder="Check in date">
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <input id="datepicker2" placeholder="Check out date">
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <select class="form-select wide" id="default-select" class="">
+                                            <option data-display="Adult">1</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <select class="form-select wide" id="default-select" class="">
+                                            <option data-display="Children">1</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <select class="form-select wide" id="default-select" class="">
+                                            <option data-display="Room type">Room type</option>
+                                            <option value="1">Laxaries Rooms</option>
+                                            <option value="2">Deluxe Room</option>
+                                            <option value="3">Signature Room</option>
+                                            <option value="4">Couple Room</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <button type="submit" class="boxed-btn3">Pay</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </form>
+    <!-- form itself end -->
+
+    <!-- JS here -->
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/scrollIt.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/nice-select.min.js"></script>
+    <script src="js/jquery.slicknav.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/gijgo.min.js"></script>
+
+    <!--contact js-->
+    <script src="js/contact.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/mail-script.js"></script>
+
+    <script src="js/main.js"></script>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
+        });
+        $('#datepicker2').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
+
+        });
+    </script>
+
+
+
+</body>
+</html>

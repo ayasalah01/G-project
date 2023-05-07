@@ -1,3 +1,5 @@
+const session = require("express-session");
+const MongoClient = require('mongodb').MongoClient
 
 const getHome = (req,res,next) =>{
     try {
@@ -13,16 +15,26 @@ const getHomeAfterlogin = (req,res,next) =>{
         console.log(error.message);
     }
 }
-const getHomeSPAfterlogin = (req,res,next) =>{
+// display services
+const tourismCompany = async(req,res,next)=>{
     try {
-        res.render("HomeSPAfterlogin");
+        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
+            var database = client.db("mydatabase");
+            database.collection("Tourism Company").find().toArray().then(users =>{
+                console.log(users)
+                res.render("tourismCompany",{data:users});
+            })
+            
+    })
     } catch (error) {
         console.log(error.message);
     }
 }
 
+
 module.exports ={
     getHome,
     getHomeAfterlogin,
-    getHomeSPAfterlogin
+    tourismCompany
+    
 }

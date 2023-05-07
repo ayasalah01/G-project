@@ -1,3 +1,4 @@
+const MongoClient = require('mongodb').MongoClient
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const randomstring = require("randomstring");
@@ -266,6 +267,34 @@ const sendVerificationLink = async (req,res,next)=>{
         console.log(error.message);
     }
 }
+//create post
+const getHomeSPAfterlogin = async(req,res,next) =>{
+    try {
+        const userData = await ServiceProvider.findById({_id:req.session.serviceProvider_id})
+        res.render("HomeSPAfterlogin",{data:userData});
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const createPost = async(req,res,next)=>{
+    try {
+        const id = req.session.serviceProvider_id
+        const userData = await ServiceProvider.findById({_id:id})
+        console.log(userData.category);
+
+        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
+            var database = client.db("mydatabase");
+            database.collection(userData.category).insertOne({
+            postDetails:req.body.postDetails,
+            image: req.body.image
+        })
+        })
+        res.redirect("/HomeSPAfterlogin")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 
 module.exports ={
@@ -285,5 +314,8 @@ module.exports ={
     deleteUserAccount,
     updatePassword,
     getVerification,
-    sendVerificationLink
+    sendVerificationLink,
+    getHomeSPAfterlogin,
+    createPost
+    
 }

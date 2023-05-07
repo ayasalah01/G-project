@@ -48,4 +48,7 @@ router.post("/delete",userController.deleteUserAccount);
 router.post("/change",userController.updatePassword);
 router.get("/pay",userController.getPayment);
 router.post("/pay",upload.single('image'),userController.postPayment);
+router.get("/clientChat",userController.loadChatDashboard);
+router.post("/saveChat",userController.saveChat);
+router.get("/chat",userController.ChatDashboard);//try with it 
 module.exports = router;

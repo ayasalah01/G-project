@@ -15,7 +15,7 @@
     <script type="text/javascript">
         var socket = io("http://localhost:3000")
         socket.on("signIn",function(details){
-            $.notify ("Email :"+details.email,{
+            $.notify ("Post :"+ details.postDetails,{
                 autoHide:false,
                 className:"success"
             })

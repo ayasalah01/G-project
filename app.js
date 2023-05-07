@@ -4,8 +4,7 @@ const bodyparser = require('body-parser');
 const flash = require("connect-flash");
 const app = express();
 const server = require("http").createServer(app);
-const io = require("socket.io")(server)
-
+const io = require("socket.io")(server);
 
 const mongoose  = require('mongoose')
 const DB_URL = "mongodb://127.0.0.1:27017/mydatabase"
@@ -37,9 +36,10 @@ app.use("/",SPRouter);
 app.use("/admin",adminRouter);
 
 
+
+
 server.listen(3000, function(){
     console.log('connected to server');
-
     io.on("connection",function(socket){
         console.log("Auth value:"+socket.id);
         socket.on("signIn",function(details){
