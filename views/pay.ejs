@@ -9,8 +9,12 @@
 <body>
     <h1>Fawry Payment</h1>
     <p>pay at 01279732056 then upload screen of bill</p>
-    <form action="/pay" method="post">
-    <input type="file" name="image"/>
+    <form action="/pay" method="POST" enctype="multipart/form-data">
+    <div>
+        <label class="form-label" for="img">Select image:</label>
+        <br>
+        <input class="form-input" type="file" id="image" name="image" required>
+    </div>
     <br>
     <% if(typeof message !== "undefined"){ %>
         <h4><%=message %></h4>

@@ -287,7 +287,7 @@ const createPost = async(req,res,next)=>{
             var database = client.db("mydatabase");
             database.collection(userData.category).insertOne({
             postDetails:req.body.postDetails,
-            image: req.body.image
+            image:req.file.filename
         })
         })
         res.redirect("/HomeSPAfterlogin")

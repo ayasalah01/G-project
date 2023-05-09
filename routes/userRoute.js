@@ -5,13 +5,14 @@ const config = require("../config/config");
 const multer = require("multer");
 const path = require('path');
 
+
 const storage = multer.diskStorage({
-    destination:function(req,file,cb){
+    destination:(req,file,cb)=>{
         cb(null,path.join(__dirname,"../public/userImages"));
     },
     filename:(req,file,cb)=>{
-        const name = Date.now()+'-'+file.originalname;
-        cb(null,name);
+        cb(null, file.originalname + '-' + Date.now()) 
+        
     }
 })
 const upload = multer({storage:storage});
@@ -47,7 +48,7 @@ router.post("/setting",userController.updateProfile);
 router.post("/delete",userController.deleteUserAccount);
 router.post("/change",userController.updatePassword);
 router.get("/pay",userController.getPayment);
-router.post("/pay",upload.single('image'),userController.postPayment);
+router.post("/pay",upload.single('image'),userController.postPayment)
 router.get("/clientChat",userController.loadChatDashboard);
 router.post("/saveChat",userController.saveChat);
 router.get("/chat",userController.ChatDashboard);//try with it 

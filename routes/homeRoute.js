@@ -13,6 +13,15 @@ const auth = require("../middlewares/authMiddleware");
 router.get("/",homeController.getHome);
 router.get("/HomeAfterlogin",auth.isLogin,homeController.getHomeAfterlogin);
 router.get("/tourismCompany",homeController.tourismCompany);
+router.get("/hotel",homeController.Hotel);
+router.get("/cinema",homeController.Cinema);
+router.get("/bazaar",homeController.Bazaar);
+router.get("/resort&village",homeController.ResortAndVillage);
+router.get("/naturalPreserve",homeController.NaturalPreserve);
+router.get("/archaeologicalSite",homeController.ArchaeologicalSite);
+router.get("/restaurant&cafe",homeController.RestaurantAndCafe);
+router.get("/transportationCompany",homeController.TransportationCompany);
+
 
 
 module.exports = router;

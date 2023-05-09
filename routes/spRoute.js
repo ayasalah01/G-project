@@ -2,6 +2,19 @@ const express = require("express");
 const router = require('express').Router();
 const session = require("express-session");
 const config = require("../config/config");
+const multer = require("multer");
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,path.join(__dirname,"../public/userImages"));
+    },
+    filename:(req,file,cb)=>{
+        cb(null, file.originalname + '-' + Date.now()) 
+        
+    }
+})
+const upload = multer({storage:storage});
 
 router.use(session({secret:config.sessionSecret}));
 
@@ -33,5 +46,5 @@ router.post("/spChange",spController.updatePassword);
 router.get("/spVerification",spController.getVerification);
 router.post("/spVerification",spController.sendVerificationLink);
 router.get("/HomeSPAfterlogin",spController.getHomeSPAfterlogin)
-router.post("/HomeSPAfterlogin",spController.createPost);
+router.post("/HomeSPAfterlogin",upload.single('image'),spController.createPost);
 module.exports = router;

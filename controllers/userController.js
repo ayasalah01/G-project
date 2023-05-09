@@ -3,6 +3,8 @@ const session = require("express-session");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const path = require('path');
 
 const User = require("../models/userModel");
 const ServiceProvider = require("../models/spModel")
@@ -276,7 +278,7 @@ const getPayment = (req,res,next)=>{
 const postPayment = async(req,res,next)=>{
     try {
         const pay = new Pay({
-            image:req.body.image
+            image:req.file.filename
         });
         const data = await pay.save();
         if(data){

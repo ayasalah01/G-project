@@ -60,7 +60,7 @@
       <div class="wrapper">
         <section class="post">
           <header>Create Your Post</header>
-          <form action="/HomeSPAfterlogin" method="post">
+          <form action="/HomeSPAfterlogin" method="post" enctype="multipart/form-data">
             <input type="hidden" name="category" value="<%= data.category%>" >
             <textarea name="postDetails" placeholder="What's on your mind?" spellcheck="false" required></textarea>
             <div class="theme-emoji">

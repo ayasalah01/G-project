@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require("fs")
 const path = require('path');
 const bodyparser = require('body-parser');
 const flash = require("connect-flash");
@@ -21,7 +22,8 @@ app.set('view engine' , 'ejs')
 app.set('views','views')
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname,'asserts')))     //to use style files 
+app.use(express.static(path.join(__dirname,'asserts')))
+app.use(express.static(path.join(__dirname,'./public/userImages')))      //to use style files 
 app.use(express.urlencoded({extended:false}));
 app.use(flash());
 
