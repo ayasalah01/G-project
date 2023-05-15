@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const hotelSchema = mongoose.Schema({
+const postSchema = mongoose.Schema({
     postDetails:{
         type:String,
         required:true
@@ -11,4 +11,4 @@ const hotelSchema = mongoose.Schema({
     }
 });
 
-module.exports= mongoose.model("Hotel",hotelSchema);
+module.exports= mongoose.model("post",postSchema);

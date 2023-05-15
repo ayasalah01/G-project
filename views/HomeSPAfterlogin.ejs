@@ -25,6 +25,7 @@
                                     <ul id="navigation">
                                         <li><a class="active" href="/HomeSPAfterlogin">Home</a></li>
                                         <li><a href="Inbox.html">Inbox</a></li>
+                                        <li><a href="/spReview">My Reviews</a></li>
                                         <li><a href="/spProfile">Your profile</a></li>
 										                    <li><a href="/spSetting">Settings</a></li>
                                     </ul>
@@ -61,8 +62,8 @@
         <section class="post">
           <header>Create Your Post</header>
           <form action="/HomeSPAfterlogin" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="category" value="<%= data.category%>" >
-            <textarea name="postDetails" placeholder="What's on your mind?" spellcheck="false" required></textarea>
+            <input type="hidden"  id = "category" name="category" value="<%= data.category%>" >
+            <textarea id ="postDetails" placeholder="What's on your mind?" spellcheck="false" required></textarea>
             <div class="theme-emoji">
               <img src="icons/theme.svg" alt="theme">
               <img src="icons/smile.svg" alt="smile">
@@ -261,9 +262,11 @@
     <script type="text/javascript">
       var socket = io("http://localhost:3000")
       $("#signIn").on( "click", function() {
+      var category = $("#category").val()
       var postDetails =  $("#postDetails").val() 
       socket.emit("signIn",{
           "postDetails":postDetails,
+          "category":category
       })
       } );
       </script>

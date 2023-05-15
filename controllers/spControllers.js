@@ -34,6 +34,7 @@ const createNewUser = async(req,res,next)=>{
     try{
         const hashPassword = await securePassword (req.body.password);
         const user = new ServiceProvider({
+            username:req.body.userame,
             serviceName:req.body.serviceName,
             email : req.body.email,
             Address: req.body.Address,
@@ -282,15 +283,22 @@ const createPost = async(req,res,next)=>{
         const id = req.session.serviceProvider_id
         const userData = await ServiceProvider.findById({_id:id})
         console.log(userData.category);
-
         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
             var database = client.db("mydatabase");
             database.collection(userData.category).insertOne({
+            serviceName:userData.serviceName,
             postDetails:req.body.postDetails,
             image:req.file.filename
         })
         })
         res.redirect("/HomeSPAfterlogin")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+const getRate = async (req,res,next)=>{
+    try {
+        res.render("spReview")
     } catch (error) {
         console.log(error.message);
     }
@@ -316,6 +324,7 @@ module.exports ={
     getVerification,
     sendVerificationLink,
     getHomeSPAfterlogin,
-    createPost
+    createPost,
+    getRate
     
 }

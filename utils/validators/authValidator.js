@@ -3,6 +3,9 @@ const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 const User = require('../../models/userModel');
 
 exports.signupValidator = [
+check("username")
+    .notEmpty()
+    .withMessage('username required'),
 check('email')
     .notEmpty()
     .withMessage('Email required')

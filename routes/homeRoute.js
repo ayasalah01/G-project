@@ -21,6 +21,9 @@ router.get("/naturalPreserve",homeController.NaturalPreserve);
 router.get("/archaeologicalSite",homeController.ArchaeologicalSite);
 router.get("/restaurant&cafe",homeController.RestaurantAndCafe);
 router.get("/transportationCompany",homeController.TransportationCompany);
+router.get("/order",homeController.getOrder);
+router.get("/cart",homeController.getCart);
+router.get("/rate",homeController.getRate);
 
 
 

@@ -47,4 +47,5 @@ router.get("/spVerification",spController.getVerification);
 router.post("/spVerification",spController.sendVerificationLink);
 router.get("/HomeSPAfterlogin",spController.getHomeSPAfterlogin)
 router.post("/HomeSPAfterlogin",upload.single('image'),spController.createPost);
+router.get('/spReview',spController.getRate);
 module.exports = router;

@@ -15,10 +15,13 @@
     <script type="text/javascript">
         var socket = io("http://localhost:3000")
         socket.on("signIn",function(details){
-            $.notify ("Post :"+ details.postDetails,{
+            $.notify ("Post :" + details.postDetails,
+            {
                 autoHide:false,
                 className:"success"
-            })
+            }
+            )
+        
         })
         
         </script>

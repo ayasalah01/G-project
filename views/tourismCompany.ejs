@@ -33,7 +33,7 @@
                                 </nav>
                             </div>
                         </div>
-						<div class="col-xl-5 col-lg-4 d-none d-lg-block">
+						 <div class="col-xl-5 col-lg-4 d-none d-lg-block">
                             <div class="book_room">
                                 <div class="book_btn d-none d-lg-block">
                                     <a class="popup-with-form" href="#log-out-form">Sign Out</a>
@@ -50,12 +50,13 @@
     </header>
     <!-- header-end -->
 
-<div class="row">
+ <div class="row">
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
                     </div>
                 </div>
             </div>
+	
 	<!--================Blog Area =================-->
 	<section class="blog_area section-padding">
         <div class="container">
@@ -67,21 +68,26 @@
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" src="/<%= user.image%>" alt="">
                             </div>
+
                             <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
-                                    <h2>Google inks pact for new 35-storey office</h2>
+                                <a class="d-inline-block" href="/sp_profile_forClient">
+                                    <h2><%= user.serviceName %></h2>
                                 </a>
                                 <p><%= user.postDetails%></p>
-                                <ul class="blog-info-link">
-                                    <li><a class="popup-with-form" href="#test-form"><i class="fa fa-book"></i>Order</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> Chat</a></li>
-                                </ul>
+                        <div class="qty mt-5">
+                        <span class="minus">-</span>
+                        <input type="number" class="count" name="qty" value="1">
+                        <span class="plus">+</span>
+                        <br></br>
+                        <div class="col-sm-12">
+                            <a  class="btn btn-info " target="__blank" href="Order.html">Order</a>
+						    <a class="btn btn-info " target="__blank"href="#" >Add To Cart</a>
+                        </div>
+						
+                    </div>
                             </div>
                             <% } %>
                         </article>
-
-                        
-                        
 
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
@@ -123,55 +129,82 @@
             </div>
     </form>
     <!-- form itself end -->
-	
-    <!-- form itself end-->
-        <form id="test-form" class="white-popup-block mfp-hide">
-                <div class="popup_box ">
-                        <div class="popup_inner">
-                            <h3>Choose Your Order</h3>
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        <input id="datepicker" placeholder="Check in date">
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <input id="datepicker2" placeholder="Check out date">
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Adult">1</option>
-                                            <option value="1">2</option>
-                                            <option value="2">3</option>
-                                            <option value="3">4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Children">1</option>
-                                            <option value="1">2</option>
-                                            <option value="2">3</option>
-                                            <option value="3">4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-12">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Room type">Room type</option>
-                                            <option value="1">Laxaries Rooms</option>
-                                            <option value="2">Deluxe Room</option>
-                                            <option value="3">Signature Room</option>
-                                            <option value="4">Couple Room</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-12">
-                                        <button type="submit" class="boxed-btn3">Pay</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-            </form>
-    <!-- form itself end -->
 
+ <style type="text/css">
+        .qty .count {
+    color: #023859;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 30px;
+    padding: 0 2px
+    ;min-width: 35px;
+    text-align: center;
+}
+.col-sm-12 a{
+    
+    color:#023859;
+    background-color:#daa520;
+    border:none;
+}
+.col-sm-12 a:hover{
+    color:#b7a6a6;
+    background-color:#daa520;
+    border:none;
+}
+.qty .plus {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: #daa520;
+    width: 30px;
+    height: 30px;
+    font: 30px/1 Arial,sans-serif;
+    text-align: center;
+    border-radius: 50%;
+    }
+.qty .minus {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: #daa520;
+    width: 30px;
+    height: 30px;
+    font: 30px/1 Arial,sans-serif;
+    text-align: center;
+    border-radius: 50%;
+    background-clip: padding-box;
+}
+div {
+    text-align: left;
+}
+.minus:hover{
+    background-color: #023859 !important;
+}
+.plus:hover{
+    background-color: #023859 !important;
+}
+/*Prevent text selection*/
+span{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+input{  
+    border: 0;
+    width: 2%;
+}
+nput::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input:disabled{
+    background-color:white;
+}
+         
+    </style>
     <!-- JS here -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
@@ -204,19 +237,32 @@
         $('#datepicker').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
-            rightIcon: '<span class="fa fa-caret-down"></span>'
-        }
+             rightIcon: '<span class="fa fa-caret-down"></span>'
+         }
         });
         $('#datepicker2').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
-            rightIcon: '<span class="fa fa-caret-down"></span>'
-        }
+             rightIcon: '<span class="fa fa-caret-down"></span>'
+         }
 
         });
     </script>
-
-
+<script type="text/javascript">
+		$(document).ready(function(){
+		    $('.count').prop('disabled', true);
+   			$(document).on('click','.plus',function(){
+				$('.count').val(parseInt($('.count').val()) + 1 );
+    		});
+        	$(document).on('click','.minus',function(){
+    			$('.count').val(parseInt($('.count').val()) - 1 );
+    				if ($('.count').val() == 0) {
+						$('.count').val(1);
+					}
+    	    	});
+ 		});
+</script>
 
 </body>
+
 </html>

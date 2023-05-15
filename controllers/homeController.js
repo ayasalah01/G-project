@@ -1,5 +1,7 @@
 const session = require("express-session");
 const MongoClient = require('mongodb').MongoClient
+const User = require("../models/userModel");
+const ServiceProvider = require("../models/spModel")
 
 const getHome = (req,res,next) =>{
     try {
@@ -30,6 +32,18 @@ const tourismCompany = async(req,res,next)=>{
         console.log(error.message);
     }
 }
+//get sp 
+// const sp = async(req,res,next)=>{
+//     try {
+//         const users = await ServiceProvider.find().populate("email").select("serviceName")
+//         console.log(users)
+//         res.render("sp_profile_forClient",{user:users});
+        
+    
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
 const Hotel = async(req,res,next)=>{
     try {
         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
@@ -142,6 +156,30 @@ const TransportationCompany = async(req,res,next)=>{
         console.log(error.message);
     }
 }
+// get order page
+const getOrder = async (req,res,next)=>{
+    try {
+        res.render("order")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const getCart = async (req,res,next)=>{
+    try {
+        res.render("cart")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+const getRate = async (req,res,next)=>{
+    try {
+        res.render("rate")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 
 module.exports ={
@@ -155,6 +193,8 @@ module.exports ={
     NaturalPreserve,
     ArchaeologicalSite,
     RestaurantAndCafe,
-    TransportationCompany
-    
+    TransportationCompany,
+    getOrder,
+    getCart,
+    getRate
 }

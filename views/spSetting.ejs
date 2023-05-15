@@ -20,20 +20,7 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="/HomeSPAfterlogin">Home</a></li>
-                                        <li><a href="#">Services <i class="ti-angle-down"></i></a>
-										<ul class="submenu">
-                                                <li><a href="Cinemas.html">Cinemas</a></li>
-                                                <li><a href="Hotels.html">Hotels</a></li>
-												<li><a href="Bazaars.html">Bazaars</a></li>
-                                                <li><a href="Resorts.html">Resorts & Villages</a></li>
-												<li><a href="Natural Preserves.html">Natural Preserves</a></li>
-                                                <li><a href="Tourism Companies.html">Tourism Companies</a></li>
-												<li><a href="Archaeological Sites.html">Archaeological Sites</a></li>
-												<li><a href="Restaurants & Cafes.html">Restaurants & Cafes</a></li>
-                                                <li><a href="Transportation Companies.html">Transportation Companies</a></li>
-                                            </ul>
-											</li>
-                                        <li><a href="Search-2.html">Search</a></li>
+                                        <li><a href="Inbox.html">Inbox</a></li>
 										<li><a href="/spProfile">Your Profile</a></li>
 										<li><a class="active" href="/spSetting">Settings</a></li>
                                     </ul>
@@ -110,13 +97,13 @@ Our Application
 <form  method="post">
     <input type="hidden" name="user_id" value="<%=user._id%>"/>
     <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="name" value="<%= user.name%>" placeholder="Enter your fullname">
+        <label for="fullName">Username</label>
+        <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="name" value="<%= user.username%>" placeholder="Enter your usrname">
         <small id="fullNameHelp" class="form-text text-muted">Your name may appear around here where you are mentioned. You can change or remove it at any time.</small>
     </div>
     <div class="form-group">
-    <label for="bio">Username</label>
-    <input type="email" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="email" value="<%= user.email%>" placeholder="Username">
+    <label for="bio">Email</label>
+    <input type="email" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="email" value="<%= user.email%>" placeholder="Email">
     </div>
     <div class="form-group">
     <label for="url">PhoneNumber</label>
@@ -139,8 +126,8 @@ Our Application
 <form action="/spDelete" method="post">
     <input type="hidden" name="serviceProvide_id" value="<%=user._id%>"/>
 <div class="form-group">
-<label for="username">Username</label>
-<input type="email" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="email" value="<%= user.email%>" placeholder="Username">
+<label for="username">Email</label>
+<input type="email" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="email" value="<%= user.email%>" placeholder="email">
 </div>
 <hr>
 <div class="form-group">

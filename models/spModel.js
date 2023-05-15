@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 
 const serviceProviderSchema = mongoose.Schema({
-    name:{
+    username:{
         type:String,
-        default:""
+        required:true,
+        unique: true
     },
     serviceName:{
         type:String,

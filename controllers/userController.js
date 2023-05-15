@@ -38,6 +38,7 @@ const createNewUser = async(req,res,next)=>{
     try{       
         const hashPassword = await securePassword (req.body.password);
         const user = new User({
+            username:req.body.username,
             email : req.body.email,
             phoneNumber: req.body.phoneNumber,
             password : hashPassword,
@@ -213,7 +214,7 @@ const editUserProfile = async(req,res,next)=>{
 
 const updateProfile = async(req,res,next)=>{
     try {
-        const userData = await User.findByIdAndUpdate({_id:req.body.user_id},{$set:{name:req.body.name,email:req.body.email,phoneNumber:req.body.phoneNumber}})
+        const userData = await User.findByIdAndUpdate({_id:req.body.user_id},{$set:{username:req.body.username,email:req.body.email,phoneNumber:req.body.phoneNumber}})
         res.redirect("/HomeAfterlogin")
     } catch (error) {
         console.log(error.message)
@@ -291,6 +292,15 @@ const postPayment = async(req,res,next)=>{
         console.log(error.message);
     }
 }
+// get serviceprovider profile for client
+const get_SP_Profile = async(req,res,next)=>{
+    try {
+        const users = await ServiceProvider.find()
+        res.render("sp_profile_forClient",{data:users})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 //chat dashborad
 const loadChatDashboard = async(req,res,next)=>{
@@ -360,5 +370,6 @@ module.exports ={
     postPayment,
     loadChatDashboard,
     saveChat,
-    ChatDashboard
+    ChatDashboard,
+    get_SP_Profile
 }

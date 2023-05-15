@@ -8,7 +8,7 @@
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center no-gutters">
-                         <div class="col-xl-2 col-lg-2">
+                        <div class="col-xl-2 col-lg-2">
                             <div class="logo-img">
                                 <a href="index.html">
                                     <img src="img/logo (2).png" alt="">
@@ -21,16 +21,16 @@
                                     <ul id="navigation">
                                         <li><a href="/HomeAfterlogin">Home</a></li>
                                         <li><a href="#">Services <i class="ti-angle-down"></i></a>
-										  <ul class="submenu">
-                                                <li><a href="Cinemas.html">Cinemas</a></li>
-                                                <li><a href="Hotels.html">Hotels</a></li>
-												<li><a href="Bazaars.html">Bazaars</a></li>
-                                                <li><a href="Resorts.html">Resorts & Villages</a></li>
-												<li><a href="Natural Preserves.html">Natural Preserves</a></li>
-                                                <li><a href="Tourism Companies.html">Tourism Companies</a></li>
-												<li><a href="Archaeological Sites.html">Archaeological Sites</a></li>
-												<li><a href="Restaurants & Cafes.html">Restaurants & Cafes</a></li>
-                                                <li><a href="Transportation Companies.html">Transportation Companies</a></li>
+										<ul class="submenu">
+                                            <li><a href="/hotel">Hotels</a></li>
+                                            <li><a href="/cinema">Cinemas</a></li>
+                                            <li><a href="/bazaar">Bazaars</a></li>
+                                            <li><a href="/resort&village">Resorts & Villages</a></li>
+                                            <li><a href="/naturalPreserve">Natural Preserves</a></li>
+                                            <li><a href="/tourismCompany">Tourism Companies</a></li>
+                                            <li><a href="/archaeologicalSite">Archaeological Sites</a></li>
+                                            <li><a href="/restaurant&cafe">Restaurants & Cafes</a></li>
+                                            <li><a href="/transportationCompany">Transportation Companies</a></li>
                                             </ul>
 											</li>
                                         <li><a href="Search-2.html">Search</a></li>
@@ -110,13 +110,13 @@ Our Application
 <form method="post">
     <input type="hidden" name="user_id" value="<%=user._id%>"/>
     <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="name" value="<%= user.name%>" placeholder="Enter your fullname">
+        <label for="fullName">userName</label>
+        <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="username" value="<%= user.username%>" placeholder="Enter your username">
         <small id="fullNameHelp" class="form-text text-muted">Your name may appear around here where you are mentioned. You can change or remove it at any time.</small>
     </div>
     <div class="form-group">
-    <label for="bio">Username</label>
-    <input type="email" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="email" value="<%= user.email%>" placeholder="Username">
+    <label for="bio">Email</label>
+    <input type="email" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="email" value="<%= user.email%>" placeholder="email">
     </div>
     <div class="form-group">
     <label for="url">PhoneNumber</label>
@@ -139,8 +139,8 @@ Our Application
 <form action="/delete" method="post">
     <input type="hidden" name="user_id" value="<%=user._id%>"/>
 <div class="form-group">
-<label for="username">Username</label>
-<input type="email" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="email" value="<%= user.email%>" placeholder="Username">
+<label for="username">Email</label>
+<input type="email" class="form-control" id="fullName" aria-describedby="fullNameHelp" name="email" value="<%= user.email%>" placeholder="Email">
 </div>
 <hr>
 <div class="form-group">
