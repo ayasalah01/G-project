@@ -35,24 +35,39 @@ const tourismCompany = async(req,res,next)=>{
 }
 const Hotel = async(req,res,next)=>{
     try {
-        //to get serviceProvider
         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
             var database = client.db("mydatabase");
-            database.collection("Hotel").distinct("serviceName").then(users =>{
-                console.log(users)
-            ServiceProvider.findOne({serviceName:users}).then(user =>{
-                    console.log(user._id)
             database.collection("Hotel").find().toArray().then(users =>{
                 console.log(users)
-                res.render("hotel",{data:users,duser:user});
+                res.render("hotel",{data:users});
             })
-        })
-    }) 
+            
     })
     } catch (error) {
         console.log(error.message);
     }
 }
+
+// const Hotel = async(req,res,next)=>{
+//     try {
+//         //to get serviceProvider
+//         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
+//             var database = client.db("mydatabase");
+//             database.collection("Hotel").distinct("serviceName").then(users =>{
+//                 console.log(users)
+//             ServiceProvider.findOne({serviceName:users}).then(user =>{
+//                     console.log(user._id)
+//             database.collection("Hotel").find().toArray().then(users =>{
+//                 console.log(users)
+//                 res.render("hotel",{data:users,duser:user});
+//             })
+//         })
+//     }) 
+//     })
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
 const Cinema = async(req,res,next)=>{
     try {
         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
@@ -175,6 +190,13 @@ const getRate = async (req,res,next)=>{
     }
 }
 
+const getSPProfile = async (req,res,next)=>{
+    try {
+        res.render("sp_profile_forClient")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 module.exports ={
     getHome,
     getHomeAfterlogin,
@@ -190,5 +212,6 @@ module.exports ={
     getOrder,
     getCart,
     getRate,
+    getSPProfile
     
 }

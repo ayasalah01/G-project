@@ -10,6 +10,7 @@ const config = require("../config/config");
 const sendMail = require("../utils/sendEmail");
 
 
+
 // bycrpt password
 const securePassword = (password)=>{
     try {
@@ -213,7 +214,7 @@ const updateProfile = async(req,res,next)=>{
     try {
         req.body.serviceProvider_id = req.session.serviceProvider_id
         console.log(req.body.serviceProvider_id);
-        const userData = await ServiceProvider.findByIdAndUpdate({_id:req.body.serviceProvider_id},{$set:{name:req.body.name,serviceName:req.body.serviceName,email:req.body.email,phoneNumber:req.body.phoneNumber,Address:req.body.Address}})
+        const userData = await ServiceProvider.findByIdAndUpdate({_id:req.body.serviceProvider_id},{$set:{username:req.body.username,serviceName:req.body.serviceName,email:req.body.email,phoneNumber:req.body.phoneNumber,Address:req.body.Address}})
         res.redirect("/HomeSPAfterlogin")
     } catch (error) {
         console.log(error.message)
@@ -270,10 +271,18 @@ const sendVerificationLink = async (req,res,next)=>{
     }
 }
 //create post
-const getHomeSPAfterlogin = async(req,res,next) =>{
+const getPartnerOffer = async (req,res,next)=>{
     try {
-        const userData = await ServiceProvider.findById({_id:req.session.serviceProvider_id})
-        res.render("HomeSPAfterlogin",{data:userData});
+        const id = req.session.serviceProvider_id
+        const userData = await ServiceProvider.findById({_id:id})
+        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
+            var database = client.db("mydatabase");
+            database.collection(userData.category).find().toArray().then(users =>{
+                console.log(users)
+                res.render("HomeSPAfterlogin",{data:users});
+            })
+            
+    })
     } catch (error) {
         console.log(error.message);
     }
@@ -317,6 +326,7 @@ const HotelPost = async(req,res,next)=>{
 
 const createPost = async(req,res,next)=>{
     try {
+        const data = req.body
         const id = req.session.serviceProvider_id
         const userData = await ServiceProvider.findById({_id:id})
         console.log(userData.category);
@@ -328,7 +338,9 @@ const createPost = async(req,res,next)=>{
             image:req.file.filename
         })
         })
+        //sendMail.sendAdminNotifyMail(data)
         res.redirect("/HomeSPAfterlogin")
+        
     } catch (error) {
         console.log(error.message);
     }
@@ -360,9 +372,9 @@ module.exports ={
     updatePassword,
     getVerification,
     sendVerificationLink,
-    getHomeSPAfterlogin,
+    getPartnerOffer,
     createPost,
     getRate,
-    HotelPost
+    HotelPost,
     
 }

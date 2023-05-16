@@ -25,7 +25,7 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="/HomeAfterlogin">Home</a></li>
-                                        <li><a class="active" href="/tourismCompany">Tourism Companies</a></li>
+                                        <li><a class="active" href="/hotel">Hotels</a></li>
                                         <li><a href="Search-2.html">Search</a></li>
 										<li><a href="/clientProfile">Your Profile</a></li>
 										<li><a href="/setting">Settings</a></li>
@@ -33,7 +33,7 @@
                                 </nav>
                             </div>
                         </div>
-						 <div class="col-xl-5 col-lg-4 d-none d-lg-block">
+						<div class="col-xl-5 col-lg-4 d-none d-lg-block">
                             <div class="book_room">
                                 <div class="book_btn d-none d-lg-block">
                                     <a class="popup-with-form" href="#log-out-form">Sign Out</a>
@@ -50,13 +50,12 @@
     </header>
     <!-- header-end -->
 
- <div class="row">
+<div class="row">
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
                     </div>
                 </div>
             </div>
-	
 	<!--================Blog Area =================-->
 	<section class="blog_area section-padding">
         <div class="container">
@@ -70,23 +69,15 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="/sp_profile_forClient">
+                                <a class="d-inline-block" href="">
                                     <h2><%= user.serviceName %></h2>
                                 </a>
                                 <p><%= user.postDetails%></p>
-                        <div class="qty mt-5">
-                        <span class="minus">-</span>
-                        <input type="number" class="count" name="qty" value="1">
-                        <span class="plus">+</span>
-                        <br></br>
-                        <div class="col-sm-12">
-                            <a  class="btn btn-info " target="__blank" href="/order">Order</a>
-						    <a class="btn btn-info " target="__blank"href="/Cart" >Add To Cart</a>
-                        </div>
 						
                     </div>
                             </div>
                             <% } %>
+                            
                         </article>
 
                         <nav class="blog-pagination justify-content-center d-flex">
@@ -248,20 +239,6 @@ input:disabled{
 
         });
     </script>
-<script type="text/javascript">
-		$(document).ready(function(){
-		    $('.count').prop('disabled', true);
-   			$(document).on('click','.plus',function(){
-				$('.count').val(parseInt($('.count').val()) + 1 );
-    		});
-        	$(document).on('click','.minus',function(){
-    			$('.count').val(parseInt($('.count').val()) - 1 );
-    				if ($('.count').val() == 0) {
-						$('.count').val(1);
-					}
-    	    	});
- 		});
-</script>
 
 </body>
 

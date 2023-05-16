@@ -24,7 +24,7 @@ router.get("/transportationCompany",homeController.TransportationCompany);
 router.get("/order",homeController.getOrder);
 router.get("/cart",homeController.getCart);
 router.get("/rate",homeController.getRate);
-
+router.get("/sp_profile_forClient",homeController.getSPProfile);
 
 
 

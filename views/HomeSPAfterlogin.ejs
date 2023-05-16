@@ -24,7 +24,7 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a class="active" href="/HomeSPAfterlogin">Home</a></li>
-                                        <li><a href="Inbox.html">Inbox</a></li>
+                                        <li><a href="">Inbox</a></li>
                                         <li><a href="/spReview">My Reviews</a></li>
                                         <li><a href="/spProfile">Your profile</a></li>
 										                    <li><a href="/spSetting">Settings</a></li>
@@ -55,6 +55,36 @@
                     </div>
                 </div>
             </div>
+            <!--================Blog Area =================-->
+	<section class="blog_area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+                    <% for (let user of data) { %>
+                    <article class="blog_item">
+                        <div class="blog_item_img">
+                            <img class="card-img rounded-0" src="/<%= user.image%>" alt="">
+                        </div>
+
+                        <div class="blog_details">
+                            <a class="d-inline-block" href="">
+                                <h2><%= user.serviceName %></h2>
+                            </a>
+                            <p><%= user.postDetails%></p>
+                </div>
+                        </div>
+                        <% } %>
+                        
+                    </article>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area =================-->
 	<!-- Post_area_start -->
 	<div class="Post_area">
 	<div class="container">
