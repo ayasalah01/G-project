@@ -7,9 +7,9 @@ const fs = require("fs");
 const path = require('path');
 
 const User = require("../models/userModel");
-const ServiceProvider = require("../models/spModel")
-const Pay = require("../models/payModel");
+const ServiceProvider = require("../models/spModel");
 const Chat = require("../models/chatModel");
+const Pay = require("../models/payModel");
 const config = require("../config/config");
 const sendMail = require("../utils/sendEmail");
 
@@ -292,6 +292,7 @@ const postPayment = async(req,res,next)=>{
         console.log(error.message);
     }
 }
+
 // get serviceprovider profile for client
 const get_SP_Profile = async(req,res,next)=>{
     try {

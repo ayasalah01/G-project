@@ -1,14 +1,22 @@
 const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
+    serviceName:{
+        type:String,
+        ref:"serviceProvider"
+    },
     postDetails:{
         type:String,
-        required:true
+        
     },
     image:{
         type:String,
         required:true
+    },
+    spId:{
+        type:String
+        
     }
 });
 
-module.exports= mongoose.model("post",postSchema);
+module.exports= mongoose.model("hotel",postSchema);

@@ -48,4 +48,5 @@ router.post("/spVerification",spController.sendVerificationLink);
 router.get("/HomeSPAfterlogin",spController.getHomeSPAfterlogin)
 router.post("/HomeSPAfterlogin",upload.single('image'),spController.createPost);
 router.get('/spReview',spController.getRate);
+router.get("/sp_profile_forClient",spController.HotelPost);
 module.exports = router;

@@ -69,7 +69,8 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="/sp_profile_forClient">
+                                
+                                <a class="d-inline-block" href="/sp_profile_forClient?user_id =<%= duser._id%>">
                                     <h2><%= user.serviceName %></h2>
                                 </a>
                                 <p><%= user.postDetails%></p>
@@ -86,6 +87,7 @@
                     </div>
                             </div>
                             <% } %>
+                            
                         </article>
 
                         <nav class="blog-pagination justify-content-center d-flex">

@@ -5,6 +5,7 @@ const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 
 const ServiceProvider = require("../models/spModel");
+const Hotel = require("../models/hotelModel")
 const config = require("../config/config");
 const sendMail = require("../utils/sendEmail");
 
@@ -277,6 +278,42 @@ const getHomeSPAfterlogin = async(req,res,next) =>{
         console.log(error.message);
     }
 }
+// to get sp profile
+const HotelPost = async(req,res,next)=>{
+    try {
+        // const id = req.session.serviceProvider_id
+        // const userData = await ServiceProvider.findById({_id:id})
+        // console.log(userData.serviceName);
+        
+        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
+            var database = client.db("mydatabase");
+            database.collection("Hotel").distinct("serviceName").then(users =>{
+                console.log(users)
+            ServiceProvider.findOne({serviceName:users}).then(user =>{
+                    console.log(user._id)
+        
+                    try {
+                        const userData = ServiceProvider.findOne({_id:user._id});
+                        console.log(userData.email)
+                        res.render('sp_profile_forClient',{users:userData});
+                    } catch (error) {
+                        console.log(error.message)
+                    }
+            })
+        })
+    })
+                //res.render("hotel",{data:users});
+            
+        
+        // const data = Hotel.findOne()
+        // console.log(data)
+        // if(data){
+        //     res.redirect("/hotel")
+        // }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 const createPost = async(req,res,next)=>{
     try {
@@ -325,6 +362,7 @@ module.exports ={
     sendVerificationLink,
     getHomeSPAfterlogin,
     createPost,
-    getRate
+    getRate,
+    HotelPost
     
 }

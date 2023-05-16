@@ -27,4 +27,5 @@ router.get("/rate",homeController.getRate);
 
 
 
+
 module.exports = router;

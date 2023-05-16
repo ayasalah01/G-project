@@ -1,7 +1,8 @@
 const session = require("express-session");
 const MongoClient = require('mongodb').MongoClient
 const User = require("../models/userModel");
-const ServiceProvider = require("../models/spModel")
+const ServiceProvider = require("../models/spModel");
+const { emailUser } = require("../config/config");
 
 const getHome = (req,res,next) =>{
     try {
@@ -32,27 +33,21 @@ const tourismCompany = async(req,res,next)=>{
         console.log(error.message);
     }
 }
-//get sp 
-// const sp = async(req,res,next)=>{
-//     try {
-//         const users = await ServiceProvider.find().populate("email").select("serviceName")
-//         console.log(users)
-//         res.render("sp_profile_forClient",{user:users});
-        
-    
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
 const Hotel = async(req,res,next)=>{
     try {
+        //to get serviceProvider
         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
             var database = client.db("mydatabase");
+            database.collection("Hotel").distinct("serviceName").then(users =>{
+                console.log(users)
+            ServiceProvider.findOne({serviceName:users}).then(user =>{
+                    console.log(user._id)
             database.collection("Hotel").find().toArray().then(users =>{
                 console.log(users)
-                res.render("hotel",{data:users});
+                res.render("hotel",{data:users,duser:user});
             })
-            
+        })
+    }) 
     })
     } catch (error) {
         console.log(error.message);
@@ -180,8 +175,6 @@ const getRate = async (req,res,next)=>{
     }
 }
 
-
-
 module.exports ={
     getHome,
     getHomeAfterlogin,
@@ -196,5 +189,6 @@ module.exports ={
     TransportationCompany,
     getOrder,
     getCart,
-    getRate
+    getRate,
+    
 }

@@ -195,7 +195,7 @@
                                     <p class="mb-0">Please enter your credit card information</p>
                                 </div>
                                 <div class="col-lg-7">
-                                    <form action="/pay" method="post" class="form">
+                                    <form action="/cardPay" method="post" class="form">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form__div">
@@ -223,7 +223,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <a class="btn btn-primary w-100" href="/pay">Sumbit</a>
+                                                <div class="btn btn-primary w-100">Sumbit</div>
                                             </div>
                                         </div>
                                     </form>
@@ -422,30 +422,3 @@ body {
 
 
 
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
-</head>
-<body>
-    <h1>Fawry Payment</h1>
-    <p>pay at 01279732056 then upload screen of bill</p>
-    <form action="/pay" method="POST" enctype="multipart/form-data">
-    <div>
-        <label class="form-label" for="img">Select image:</label>
-        <br>
-        <input class="form-input" type="file" id="image" name="image" required>
-    </div>
-    <br>
-    <% if(typeof message !== "undefined"){ %>
-        <h4><%=message %></h4>
-        <% } %>
-    <br>
-    <input type="submit" value="submit">
-</form>
-    
-</body>
-</html> -->
