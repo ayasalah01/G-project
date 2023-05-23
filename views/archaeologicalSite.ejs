@@ -69,13 +69,21 @@
                             </div>
 
                             <div class="blog_details">
+                                <h3 style="color: #daa520;">
+                                    OfferTitle :
+                                    <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                                </h3>
                                 <a class="d-inline-block" href="/sp_profile_forClient">
-                                    <h2><%= user.serviceName %></h2>
+                                    <h3 style="color: #daa520;"><%= user.serviceName %></h3>
                                 </a>
-                                <p><%= user.postDetails%></p>
+                                <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                                <h3 style="color: #daa520;" >
+                                    OfferPrice :
+                                    <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                                </h3>
                         <div class="qty mt-5">
                         <span class="minus">-</span>
-                        <input type="number" class="count" name="qty" value="1">
+                        <input type="number" class="count" name="qty" value="0">
                         <span class="plus">+</span>
                         <br></br>
                         <div class="col-sm-12">
@@ -137,8 +145,8 @@
     font-size: 25px;
     font-weight: 700;
     line-height: 30px;
-    padding: 0 2px
-    ;min-width: 35px;
+    padding: 0 2px;
+    min-width: 35px;
     text-align: center;
 }
 .col-sm-12 a{
@@ -148,7 +156,7 @@
     border:none;
 }
 .col-sm-12 a:hover{
-    color:#b7a6a6;
+    color:#b7adad;
     background-color:#daa520;
     border:none;
 }

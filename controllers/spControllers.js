@@ -333,8 +333,10 @@ const createPost = async(req,res,next)=>{
         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
             var database = client.db("mydatabase");
             database.collection(userData.category).insertOne({
-            serviceName:userData.serviceName,
+            offerTitle:req.body.offerTitle,
             postDetails:req.body.postDetails,
+            price:req.body.price,
+            serviceName:userData.serviceName,
             image:req.file.filename
         })
         })
@@ -345,6 +347,7 @@ const createPost = async(req,res,next)=>{
         console.log(error.message);
     }
 }
+
 const getRate = async (req,res,next)=>{
     try {
         res.render("spReview")
@@ -352,7 +355,6 @@ const getRate = async (req,res,next)=>{
         console.log(error.message);
     }
 }
-
 
 module.exports ={
     getSignup,

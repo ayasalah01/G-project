@@ -45,7 +45,6 @@ router.post("/spDelete",spController.deleteUserAccount);
 router.post("/spChange",spController.updatePassword);
 router.get("/spVerification",spController.getVerification);
 router.post("/spVerification",spController.sendVerificationLink);
-//router.get("/HomeSPAfterlogin",spController.getHomeSPAfterlogin)
 router.get("/HomeSPAfterlogin",spController.getPartnerOffer)
 router.post("/HomeSPAfterlogin",upload.single('image'),spController.createPost);
 router.get('/spReview',spController.getRate);

@@ -68,11 +68,18 @@
                         </div>
 
                         <div class="blog_details">
-                            <a class="d-inline-block" href="">
-                                <h2><%= user.serviceName %></h2>
-                            </a>
-                            <p><%= user.postDetails%></p>
-                </div>
+                          <h3 style="color: #daa520;">
+                            OfferTitle :
+                            <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                        </h3>
+                        <a class="d-inline-block" href="/sp_profile_forClient">
+                            <h3 style="color: #daa520;"><%= user.serviceName %></h3>
+                        </a>
+                        <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                        <h3 style="color: #daa520;" >
+                            OfferPrice :
+                            <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                        </h3>
                         </div>
                         <% } %>
                         
@@ -92,13 +99,13 @@
         <section class="post">
           <header>Create Your Post</header>
           <form action="/HomeSPAfterlogin" method="post" enctype="multipart/form-data">
-            <!-- <input type="hidden"  id = "category" name="category" value="<%= data.category%>" > -->
-            <!-- <input type="text" name ="postDetails" placeholder="What's on your mind?" required> -->
+            <input type="text" name="offerTitle" placeholder="Title" required/>
             <textarea name ="postDetails" placeholder="What's on your mind?" spellcheck="false" ></textarea>
             <div class="theme-emoji">
               <img src="icons/theme.svg" alt="theme">
               <img src="icons/smile.svg" alt="smile">
             </div>
+            <input type="text" name="price" placeholder="Offer Price"/> 
             <div class="options">
               <input type="file" name="image" >
               <ul class="list">
