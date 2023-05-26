@@ -2,6 +2,7 @@ const session = require("express-session");
 const MongoClient = require('mongodb').MongoClient
 const User = require("../models/userModel");
 const ServiceProvider = require("../models/spModel");
+const Services = require("../models/serviceModel");
 const { emailUser } = require("../config/config");
 
 const getHome = (req,res,next) =>{
@@ -21,147 +22,73 @@ const getHomeAfterlogin = (req,res,next) =>{
 // display services
 const tourismCompany = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Tourism Company").find().toArray().then(users =>{
-                console.log(users)
-                res.render("tourismCompany",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Tourism Company"});
+        res.render("tourismCompany",{data:offers});
     } catch (error) {
         console.log(error.message);
     }
 }
 const Hotel = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Hotel").find().toArray().then(users =>{
-                console.log(users)
-                res.render("hotel",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Hotel"});
+        res.render("hotel",{data:offers});
+    
     } catch (error) {
         console.log(error.message);
     }
 }
-
-// const Hotel = async(req,res,next)=>{
-//     try {
-//         //to get serviceProvider
-//         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-//             var database = client.db("mydatabase");
-//             database.collection("Hotel").distinct("serviceName").then(users =>{
-//                 console.log(users)
-//             ServiceProvider.findOne({serviceName:users}).then(user =>{
-//                     console.log(user._id)
-//             database.collection("Hotel").find().toArray().then(users =>{
-//                 console.log(users)
-//                 res.render("hotel",{data:users,duser:user});
-//             })
-//         })
-//     }) 
-//     })
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
 const Cinema = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Cinema").find().toArray().then(users =>{
-                console.log(users)
-                res.render("cinema",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Cinema"});
+        res.render("cinema",{data:offers});
     } catch (error) {
         console.log(error.message);
     }
 }
 const Bazaar = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Bazaar").find().toArray().then(users =>{
-                console.log(users)
-                res.render("bazaar",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Bazaar"});
+        res.render("bazaar",{data:offers});
     } catch (error) {
         console.log(error.message);
     }
 }
 const ResortAndVillage = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Resort & Village").find().toArray().then(users =>{
-                console.log(users)
-                res.render("resort&village",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Resort & Village"});
+        res.render("resort&village",{data:offers});
     } catch (error) {
         console.log(error.message);
     }
 }
 const NaturalPreserve = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Natural Preserve").find().toArray().then(users =>{
-                console.log(users)
-                res.render("naturalPreserve",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Natural Preserve"});
+        res.render("naturalPreserve",{data:offers});
     } catch (error) {
         console.log(error.message);
     }
 }
 const ArchaeologicalSite = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Archaeological Site").find().toArray().then(users =>{
-                console.log(users)
-                res.render("archaeologicalSite",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Archaeological Site"});
+        res.render("archaeologicalSite",{data:offers});
     } catch (error) {
         console.log(error.message);
     }
 }
 const RestaurantAndCafe = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Restaurant & Cafe").find().toArray().then(users =>{
-                console.log(users)
-                res.render("restaurant&cafe",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Restaurant & Cafe"});
+        res.render("restaurant&cafe",{data:offers});
     } catch (error) {
         console.log(error.message);
     }
 }
 const TransportationCompany = async(req,res,next)=>{
     try {
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Transportation Company").find().toArray().then(users =>{
-                console.log(users)
-                res.render("transportationCompany",{data:users});
-            })
-            
-    })
+        const offers = await Services.find({category:"Transportation Company"});
+        res.render("transportationCompany",{data:offers});
     } catch (error) {
         console.log(error.message);
     }
@@ -190,13 +117,13 @@ const getRate = async (req,res,next)=>{
     }
 }
 
-const getSPProfile = async (req,res,next)=>{
-    try {
-        res.render("sp_profile_forClient")
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+// const getSPProfile = async (req,res,next)=>{
+//     try {
+//         res.render("sp_profile_forClient")
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
 module.exports ={
     getHome,
     getHomeAfterlogin,
@@ -212,6 +139,5 @@ module.exports ={
     getOrder,
     getCart,
     getRate,
-    getSPProfile
     
 }

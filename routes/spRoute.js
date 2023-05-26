@@ -46,7 +46,7 @@ router.post("/spChange",spController.updatePassword);
 router.get("/spVerification",spController.getVerification);
 router.post("/spVerification",spController.sendVerificationLink);
 router.get("/HomeSPAfterlogin",spController.getPartnerOffer)
-router.post("/HomeSPAfterlogin",upload.single('image'),spController.createPost);
+router.post("/HomeSPAfterlogin",upload.single('image'),spController.spCreatePost);
 router.get('/spReview',spController.getRate);
-//router.get("/sp_profile_forClient",spController.HotelPost);
+router.get("/sp_profile_forClient",spController.getSP_forClient);
 module.exports = router;

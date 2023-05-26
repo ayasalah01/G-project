@@ -296,7 +296,7 @@ const postPayment = async(req,res,next)=>{
 // get serviceprovider profile for client
 const get_SP_Profile = async(req,res,next)=>{
     try {
-        const users = await ServiceProvider.find()
+        const users = await Services.findOne({})
         res.render("sp_profile_forClient",{data:users})
     } catch (error) {
         console.log(error.message);

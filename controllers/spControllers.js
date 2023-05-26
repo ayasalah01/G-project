@@ -5,9 +5,9 @@ const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 
 const ServiceProvider = require("../models/spModel");
-const Hotel = require("../models/hotelModel")
 const config = require("../config/config");
 const sendMail = require("../utils/sendEmail");
+const Services = require('../models/serviceModel');
 
 
 
@@ -275,78 +275,181 @@ const getPartnerOffer = async (req,res,next)=>{
     try {
         const id = req.session.serviceProvider_id
         const userData = await ServiceProvider.findById({_id:id})
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection(userData.category).find().toArray().then(users =>{
-                console.log(users)
-                res.render("HomeSPAfterlogin",{data:users});
-            })
-            
-    })
+        console.log(userData.category);
+        const users = await Services.find({category:userData.category});
+        console.log(users);
+        res.render("HomeSPAfterlogin",{data:users});
+
     } catch (error) {
         console.log(error.message);
     }
 }
 // to get sp profile
-const HotelPost = async(req,res,next)=>{
-    try {
-        // const id = req.session.serviceProvider_id
-        // const userData = await ServiceProvider.findById({_id:id})
-        // console.log(userData.serviceName);
+// const HotelPost = async(req,res,next)=>{
+//     try {
+//         // const id = req.session.serviceProvider_id
+//         // const userData = await ServiceProvider.findById({_id:id})
+//         // console.log(userData.serviceName); 
         
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection("Hotel").distinct("serviceName").then(users =>{
-                console.log(users)
-            ServiceProvider.findOne({serviceName:users}).then(user =>{
-                    console.log(user._id)
+//         // MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
+//         //     var database = client.db("mydatabase");
+//         //     database.collection("Hotel").distinct("serviceName").then(users =>{
+//         //         console.log(users)
+//         //     ServiceProvider.findOne({serviceName:users}).then(user =>{
+//         //             console.log(user._id)
         
-                    try {
-                        const userData = ServiceProvider.findOne({_id:user._id});
-                        console.log(userData.email)
-                        res.render('sp_profile_forClient',{users:userData});
-                    } catch (error) {
-                        console.log(error.message)
-                    }
-            })
-        })
-    })
-                //res.render("hotel",{data:users});
+//                     //try {
+//                         const userData = await Services.findOne({category:"Hotel"});
+//                         console.log(userData.serviceName);
+//                         const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+//                         console.log(data);
+//                         res.render('sp_profile_forClient',{user:data});
+//                         // const userData = ServiceProvider.findOne({_id:user._id});
+//                         // console.log(userData.email)
+//                         // res.render('sp_profile_forClient',{users:userData});
+//     //                 } catch (error) {
+//     //                     console.log(error.message)
+//     // //                 }
+//     //         })
+//     //     })
+//     // })
+//                 //res.render("hotel",{data:users});
             
         
-        // const data = Hotel.findOne()
-        // console.log(data)
-        // if(data){
-        //     res.redirect("/hotel")
-        // }
+//         // const data = Hotel.findOne()
+//         // console.log(data)
+//         // if(data){
+//         //     res.redirect("/hotel")
+//         //}
+//                     // }
+//                 } 
+//     catch (error) {
+//         console.log(error.message);
+//     }
+// }
+// const createPost = async(req,res,next)=>{
+//     try {
+//         const data = req.body
+//         const id = req.session.serviceProvider_id
+//         const userData = await ServiceProvider.findById({_id:id})
+//         console.log(userData.category);
+//         MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
+//             var database = client.db("mydatabase");
+//             database.collection(userData.category).insertOne({
+//             offerTitle:req.body.offerTitle,
+//             postDetails:req.body.postDetails,
+//             price:req.body.price,
+//             serviceName:userData.serviceName,
+//             image:req.file.filename
+//         })
+//         })
+//         //sendMail.sendAdminNotifyMail(data)
+//         res.redirect("/HomeSPAfterlogin")
+        
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+const spCreatePost = async(req,res,next)=>{
+    try {
+        const id = req.session.serviceProvider_id
+        const userData = await ServiceProvider.findById({_id:id})
+        console.log(userData.category);
+            const service = new Services({
+                offerTitle:req.body.offerTitle,
+                postDetails:req.body.postDetails,
+                price:req.body.price,
+                category:userData.category,
+                serviceName:userData.serviceName,
+                image:req.file.filename
+            });
+            const post = await service.save();
+            if(post){
+                res.redirect("/HomeSPAfterlogin")
+            }
+            else{
+                console.log("error when creating post");
+            }
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+//get sp Profile for client
+const getSP_forClient = async (req,res,next)=>{
+    try {
+        if ("Hotel"){
+            const userData = await Services.findOne({category:"Hotel"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data});
+        }
+        else if (" Cinema"){
+            const userData = await Services.findOne({category:"Cinema"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data}); 
+        }
+        else if ("Bazaar"){
+            const userData = await Services.findOne({category:"Bazaar"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data}); 
+        }
+        else if ("Resort & Village"){
+            const userData = await Services.findOne({category:"Resort & Village"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data}); 
+        }
+        else if (" Natural Preserve"){
+            const userData = await Services.findOne({category:"Natural Preserve"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data}); 
+        }
+        else if ("Tourism Company"){
+            const userData = await Services.findOne({category:"Tourism Company"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data}); 
+        }
+        else if ("Archaeological Site"){
+            const userData = await Services.findOne({category:"Archaeological Site"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data}); 
+        }
+        else if ("Restaurant & Cafe"){
+            const userData = await Services.findOne({category:"Restaurant & Cafe"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data}); 
+        }
+        else if ("Transportation Company"){
+            const userData = await Services.findOne({category:"Transportation Company"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render('sp_profile_forClient',{user:data}); 
+        }
+        else{
+            console.log("category not exit")
+        }
+        
     } catch (error) {
         console.log(error.message);
     }
 }
 
-const createPost = async(req,res,next)=>{
-    try {
-        const data = req.body
-        const id = req.session.serviceProvider_id
-        const userData = await ServiceProvider.findById({_id:id})
-        console.log(userData.category);
-        MongoClient.connect('mongodb://127.0.0.1:27017' ,{useNewUrlParser: true}, (err, client)=> {
-            var database = client.db("mydatabase");
-            database.collection(userData.category).insertOne({
-            offerTitle:req.body.offerTitle,
-            postDetails:req.body.postDetails,
-            price:req.body.price,
-            serviceName:userData.serviceName,
-            image:req.file.filename
-        })
-        })
-        //sendMail.sendAdminNotifyMail(data)
-        res.redirect("/HomeSPAfterlogin")
-        
-    } catch (error) {
-        console.log(error.message);
-    }
-}
 
 const getRate = async (req,res,next)=>{
     try {
@@ -375,8 +478,8 @@ module.exports ={
     getVerification,
     sendVerificationLink,
     getPartnerOffer,
-    createPost,
     getRate,
-    HotelPost,
+    spCreatePost,
+    getSP_forClient
     
 }
