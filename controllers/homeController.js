@@ -1,20 +1,32 @@
 const session = require("express-session");
-const MongoClient = require('mongodb').MongoClient
 const User = require("../models/userModel");
 const ServiceProvider = require("../models/spModel");
 const Services = require("../models/serviceModel");
-const { emailUser } = require("../config/config");
 
-const getHome = (req,res,next) =>{
+
+const getHome = async(req,res,next) =>{
     try {
-        res.render("home1");
+        const hotel = await Services.find({category:"Hotel"});
+        const restaurant = await Services.find({category:"Restaurant & Cafe"});
+        const resort = await Services.find({category:"Resort & Village"});
+        const tourism = await Services.find({category:"Tourism Company"});
+        const cinema = await Services.find({category:"Cinema"});
+        const bazaar = await Services.find({category:"Bazaar"});
+        const transportation = await Services.find({category:"Transportation Company"});
+        const Site = await Services.find({category:"Archaeological Site"});
+        const natural = await Services.find({category:"Natural Preserve"});
+        res.render("home1",{data:hotel,rest:restaurant,resort:resort,tourism:tourism,cinema:cinema,bazaar:bazaar,transportation:transportation,Site:Site,natural:natural});
     } catch (error) {
         console.log(error.message);
     }
 }
-const getHomeAfterlogin = (req,res,next) =>{
+const getHomeAfterlogin = async(req,res,next) =>{
     try {
-        res.render("HomeAfterlogin");
+        const hotel = await Services.find({category:"Hotel"});
+        const restaurant = await Services.find({category:"Restaurant & Cafe"});
+        const resort = await Services.find({category:"Resort & Village"});
+        const tourism = await Services.find({category:"Tourism Company"});
+        res.render("HomeAfterlogin",{data:hotel,rest:restaurant,resort:resort,tourism:tourism});
     } catch (error) {
         console.log(error.message);
     }
@@ -117,13 +129,7 @@ const getRate = async (req,res,next)=>{
     }
 }
 
-// const getSPProfile = async (req,res,next)=>{
-//     try {
-//         res.render("sp_profile_forClient")
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
+
 module.exports ={
     getHome,
     getHomeAfterlogin,

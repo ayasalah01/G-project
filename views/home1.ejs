@@ -146,59 +146,45 @@
     </div>
     <!-- about_area_end -->
 
-    <!-- offers_area_start -->
+    <!-- Hotel offers_area_start  -->
     <div class="offers_area">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
-						<h3>Hotels</h3>
+                        <h3>Hotels</h3>
                     </div>
                 </div>
             </div>
             <div class="row">
+                <% for (let user of data) { %>
                 <div class="col-xl-4 col-md-4">
                     <div class="single_offers">
                         <div class="about_thumb">
-                            <img src="img/offers/1.png" alt="">
+                            <img src="<%=user.image%>" alt="">
                         </div>
-                        <h3>Armed Forces Hotel</h3>
+                        <h3><%=user.serviceName%></h3>
                         <ul>
-                            <li>Shakshouk, Ibsheway, Faiyum Governorate</li>
-                            <li>01152251346</li>
+                            <h3 style="color: #daa520;">
+                                OfferTitle :
+                                <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                            </h3>
+                            <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                            <h3 style="color: #daa520;" >
+                                OfferPrice :
+                                <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                            </h3>
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/2.png" alt="">
-                        </div>
-                        <h3>Queen Hotel</h3>
-                        <ul>
-                            <li>Qesm Al Fayoum, Faiyum, Faiyum Governorate</li>
-                            <li>0842204339</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/3.png" alt="">
-                        </div>
-                        <h3>Tzila Lodge</h3>
-                        <ul>
-                            <li>Qaroun, Ibsheway, Faiyum Governorate</li>
-                            <li>01005383653</li>
-                        </ul>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
     <!-- offers_area_end -->
 
-    <!-- offers_area_start -->
+    <!--Restaurant offers_area_start -->
     <div class="offers_area">
         <div class="container">
             <div class="row">
@@ -209,100 +195,72 @@
                 </div>
             </div>
             <div class="row">
+                <% for (let user of rest) { %>
                 <div class="col-xl-4 col-md-4">
                     <div class="single_offers">
                         <div class="about_thumb">
-                            <img src="img/offers/7.png" alt="">
+                            <img src="<%=user.image%>" alt="">
                         </div>
-                        <h3>Laporta Cafe & Lounge</h3>
+                        <h3><%=user.serviceName%></h3>
                         <ul>
-                            <li>Qesm Al Fayoum, Faiyum, Faiyum Governorate</li>
-                            <li>0122 466 4631</li>
+                            <h3 style="color: #daa520;">
+                                OfferTitle :
+                                <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                            </h3>
+                            <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                            <h3 style="color: #daa520;" >
+                                OfferPrice :
+                                <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                            </h3>
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/8.png" alt="">
-                        </div>
-                        <h3>Crinkle</h3>
-                        <ul>
-                            <li>In Front Of Conservative Villa, University Area ,Fayoum, Fayoum Governorate</li>
-                            <li>084 2112011</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/9.png" alt="">
-                        </div>
-                        <h3>Ozzi</h3>
-                        <ul>
-                            <li>El Sawaqqi, El Khalifa El Maamon St, Fayoum, Fayoum Governorate</li>
-                            <li>0101 340 0040</li>
-                        </ul>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
     <!-- offers_area_end -->
-	   
-	   <!-- offers_area_start -->
+	
+    <!--Resorts offers_area_start -->
     <div class="offers_area">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
-                        <h3>Resorts</h3>
+                        <h3>Resorts & Villages</h3>
                     </div>
                 </div>
             </div>
             <div class="row">
+                <% for (let user of resort) { %>
                 <div class="col-xl-4 col-md-4">
                     <div class="single_offers">
                         <div class="about_thumb">
-                            <img src="img/offers/4.png" alt="">
+                            <img src="<%=user.image%>" alt="">
                         </div>
-                        <h3>New Panorama Resort</h3>
+                        <h3><%=user.serviceName%></h3>
                         <ul>
-                            <li>Shakshouk, Ibsheway, Faiyum Governorate</li>
-                            <li>01090244474</li>
+                            <h3 style="color: #daa520;">
+                                OfferTitle :
+                                <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                            </h3>
+                            <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                            <h3 style="color: #daa520;" >
+                                OfferPrice :
+                                <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                            </h3>
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/5.png" alt="">
-                        </div>
-                        <h3>Lazib Inn Resort & Spa</h3>
-                        <ul>
-                            <li>Youssef El Sedeeq Center, Tunis Village, Faiyum Governorate</li>
-                            <li>01090735328</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/6.png" alt="">
-                        </div>
-                        <h3>Tunis Village</h3>
-                        <ul>
-                            <li>Qaroun, Youssef Al Seddik, Faiyum Governorate</li>
-                            <li>01113681037</li>
-                        </ul>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
     <!-- offers_area_end -->
 
-    <!-- offers_area_start -->
+    <!-- Tourism Companies offers_area_start -->
     <div class="offers_area">
         <div class="container">
             <div class="row">
@@ -313,100 +271,71 @@
                 </div>
             </div>
             <div class="row">
+                <% for (let user of tourism) { %>
                 <div class="col-xl-4 col-md-4">
                     <div class="single_offers">
                         <div class="about_thumb">
-                            <img src="img/offers/10.png" alt="">
+                            <img src="<%=user.image%>" alt="">
                         </div>
-                        <h3>Yalla Rhla</h3>
+                        <h3><%=user.serviceName%></h3>
                         <ul>
-                            <li>El Mesala, Fayoum, Fayoum Governorate</li>
-                            <li>0101 520 3015</li>
+                            <h3 style="color: #daa520;">
+                                OfferTitle :
+                                <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                            </h3>
+                            <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                            <h3 style="color: #daa520;" >
+                                OfferPrice :
+                                <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                            </h3>
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/11.png" alt="">
-                        </div>
-                        <h3>Rhalat Tours</h3>
-                        <ul>
-                            <li>El Nady Street-In Front Of Conservative Villa, Fayoum Governorate</li>
-                            <li>0100 800 9558</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/12.png" alt="">
-                        </div>
-                        <h3>Special One Travel</h3>
-                        <ul>
-                            <li>Mohye El-Deen Abou El-Ezz, Qesm Al Fayoum, Faiyum, Faiyum Governorate</li>
-                            <li>01061661663</li>
-                        </ul>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
-    <!-- offers_area_end -->
 	
-	<!-- offers_area_start -->
+	<!-- Cinemas offers_area_start -->
     <div class="offers_area">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
-						<h3>Cinemas</h3>
+                        <h3>Cinemas</h3>
                     </div>
                 </div>
             </div>
             <div class="row">
+                <% for (let user of cinema) { %>
                 <div class="col-xl-4 col-md-4">
                     <div class="single_offers">
                         <div class="about_thumb">
-                            <img src="img/offers/1.png" alt="">
+                            <img src="<%=user.image%>" alt="">
                         </div>
-                        <h3>Armed Forces Hotel</h3>
+                        <h3><%=user.serviceName%></h3>
                         <ul>
-                            <li>Shakshouk, Ibsheway, Faiyum Governorate</li>
-                            <li>01152251346</li>
+                            <h3 style="color: #daa520;">
+                                OfferTitle :
+                                <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                            </h3>
+                            <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                            <h3 style="color: #daa520;" >
+                                OfferPrice :
+                                <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                            </h3>
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/2.png" alt="">
-                        </div>
-                        <h3>Queen Hotel</h3>
-                        <ul>
-                            <li>Qesm Al Fayoum, Faiyum, Faiyum Governorate</li>
-                            <li>0842204339</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/3.png" alt="">
-                        </div>
-                        <h3>Tzila Lodge</h3>
-                        <ul>
-                            <li>Qaroun, Ibsheway, Faiyum Governorate</li>
-                            <li>01005383653</li>
-                        </ul>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
     <!-- offers_area_end -->
 
-    <!-- offers_area_start -->
+    <!--Bazaars offers_area_start -->
     <div class="offers_area">
         <div class="container">
             <div class="row">
@@ -417,100 +346,72 @@
                 </div>
             </div>
             <div class="row">
+                <% for (let user of bazaar) { %>
                 <div class="col-xl-4 col-md-4">
                     <div class="single_offers">
                         <div class="about_thumb">
-                            <img src="img/offers/7.png" alt="">
+                            <img src="<%=user.image%>" alt="">
                         </div>
-                        <h3>Laporta Cafe & Lounge</h3>
+                        <h3><%=user.serviceName%></h3>
                         <ul>
-                            <li>Qesm Al Fayoum, Faiyum, Faiyum Governorate</li>
-                            <li>0122 466 4631</li>
+                            <h3 style="color: #daa520;">
+                                OfferTitle :
+                                <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                            </h3>
+                            <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                            <h3 style="color: #daa520;" >
+                                OfferPrice :
+                                <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                            </h3>
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/8.png" alt="">
-                        </div>
-                        <h3>Crinkle</h3>
-                        <ul>
-                            <li>In Front Of Conservative Villa, University Area ,Fayoum, Fayoum Governorate</li>
-                            <li>084 2112011</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/9.png" alt="">
-                        </div>
-                        <h3>Ozzi</h3>
-                        <ul>
-                            <li>El Sawaqqi, El Khalifa El Maamon St, Fayoum, Fayoum Governorate</li>
-                            <li>0101 340 0040</li>
-                        </ul>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
     <!-- offers_area_end -->
 	
-<!-- offers_area_start -->
-    <div class="offers_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="section_title text-center mb-100">
-						<h3>Transportation Companies</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/1.png" alt="">
-                        </div>
-                        <h3>Armed Forces Hotel</h3>
-                        <ul>
-                            <li>Shakshouk, Ibsheway, Faiyum Governorate</li>
-                            <li>01152251346</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/2.png" alt="">
-                        </div>
-                        <h3>Queen Hotel</h3>
-                        <ul>
-                            <li>Qesm Al Fayoum, Faiyum, Faiyum Governorate</li>
-                            <li>0842204339</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/3.png" alt="">
-                        </div>
-                        <h3>Tzila Lodge</h3>
-                        <ul>
-                            <li>Qaroun, Ibsheway, Faiyum Governorate</li>
-                            <li>01005383653</li>
-                        </ul>
-                    </div>
+<!-- Transportation Companies offers_area_start -->
+<div class="offers_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="section_title text-center mb-100">
+                    <h3>Transportation Companies</h3>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <% for (let user of transportation) { %>
+            <div class="col-xl-4 col-md-4">
+                <div class="single_offers">
+                    <div class="about_thumb">
+                        <img src="<%=user.image%>" alt="">
+                    </div>
+                    <h3><%=user.serviceName%></h3>
+                    <ul>
+                        <h3 style="color: #daa520;">
+                            OfferTitle :
+                            <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                        </h3>
+                        <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                        <h3 style="color: #daa520;" >
+                            OfferPrice :
+                            <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                        </h3>
+                        
+                    </ul>
+                </div>
+            </div>
+            <% } %>
+        </div>
     </div>
+</div>
     <!-- offers_area_end -->
 
-    <!-- offers_area_start -->
+    <!--Archaeological Sites offers_area_start -->
     <div class="offers_area">
         <div class="container">
             <div class="row">
@@ -521,48 +422,34 @@
                 </div>
             </div>
             <div class="row">
+                <% for (let user of Site) { %>
                 <div class="col-xl-4 col-md-4">
                     <div class="single_offers">
                         <div class="about_thumb">
-                            <img src="img/offers/7.png" alt="">
+                            <img src="<%=user.image%>" alt="">
                         </div>
-                        <h3>Laporta Cafe & Lounge</h3>
+                        <h3><%=user.serviceName%></h3>
                         <ul>
-                            <li>Qesm Al Fayoum, Faiyum, Faiyum Governorate</li>
-                            <li>0122 466 4631</li>
+                            <h3 style="color: #daa520;">
+                                OfferTitle :
+                                <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                            </h3>
+                            <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                            <h3 style="color: #daa520;" >
+                                OfferPrice :
+                                <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                            </h3>
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/8.png" alt="">
-                        </div>
-                        <h3>Crinkle</h3>
-                        <ul>
-                            <li>In Front Of Conservative Villa, University Area ,Fayoum, Fayoum Governorate</li>
-                            <li>084 2112011</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/9.png" alt="">
-                        </div>
-                        <h3>Ozzi</h3>
-                        <ul>
-                            <li>El Sawaqqi, El Khalifa El Maamon St, Fayoum, Fayoum Governorate</li>
-                            <li>0101 340 0040</li>
-                        </ul>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
     <!-- offers_area_end -->	
 	
-    <!-- offers_area_start -->
+    <!--Natural Preserves offers_area_start -->
     <div class="offers_area">
         <div class="container">
             <div class="row">
@@ -573,94 +460,33 @@
                 </div>
             </div>
             <div class="row">
+                <% for (let user of natural) { %>
                 <div class="col-xl-4 col-md-4">
                     <div class="single_offers">
                         <div class="about_thumb">
-                            <img src="img/offers/7.png" alt="">
+                            <img src="<%=user.image%>" alt="">
                         </div>
-                        <h3>Laporta Cafe & Lounge</h3>
+                        <h3><%=user.serviceName%></h3>
                         <ul>
-                            <li>Qesm Al Fayoum, Faiyum, Faiyum Governorate</li>
-                            <li>0122 466 4631</li>
+                            <h3 style="color: #daa520;">
+                                OfferTitle :
+                                <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                            </h3>
+                            <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
+                            <h3 style="color: #daa520;" >
+                                OfferPrice :
+                                <p style="color:black; font-size: 20px;"><%= user.price %></p>
+                            </h3>
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/8.png" alt="">
-                        </div>
-                        <h3>Crinkle</h3>
-                        <ul>
-                            <li>In Front Of Conservative Villa, University Area ,Fayoum, Fayoum Governorate</li>
-                            <li>084 2112011</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/9.png" alt="">
-                        </div>
-                        <h3>Ozzi</h3>
-                        <ul>
-                            <li>El Sawaqqi, El Khalifa El Maamon St, Fayoum, Fayoum Governorate</li>
-                            <li>0101 340 0040</li>
-                        </ul>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
     <!-- offers_area_end -->	
 	
-    <!-- form itself end-->
-        <form id="test-form" class="white-popup-block mfp-hide">
-                <div class="popup_box ">
-                        <div class="popup_inner">
-                            <h3>Check Availability</h3>
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        <input id="datepicker" placeholder="Check in date">
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <input id="datepicker2" placeholder="Check out date">
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Adult">1</option>
-                                            <option value="1">2</option>
-                                            <option value="2">3</option>
-                                            <option value="3">4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Children">1</option>
-                                            <option value="1">2</option>
-                                            <option value="2">3</option>
-                                            <option value="3">4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-12">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Room type">Room type</option>
-                                            <option value="1">Laxaries Rooms</option>
-                                            <option value="2">Deluxe Room</option>
-                                            <option value="3">Signature Room</option>
-                                            <option value="4">Couple Room</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-12">
-                                        <button type="submit" class="boxed-btn3">Check Availability</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-            </form>
-    <!-- form itself end -->
     <%- include('./parts/homefooter.ejs')%>
 </body>
 
