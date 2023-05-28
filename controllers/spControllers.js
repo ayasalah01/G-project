@@ -5,9 +5,13 @@ const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 
 const ServiceProvider = require("../models/spModel");
+const User = require("../models/userModel");
 const config = require("../config/config");
 const sendMail = require("../utils/sendEmail");
 const Services = require('../models/serviceModel');
+const Chat = require("../models/chatModel");
+const Message = require("../models/messageModel");
+
 
 
 
@@ -31,7 +35,7 @@ const getSignup = (req,res,next) =>{
         console.log(error.message);
     }
 }
-
+// create new user
 const createNewUser = async(req,res,next)=>{
     try{
         const hashPassword = await securePassword (req.body.password);
@@ -364,6 +368,11 @@ const spCreatePost = async(req,res,next)=>{
                 image:req.file.filename
             });
             const post = await service.save();
+            const message = await new Message({
+                serviceName:post.serviceName,
+                message:"new offer created"
+            })
+            message.save();
             if(post){
                 res.redirect("/HomeSPAfterlogin")
             }
@@ -449,13 +458,41 @@ const getSP_forClient = async (req,res,next)=>{
         console.log(error.message);
     }
 }
-
-
 const getRate = async (req,res,next)=>{
     try {
         res.render("spReview")
     } catch (error) {
         console.log(error.message);
+    }
+}
+
+const Load_Chat = async(req,res,next)=>{
+    try {
+            const user = await ServiceProvider.findById({_id:req.session.serviceProvider_id});
+            const data = await User.find();
+            console.log(data);
+            res.render("spChat",{
+                user:user,
+                users:data
+            
+        }) 
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const saveChat = async(req,res,next)=>{
+    try {
+        const chat = new Chat({
+            sender_id :req.body.sender_id,
+            receiver_id:req.body.receiver_id,
+            message:req.body.message
+        })
+        const newChat = await chat.save();
+        res.status(200).send({success:true,msg:"chat inserted",data:newChat});
+    } catch (error) {
+        res.status(400).send({success:false,msg:error.message});
     }
 }
 
@@ -480,6 +517,8 @@ module.exports ={
     getPartnerOffer,
     getRate,
     spCreatePost,
-    getSP_forClient
+    getSP_forClient,
+    Load_Chat,
+    saveChat
     
 }

@@ -49,3 +49,11 @@ server.listen(3000, function(){
         })
     })
 })
+
+////chatting implmentation 
+io.on("connection",function(socket){
+    socket.on("newChat" ,function(data){
+        socket.broadcast.emit("loadNewChat",data)
+    
+    })
+})

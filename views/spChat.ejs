@@ -56,23 +56,11 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-										<li><a href="/HomeAfterlogin">Home</a></li>
-										<li><a href="#">Services <i class="ti-angle-down"></i></a>
-											<ul class="submenu">
-												<li><a href="/hotel">Hotels</a></li>
-												<li><a href="/cinema">Cinemas</a></li>
-												<li><a href="/bazaar">Bazaars</a></li>
-												<li><a href="/resort&village">Resorts & Villages</a></li>
-												<li><a href="/naturalPreserve">Natural Preserves</a></li>
-												<li><a href="/tourismCompany">Tourism Companies</a></li>
-												<li><a href="/archaeologicalSite">Archaeological Sites</a></li>
-												<li><a href="/restaurant&cafe">Restaurants & Cafes</a></li>
-												<li><a href="/transportationCompany">Transportation Companies</a></li>
-												</ul>
-												</li>
-										<li><a href="Search-2.html">Search</a></li>
-										<li><a  href="/clientProfile">Your Profile</a></li>
-										<li><a href="/setting">Settings</a></li>
+										<li><a href="/HomeSPAfterlogin">Home</a></li>
+										<li><a class="active" href="/spChat" style="background-color:#fff">Inbox</a></li>
+										<li><a href="/spReview">My Reviews</a></li>
+                                        <li><a href="/spProfile">Your profile</a></li>
+										<li><a href="/spSetting">Setting</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -112,20 +100,22 @@
 						</div>
 					</div>
 					<div class="card-body contacts_body">
+                        <% for (let user of users) { %>
 						<ui class="contacts">
-                                <li class="list-group-item  list-group-item-dark cursor-pointer user-list" data-id="<%= users._id%>">
+                                <li class="list-group-item  list-group-item-dark cursor-pointer user-list" data-id="<%= user._id%>">
                                     <div class="d-flex bd-highlight">
                                     <div class="img_cont">
                                         <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
                                         <span class="online_icon"></span>
                                     </div>
                                     <div class="user_info">
-                                        <%= users.serviceName %>
-                                        <p><%= users.serviceName %> is online</p>
+                                        <%= user.username %>
+                                        <p><%= user.username %> is online</p>
                                     </div> 
                                 </div>
                                 </li>
 						</ui>
+                        <%}%>
 					</div>
 					<div class="card-footer"></div>
 				</div></div>

@@ -8,6 +8,7 @@ const path = require('path');
 
 const User = require("../models/userModel");
 const ServiceProvider = require("../models/spModel");
+const Services = require("../models/serviceModel");
 const Chat = require("../models/chatModel");
 const Pay = require("../models/payModel");
 const config = require("../config/config");
@@ -154,8 +155,6 @@ const postforget_Password = async(req,res,next)=>{
         console.log(error.message)
     }
 }
-
-
 const getReset_Password = async(req,res,next)=>{
     try {
         const token = req.query.token;
@@ -304,6 +303,24 @@ const get_SP_Profile = async(req,res,next)=>{
 }
 
 //chat dashborad
+const Load_Chat = async(req,res,next)=>{
+    try {
+            const user = await User.findById({_id:req.session.user_id});
+            const userData = await Services.findOne({category:"Hotel"});
+            console.log(userData.serviceName);
+            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            console.log(data);
+            res.render("clientChat",{
+                user:user,
+                users:data
+            
+        })
+        
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 const loadChatDashboard = async(req,res,next)=>{
     try {
         const userData = await User.findById({_id:req.session.user_id});
@@ -333,10 +350,10 @@ const saveChat = async(req,res,next)=>{
         res.status(400).send({success:false,msg:error.message});
     }
 }
+
 const ChatDashboard = async(req,res,next)=>{
     try {
         const userData = await User.findById({_id:req.session.user_id});
-        //const users = await ServiceProvider.find().populate("User_id").select("email")
         const users = await ServiceProvider.find()
         res.render("chat",{
             user:userData,
@@ -370,6 +387,7 @@ module.exports ={
     getPayment,
     postPayment,
     loadChatDashboard,
+    Load_Chat,
     saveChat,
     ChatDashboard,
     get_SP_Profile

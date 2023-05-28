@@ -1,6 +1,8 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
+const Message = require("../models/messageModel")
+
 const loadLogin = (req,res,next)=>{
     try {
         res.render("adminSignin",{pageTitle:"Admin Signin"});
@@ -37,9 +39,10 @@ const postSignin = async(req,res,next)=>{
         console.log(error.message)
     }
 }
-const loadAdminDashbroad = (req,res,next)=>{
+const loadAdminDashbroad = async(req,res,next)=>{
     try {
-        res.render("adminHome");
+        const message = await Message.find();
+        res.render("adminHome",{data:message});
     } catch (error) {
         console.log(error.message);
     }
