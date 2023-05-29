@@ -292,3 +292,9 @@ overflow: scroll;
   margin: 10px;
   color: #000;
 }
+.online-status{
+  color: green;
+}
+.offline-status{
+  color:red;
+}

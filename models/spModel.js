@@ -42,8 +42,11 @@ const serviceProviderSchema = mongoose.Schema({
     User_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
-
-    }
+    },
+    is_online:{
+        type:String,
+        default:"0"
+    },
 
 
 });

@@ -116,29 +116,43 @@
                                 <li class="list-group-item  list-group-item-dark cursor-pointer user-list" data-id="<%= users._id%>">
                                     <div class="d-flex bd-highlight">
                                     <div class="img_cont">
-                                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-                                        <span class="online_icon"></span>
+                                        <img src="img/logo (2).png"  width="60px" height="60px">
+                                        <!-- <span class="online_icon"></span> -->
                                     </div>
                                     <div class="user_info">
-                                        <%= users.serviceName %>
-                                        <p><%= users.serviceName %> is online</p>
+                                        <%= users.username %>
+										<%
+										    if(users.is_online == 1){
+												%>
+												    <sub class="online-status" id="<%= users._id%>-status">online</sub>
+												<%
+                                            
+											}
+											else{
+												%>
+												    <sub class="offline-status" id="<%= users._id%>-status">offline</sub>
+												<%
+											}
+										%>
                                     </div> 
                                 </div>
                                 </li>
 						</ui>
 					</div>
-					<div class="card-footer"></div>
+					<div class="card-footer">
+						<h3 class="click">Click to Start Chat</h3>
+					</div>
 				</div></div>
 				<div class="col-md-8 col-xl-6 chat">
 					<div class="card">
 						<div class="card-header msg_head">
 							<div class="d-flex bd-highlight">
 								<div class="img_cont">
-									<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-									<span class="online_icon"></span>
+									<img src="img/logo (2).png"  width="60px" height="60px">
+									<!-- <span class="online_icon"></span> -->
 								</div>
 								<div class="user_info">
-									<span>Chat with <%=user.username%></span>
+									<span>Chat with <%=users.username%></span>
 									
 								</div>
 							</div>
@@ -186,7 +200,12 @@
 			height: 100%;
 			margin: 0;
 		}
-
+		.online-status{
+            color: green;
+}
+        .offline-status{
+            color:red;
+}
 		.chat{
 			margin-top: auto;
 			margin-bottom: auto;
@@ -209,7 +228,7 @@
 			border-radius: 15px 15px 0 0 !important;
 			border-bottom: 0 !important;
 		}
-	 .card-footer{
+	    .card-footer{
 		border-radius: 0 0 15px 15px !important;
 			border-top: 0 !important;
 	}
@@ -422,7 +441,7 @@
     </style>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- JS here -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
@@ -468,15 +487,38 @@
     </script>
 
 <script>
-	var sender_id = "<%= user._id%>"
+
+	var sender_id = "<%= user._id%>" ;
 	var receiver_id;
+	
+	var socket = io('/user-namespace',{
+		auth:{
+			token:"<%= user._id%>"
+		}
+	});
+
 	$(document).ready(function(){
 			$('.cursor-pointer ').click(function(){
 				var userId = $(this).attr("data-id");
 				receiver_id = userId;
+				$('.click').hide();
 				$('.col-md-8').show();
 });
 	});
+
+	//update user online stauts
+	socket.on("getOnlineUser",function(data){
+		$('#'+data.user_id+"-status").text('online');
+		$('#'+data.user_id+"-status").removeClass("offline-status");
+		$('#'+data.user_id+"-status").addClass("online-status");
+	});
+	//update user offline stauts
+	socket.on("getOfflineUser",function(data){
+		$('#'+data.user_id+"-status").text('offline');
+		$('#'+data.user_id+"-status").removeClass("online-status");
+		$('#'+data.user_id+"-status").addClass("offline-status");
+	});
+
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){
