@@ -136,7 +136,7 @@ const sendSPResetPasswordMail = (email,token)=>{
     }
 }
 // send notify mail for admin
-const sendAdminNotifyMail = (data)=>{
+const sendAdminNotifyMail = (title,details,price,category,serviceName,image)=>{
     try {
         const transporter = nodemailer.createTransport
         ({
@@ -153,7 +153,8 @@ const sendAdminNotifyMail = (data)=>{
                 from: config.emailUser,
                 to: "ayas66223@gmail.com",
                 subject: 'partner created new post offer',
-                html:data
+                html:
+                '<h3> OFFer Details</h3><p>offerTitle:'+title+'<br>postDetails:'+details+'<br>price:'+price+'<br>category:'+category+'<br>serviceName:'+serviceName+'<br>image:'+image+'<p>'
             };
             
             transporter.sendMail(mailOptions, function(error, info){

@@ -368,12 +368,8 @@ const spCreatePost = async(req,res,next)=>{
                 image:req.file.filename
             });
             const post = await service.save();
-            const message = await new Message({
-                serviceName:post.serviceName,
-                message:"new offer created"
-            })
-            message.save();
             if(post){
+                sendMail.sendAdminNotifyMail(post.offerTitle,post.postDetails,post.price,post.category,post.serviceName,req.file.filename);
                 res.redirect("/HomeSPAfterlogin")
             }
             else{

@@ -152,7 +152,7 @@
 									<!-- <span class="online_icon"></span> -->
 								</div>
 								<div class="user_info">
-									<span>Chat with <%=users.username%></span>
+									<span><%=users.username%></span>
 									
 								</div>
 							</div>
@@ -503,6 +503,8 @@
 				receiver_id = userId;
 				$('.click').hide();
 				$('.col-md-8').show();
+
+				socket.emit('existsChat',{sender_id:sender_id , receiver_id:receiver_id});
 });
 	});
 
@@ -548,6 +550,7 @@ $('#action_menu_btn').click(function(){
 					`;
 					$('#chat-container').append(html);
 					socket.emit("newChat",response.data);
+					//scrollChat();
 				}
 				else{
 					alert(data.msg)
@@ -557,15 +560,46 @@ $('#action_menu_btn').click(function(){
 
 	});
 	socket.on("loadNewChat",function(data){
-		// if(sender_id == data.receiver_id && receiver_id == data.sender_id){ when user online or offline
+		if(sender_id == data.receiver_id && receiver_id == data.sender_id){ //when user online or offline
 		let html= `
 				<div class="distance-user-chat">
 					<h5>`+data.message+`</h5>
 					</div>	
 				`;
 				$('#chat-container').append(html);
-		//}
+		}
+		//scrollChat();
 	});
+	
+	// load old chat 
+	socket.on("loadChats",function(data){
+		$("#chat-container").html(" ");
+		var chats = data.chats;
+		let html = '';
+		for (let chat of chats){
+
+			let addClass = '';
+			if(chat.sender_id == sender_id){
+				addClass = 'current-user-chat';
+
+			}
+			else{
+				addClass = 'distance-user-chat';
+			}
+			html +=`<div class='`+addClass+`' >
+					<h5>`+chat.message+`</h5>
+					</div>	
+			`;
+		}
+		$('#chat-container').append(html);
+		// scrollChat();
+	});
+
+	// function scrollChat(){
+	// 	$('#chat-container').animate({
+	// 		scrollTop:$('#chat-container').offset().top + $('#chat-container')[0].scrollHeight
+	// 	},0);
+	// }
 </script>
 
 </body>

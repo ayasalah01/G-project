@@ -150,12 +150,7 @@
 								<span id="action_menu_btn"></span>
 							</div>
 							<div id="chat-container" class="card-body msg_card_body">
-								<!-- <div class="current-user-chat">
-									<h2>hi</h2>
-								</div>
-								<div class="distance-user-chat">
-									<h2>hi</h2>
-								</div> -->
+								
 							</div>
 							<div class="card-footer">
 								<form id="chat-form">
@@ -435,135 +430,160 @@
 			color: #000;
 		}
 		</style>
-		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<!-- JS here -->
-		<script src="js/vendor/modernizr-3.5.0.min.js"></script>
-		<script src="js/vendor/jquery-1.12.4.min.js"></script>
-		<script src="js/popper.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/owl.carousel.min.js"></script>
-		<script src="js/isotope.pkgd.min.js"></script>
-		<script src="js/ajax-form.js"></script>
-		<script src="js/waypoints.min.js"></script>
-		<script src="js/jquery.counterup.min.js"></script>
-		<script src="js/imagesloaded.pkgd.min.js"></script>
-		<script src="js/scrollIt.js"></script>
-		<script src="js/jquery.scrollUp.min.js"></script>
-		<script src="js/wow.min.js"></script>
-		<script src="js/nice-select.min.js"></script>
-		<script src="js/jquery.slicknav.min.js"></script>
-		<script src="js/jquery.magnific-popup.min.js"></script>
-		<script src="js/plugins.js"></script>
-		<script src="js/gijgo.min.js"></script>
-	
-		<!--contact js-->
-		<script src="js/contact.js"></script>
-		<script src="js/jquery.ajaxchimp.min.js"></script>
-		<script src="js/jquery.form.js"></script>
-		<script src="js/jquery.validate.min.js"></script>
-		<script src="js/mail-script.js"></script>
-	
-		<script src="js/main.js"></script>
-		<script>
-			$('#datepicker').datepicker({
-				iconsLibrary: 'fontawesome',
-				icons: {
-				rightIcon: '<span class="fa fa-caret-down"></span>'
-			}
-			});
-			$('#datepicker2').datepicker({
-				iconsLibrary: 'fontawesome',
-				icons: {
-				rightIcon: '<span class="fa fa-caret-down"></span>'
-			}
-	
-			});
-		</script>
-	
-	<script>
-	
-		var sender_id = "<%= user._id%>" ;
-		var receiver_id;
-		
-		var socket = io('/user-namespace',{
-			auth:{
-				token:"<%= user._id%>"
-			}
-		});
-	
-		$(document).ready(function(){
-				$('.cursor-pointer ').click(function(){
-					var userId = $(this).attr("data-id");
-					receiver_id = userId;
-					$('.click').hide();
-					$('.col-md-8').show();
-	});
-		});
-	
-		//update user online stauts
-		socket.on("getOnlineUser",function(data){
-			$('#'+data.user_id+"-status").text('online');
-			$('#'+data.user_id+"-status").removeClass("offline-status");
-			$('#'+data.user_id+"-status").addClass("online-status");
-		});
-		//update user offline stauts
-		socket.on("getOfflineUser",function(data){
-			$('#'+data.user_id+"-status").text('offline');
-			$('#'+data.user_id+"-status").removeClass("online-status");
-			$('#'+data.user_id+"-status").addClass("offline-status");
-		});
-	
-	</script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-	$('#action_menu_btn').click(function(){
-		$('.action_menu').toggle();
-	});
-		});
-	
-		//save chat 
-		$("#chat-form").submit(function(event){
-			event.preventDefault();
-	
-			var message = $("#message").val();
-			$.ajax({
-				url:'/saveChat',
-				type:"POST",
-				data:{sender_id:sender_id , receiver_id:receiver_id,message:message},
-				success:function(response){
-					if(response.success){
-						console.log(response.data.message);
-						$("#message").val('');
-						let chat = response.data.message;
-						let html= `
-						<div class="current-user-chat">
-							<h5>`+chat+`</h5>
-							</div>	
-						`;
-						$('#chat-container').append(html);
-						socket.emit("newChat",response.data);
-					}
-					else{
-						alert(data.msg)
-					}
-				}
-			})
-	
-		});
-		socket.on("loadNewChat",function(data){
-			// if(sender_id == data.receiver_id && receiver_id == data.sender_id){ when user online or offline
-			let html= `
-					<div class="distance-user-chat">
-						<h5>`+data.message+`</h5>
-						</div>	
-					`;
-					$('#chat-container').append(html);
-			//}
-		});
-	</script>
-	
-	</body>
-	
-	</html>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- JS here -->
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/scrollIt.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/nice-select.min.js"></script>
+    <script src="js/jquery.slicknav.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/gijgo.min.js"></script>
+
+    <!--contact js-->
+    <script src="js/contact.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/mail-script.js"></script>
+
+   <script src="js/main.js"></script>
+   <script>
+	   $('#datepicker').datepicker({
+		   iconsLibrary: 'fontawesome',
+		   icons: {
+		   rightIcon: '<span class="fa fa-caret-down"></span>'
+	   }
+	   });
+	   $('#datepicker2').datepicker({
+		   iconsLibrary: 'fontawesome',
+		    icons: {
+		    rightIcon: '<span class="fa fa-caret-down"></span>'
+	    }
+
+	    });
+    </script>
+
+<script>
+
+    var sender_id = "<%= user._id%>" ;
+    var receiver_id;
+
+    var socket = io('/user-namespace',{
+	    auth:{
+		    token:"<%= user._id%>"
+	    }
+    });
+
+    $(document).ready(function(){
+		    $('.cursor-pointer ').click(function(){
+			    var userId = $(this).attr("data-id");
+			    receiver_id = userId;
+			    $('.click').hide();
+			    $('.col-md-8').show();
+
+			    socket.emit('existsChat',{sender_id:sender_id , receiver_id:receiver_id});
+});
+    });
+
+   //update user online stauts
+    socket.on("getOnlineUser",function(data){
+	    $('#'+data.user_id+"-status").text('online');
+	    $('#'+data.user_id+"-status").removeClass("offline-status");
+	    $('#'+data.user_id+"-status").addClass("online-status");
+    });
+   //update user offline stauts
+    socket.on("getOfflineUser",function(data){
+	    $('#'+data.user_id+"-status").text('offline');
+	    $('#'+data.user_id+"-status").removeClass("online-status");
+	    $('#'+data.user_id+"-status").addClass("offline-status");
+    });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#action_menu_btn').click(function(){
+    $('.action_menu').toggle();
+});
+    });
+
+   //save chat 
+    $("#chat-form").submit(function(event){
+	    event.preventDefault();
+
+	    var message = $("#message").val();
+	    $.ajax({
+		    url:'/saveChat',
+		    type:"POST",
+		    data:{sender_id:sender_id , receiver_id:receiver_id,message:message},
+		    success:function(response){
+			    if(response.success){
+				    console.log(response.data.message);
+				    $("#message").val('');
+				    let chat = response.data.message;
+				    let html= `
+				    <div class="current-user-chat">
+					    <h5>`+chat+`</h5>
+					    </div>	
+				    `;
+				    $('#chat-container').append(html);
+				    socket.emit("newChat",response.data);
+			    }
+			    else{
+				    alert(data.msg)
+			    }
+		    }
+	    })
+
+    });
+	// load chat
+    socket.on("loadNewChat",function(data){
+	    if(sender_id == data.receiver_id && receiver_id == data.sender_id){ //when user online or offline
+	        let html= `
+			    <div class="distance-user-chat">
+				    <h5>`+data.message+`</h5>
+				    </div>	
+			    `;
+			    $('#chat-container').append(html);
+	    }
+    });
+   // load old chat 
+    socket.on("loadChats",function(data){
+	    $("#chat-container").html(" ");
+	    var chats = data.chats;
+	    let html = '';
+	    for (let chat of chats){
+
+		    let addClass = '';
+		    if(chat.sender_id == sender_id){
+			    addClass = 'current-user-chat';
+
+		    }
+		    else{
+			    addClass = 'distance-user-chat';
+		    }
+		    html +=`<div class='`+addClass+`' >
+				    <h5>`+chat.message+`</h5>
+				    </div>	
+		    `;
+	    }
+	    $('#chat-container').append(html);
+    });
+</script>
+
+</body>
+
+</html>
