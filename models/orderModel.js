@@ -1,14 +1,14 @@
 
 const mongoose = require("mongoose");
 
-const cartSchema = mongoose.Schema({
+const orderSchema = mongoose.Schema({
     service:{
         type:String,
         ref:"service"
     },
-    amount:{
+    qauntity:{
         type:Number,
-        default:1
+        default:0
     },
     price:{
         type:String,
@@ -22,14 +22,10 @@ const cartSchema = mongoose.Schema({
         type:String,
         required:[true,'user id is required'],
         ref:"user"
-    },
-    image:{
-        type:String,
-        required:true
     }
     
 },
 {timestamps:true}
 );
 
-module.exports= mongoose.model("cart",cartSchema);
+module.exports= mongoose.model("order",orderSchema);

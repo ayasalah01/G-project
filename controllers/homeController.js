@@ -114,13 +114,6 @@ const getOrder = async (req,res,next)=>{
     }
 }
 
-const getCart = async (req,res,next)=>{
-    try {
-        res.render("cart")
-    } catch (error) {
-        console.log(error.message);
-    }
-}
 const getRate = async (req,res,next)=>{
     try {
         res.render("rate")
@@ -143,7 +136,6 @@ module.exports ={
     RestaurantAndCafe,
     TransportationCompany,
     getOrder,
-    getCart,
     getRate,
     
 }

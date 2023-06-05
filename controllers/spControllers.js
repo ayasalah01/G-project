@@ -40,7 +40,7 @@ const createNewUser = async(req,res,next)=>{
     try{
         const hashPassword = await securePassword (req.body.password);
         const user = new ServiceProvider({
-            username:req.body.userame,
+            username:req.body.username,
             serviceName:req.body.serviceName,
             email : req.body.email,
             Address: req.body.Address,
@@ -279,9 +279,9 @@ const getPartnerOffer = async (req,res,next)=>{
     try {
         const id = req.session.serviceProvider_id
         const userData = await ServiceProvider.findById({_id:id})
-        console.log(userData.category);
+        // console.log(userData.category);
         const users = await Services.find({category:userData.category});
-        console.log(users);
+        // console.log(users);
         res.render("HomeSPAfterlogin",{data:users});
 
     } catch (error) {
@@ -358,16 +358,18 @@ const spCreatePost = async(req,res,next)=>{
     try {
         const id = req.session.serviceProvider_id
         const userData = await ServiceProvider.findById({_id:id})
-        console.log(userData.category);
+        console.log(userData._id);
             const service = new Services({
                 offerTitle:req.body.offerTitle,
                 postDetails:req.body.postDetails,
                 price:req.body.price,
                 category:userData.category,
                 serviceName:userData.serviceName,
+                sp_id:userData._id,
                 image:req.file.filename
             });
             const post = await service.save();
+            console.log(post)
             if(post){
                 sendMail.sendAdminNotifyMail(post.offerTitle,post.postDetails,post.price,post.category,post.serviceName,req.file.filename);
                 res.redirect("/HomeSPAfterlogin")
@@ -381,79 +383,124 @@ const spCreatePost = async(req,res,next)=>{
     }
 }
 //get sp Profile for client
-const getSP_forClient = async (req,res,next)=>{
+const getSPProfile_forClient = async(req,res,next)=>{
     try {
-        if ("Hotel"){
-            const userData = await Services.findOne({category:"Hotel"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data});
-        }
-        else if (" Cinema"){
-            const userData = await Services.findOne({category:"Cinema"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data}); 
-        }
-        else if ("Bazaar"){
-            const userData = await Services.findOne({category:"Bazaar"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data}); 
-        }
-        else if ("Resort & Village"){
-            const userData = await Services.findOne({category:"Resort & Village"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data}); 
-        }
-        else if (" Natural Preserve"){
-            const userData = await Services.findOne({category:"Natural Preserve"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data}); 
-        }
-        else if ("Tourism Company"){
-            const userData = await Services.findOne({category:"Tourism Company"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data}); 
-        }
-        else if ("Archaeological Site"){
-            const userData = await Services.findOne({category:"Archaeological Site"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data}); 
-        }
-        else if ("Restaurant & Cafe"){
-            const userData = await Services.findOne({category:"Restaurant & Cafe"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data}); 
-        }
-        else if ("Transportation Company"){
-            const userData = await Services.findOne({category:"Transportation Company"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
-            console.log(data);
-            res.render('sp_profile_forClient',{user:data}); 
-        }
-        else{
-            console.log("category not exit")
-        }
-        
+        const id = req.params.id
+        const data = await ServiceProvider.findById({_id:id});
+        console.log(data);
+        res.render('sp_profile_forClient',{user:data});
     } catch (error) {
-        console.log(error.message);
+        console.log(error)
     }
 }
+// const hotelProfile = async (req,res,next)=>{
+//     try {
+//             const userData = await Services.findOne({category:"Hotel"});
+//             console.log(userData);
+//             const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+//             console.log(data);
+//             res.render('sp_profile_forClient',{user:data});
+        
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+// const cinemaProfile  = async(req,res,next)=>{
+//     try {
+//         const userData = await Services.findOne({category:"Cinema"});
+//             console.log(userData._id);
+//             const service = await ServiceProvider.findOne({serviceName:userData.serviceName})
+//             const data = await ServiceProvider.findById({_id:service._id});
+//             console.log(service._id);
+//             res.render('sp_profile_forClient',{user:data}); 
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// const bazzarProfile  = async(req,res,next)=>{
+//     try {
+//         const userData = await Services.findOne({category:"Bazaar"});
+//             console.log(userData._id);
+//             const service = await ServiceProvider.findOne({serviceName:userData.serviceName})
+//             const data = await ServiceProvider.findById({_id:service._id});
+//             console.log(service._id);
+//             res.render('sp_profile_forClient',{user:data}); 
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// const restorProfile  = async(req,res,next)=>{
+//     try {
+//         const userData = await Services.findOne({category:"Resort & Village"});
+//             console.log(userData._id);
+//             const service = await ServiceProvider.findOne({serviceName:userData.serviceName})
+//             const data = await ServiceProvider.findById({_id:service._id});
+//             console.log(service._id);
+//             res.render('sp_profile_forClient',{user:data}); 
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// const naturalProfile  = async(req,res,next)=>{
+//     try {
+//         const userData = await Services.findOne({category:"Natural Preserve"});
+//             console.log(userData._id);
+//             const service = await ServiceProvider.findOne({serviceName:userData.serviceName})
+//             const data = await ServiceProvider.findById({_id:service._id});
+//             console.log(service._id);
+//             res.render('sp_profile_forClient',{user:data}); 
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// const toursimProfile  = async(req,res,next)=>{
+//     try {
+//         const userData = await Services.findOne({category:"Tourism Company"});
+//             console.log(userData._id);
+//             const service = await ServiceProvider.findOne({serviceName:userData.serviceName})
+//             const data = await ServiceProvider.findById({_id:service._id});
+//             console.log(service._id);
+//             res.render('sp_profile_forClient',{user:data}); 
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// const asiteProfile  = async(req,res,next)=>{
+//     try {
+//         const userData = await Services.findOne({category:"Archaeological Site"});
+//             console.log(userData._id);
+//             const service = await ServiceProvider.findOne({serviceName:userData.serviceName})
+//             const data = await ServiceProvider.findById({_id:service._id});
+//             console.log(service._id);
+//             res.render('sp_profile_forClient',{user:data}); 
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// const resturantProfile  = async(req,res,next)=>{
+//     try {
+//         const userData = await Services.findOne({category:"Restaurant & Cafe"});
+//             console.log(userData._id);
+//             const service = await ServiceProvider.findOne({serviceName:userData.serviceName})
+//             const data = await ServiceProvider.findById({_id:service._id});
+//             console.log(service._id);
+//             res.render('sp_profile_forClient',{user:data}); 
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// const TransportationProfile  = async(req,res,next)=>{
+//     try {
+//         const userData = await Services.findOne({category:"Transportation Company"});
+//             console.log(userData._id);
+//             const service = await ServiceProvider.findOne({serviceName:userData.serviceName})
+//             const data = await ServiceProvider.findById({_id:service._id});
+//             console.log(service._id);
+//             res.render('sp_profile_forClient',{user:data}); 
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 const getRate = async (req,res,next)=>{
     try {
         res.render("spReview")
@@ -513,8 +560,9 @@ module.exports ={
     getPartnerOffer,
     getRate,
     spCreatePost,
-    getSP_forClient,
+    getSPProfile_forClient,
     Load_Chat,
-    saveChat
+    saveChat,
+
     
 }

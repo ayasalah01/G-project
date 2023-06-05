@@ -41,8 +41,8 @@ const postSignin = async(req,res,next)=>{
 }
 const loadAdminDashbroad = async(req,res,next)=>{
     try {
-        const message = await Message.find();
-        res.render("adminHome",{data:message});
+
+        res.render("adminHome");
     } catch (error) {
         console.log(error.message);
     }

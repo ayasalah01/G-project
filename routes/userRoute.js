@@ -23,7 +23,7 @@ router.use(session({secret:config.sessionSecret}));
 
 const {
     signupValidator,
-    loginValidator
+    loginValidator,
 }= require("../utils/validators/authValidator")
 
 const userController = require("../controllers/userController");
@@ -51,6 +51,10 @@ router.get("/pay",userController.getPayment);
 router.post("/pay",upload.single('image'),userController.postPayment);
 router.get("/clientChat",userController.Load_Chat);
 router.post("/saveChat",userController.saveChat);
-router.get("/chat",userController.ChatDashboard);//try with it 
-//router.get("/sp_profile_forClient",userController.get_SP_Profile)
+//router.get("/chat",userController.ChatDashboard);//try with it 
+router.get("/cart",userController.getCart);
+router.post("/cart",upload.single('image'),userController.addToCart);
+router.post("/cart/update",userController.updateItem);
+router.post("/cart/delete",userController.deleteItem);
+router.post("/order",userController.createOrder);
 module.exports = router;

@@ -11,7 +11,8 @@ const ServiceProvider = require("../models/spModel");
 const Services = require("../models/serviceModel");
 const Chat = require("../models/chatModel");
 const Pay = require("../models/payModel");
-const config = require("../config/config");
+const Cart = require("../models/cartModel");
+const Order = require("../models/orderModel");
 const sendMail = require("../utils/sendEmail");
 
 // bycrpt password
@@ -365,6 +366,182 @@ const ChatDashboard = async(req,res,next)=>{
         console.log(error.message);
     }
 }
+//cart 
+// const addCart = async(req,res,next)=>{
+//     try {
+//         const offers = await Services.findOne({category:"Restaurant & Cafe"});
+//         console.log(offers.offerTitle)
+//         const cart = new Cart({
+//             service:offers.offerTitle,
+//             price:offers.price
+//         })
+//         const products = cart.save();
+//         res.redirect("/hotel")
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// const creatCart = async (req,res,next)=>{
+//     try {
+//         // if ("Hotel"){
+//         //     const offers = await Services.findOne({category:"Hotel"});
+//         //     const cart = new Cart({
+//         //         service:offers.offerTitle,
+//         //         price:offers.price
+//         //     })
+//         //     const products = await cart.save();
+//         //     res.redirect("/hotel")
+//         // }
+//         // else 
+//         if (" Cinema"){
+//             const offers = await Services.findOne({category:"Cinema"});
+//             console.log(offers);
+//             const cart = new Cart({
+//                 service:offers.offerTitle,
+//                 price:offers.price
+//             })
+//             const products = await cart.save();
+//             res.redirect("/cinema")
+//         }
+//         else if ("Bazaar"){
+//             const offers = await Services.findOne({category:"Bazaar"});
+//             const cart = new Cart({
+//                 service:offers.offerTitle,
+//                 price:offers.price
+//             })
+//             const products = await cart.save();
+//             res.redirect("/bazzar")
+//         }
+//         else if ("Resort & Village"){
+//             const offers = await Services.findOne({category:"Resort & Village"});
+//             const cart = new Cart({
+//                 service:offers.offerTitle,
+//                 price:offers.price
+//             })
+//             const products = await cart.save();
+//             res.redirect("/resort&village");
+//         }
+//         else if (" Natural Preserve"){
+//             const offers = await Services.findOne({category:"Natural Preserve"});
+//             const cart = new Cart({
+//                 service:offers.offerTitle,
+//                 price:offers.price
+//             })
+//             const products = await cart.save();
+//             res.redirect("/naturalPreserve")
+//         }
+//         else if ("Tourism Company"){
+//             const offers = await Services.findOne({category:"Tourism Company"});
+//             const cart = new Cart({
+//                 service:offers.offerTitle,
+//                 price:offers.price
+//             })
+//             const products = await cart.save();
+//             res.redirect("/tourismCompany")
+//         }
+//         else if ("Archaeological Site"){
+//             const offers = await Services.findOne({category:"Archaeological Site"});
+//             const cart = new Cart({
+//                 service:offers.offerTitle,
+//                 price:offers.price
+//             })
+//             const products = await cart.save();
+//             res.redirect("/archaeologicalSite")
+//         }
+//         else if ("Restaurant & Cafe"){
+//             const offers = await Services.findOne({category:"Restaurant & Cafe"});
+//             console.log(offers)
+//             const cart = new Cart({
+//                 service:offers.offerTitle,
+//                 price:offers.price
+//             })
+//             const products = await cart.save();
+//             res.redirect("/restaurant&cafe")
+//         }
+//         else if ("Transportation Company"){
+//             const offers = await Services.findOne({category:"Transportation Company"});
+//             const cart = new Cart({
+//                 service:offers.offerTitle,
+//                 price:offers.price
+//             })
+//             const products = await cart.save();
+//             res.redirect("/transportationCompany")
+//         }
+//         else{
+//             console.log("category not exit")
+//         }
+        
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+const addToCart = async(req,res,next)=>{
+    try {
+        const data = await new Cart({
+            service:req.body.service,
+            amount :req.body.amount,
+            price:req.body.price,
+            category:req.body.category,
+            userId:req.session.user_id,
+            image:req.body.image
+
+        })
+        const cart = await data.save();
+        console.log(cart);
+        res.redirect("/cart");
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getCart = async(req,res,next)=>{
+    try {
+        const id = req.session.user_id
+        console.log(id);
+        const items = await Cart.find({userId:id})
+        console.log(items)
+        res.render("cart",{data:items});
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const updateItem = async(req,res,next)=>{
+    try {
+        const id = req.body.cartId
+        const item = await Cart.findByIdAndUpdate({_id:id},{amount:req.body.amount})
+        res.redirect("/cart");
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const deleteItem = async(req,res,next)=>{
+    try {
+        const id = req.body.cartId
+        const item = await Cart.findByIdAndDelete({_id:id});
+        res.redirect("/cart");
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//order
+const createOrder = async(req,res,next)=>{
+    try {
+        const order = await new Order({
+            service:req.body.service,
+            qauntity:req.body.qauntity,
+            price:req.body.price,
+            category:req.body.category,
+            userId:req.session.user_id,
+        })
+        const data = await order.save();
+        res.render("order",{data:data})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 module.exports ={
     getSignup,
@@ -390,5 +567,10 @@ module.exports ={
     Load_Chat,
     saveChat,
     ChatDashboard,
-    get_SP_Profile
+    get_SP_Profile,
+    getCart,
+    addToCart,
+    updateItem,
+    deleteItem,
+    createOrder
 }

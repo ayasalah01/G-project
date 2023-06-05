@@ -69,7 +69,7 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="/sp_profile_forClient">
+                                <a class="d-inline-block" href="/sp_profile_forClient/<%=user.sp_id%>">
                                     <h3 style="color: #daa520;"><%= user.serviceName %></h3>
                                 </a>
                                 <h3 style="color: #daa520;">
@@ -87,8 +87,14 @@
                         <span class="plus">+</span>
                         <br></br>
                         <div class="col-sm-12">
-                            <a  class="btn btn-info " target="__blank" href="/order">Order</a>
-						    <a class="btn btn-info " target="__blank"href="/Cart" >Add To Cart</a>
+                            <form action="/cart" method="post" >
+                                <input type="hidden" name="service" value="<%=user.offerTitle%>">
+                                <input type="hidden" name="price" value="<%=user.price%>">
+                                <input type="hidden" name="category" value="<%=user.category%>">
+                                <input type="hidden" name="image" value="<%=user.image%>">
+                                <a class="btn btn-info " target="__blank" style="background-color: #daa520; color: white;" type="button" href="/order">Order</a>
+                                <input class="btn btn-info " target="__blank" type="submit" style="background-color: #daa520;" value="Add to Cart"/>
+                        </form>
                         </div>
 						
                     </div>

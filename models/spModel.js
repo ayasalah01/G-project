@@ -42,12 +42,8 @@ const serviceProviderSchema = mongoose.Schema({
     User_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
-    },
-    is_online:{
-        type:String,
-        default:"0"
-    },
-
-
-});
+    }
+},
+{timestamps:true}
+);
 module.exports = mongoose.model("serviceProvider",serviceProviderSchema);

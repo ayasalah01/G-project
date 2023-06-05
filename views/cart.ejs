@@ -73,7 +73,7 @@
                                 </nav>
                             </div>
                         </div>
-						 <div class="col-xl-5 col-lg-4 d-none d-lg-block">
+						<div class="col-xl-5 col-lg-4 d-none d-lg-block">
                             <div class="book_room">
                                 <div class="book_btn d-none d-lg-block">
                                     <a class="popup-with-form" href="#log-out-form">Sign Out</a>
@@ -90,74 +90,57 @@
     </header>
     <!-- header-end -->
 	
-	 <body className='snippet-body'>
+	<body className='snippet-body'>
                                 <div class="container mt-5 mb-5">
             <div class="d-flex justify-content-center row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="p-2">
                         <h4>Shopping cart</h4>
-                        <div class="d-flex flex-row align-items-center pull-right"><span class="mr-1">Sort by:</span><span class="mr-1 font-weight-bold">Price</span><i class="fa fa-angle-down"></i></div>
                     </div>
+                    <% for (let i = 0; i < data.length; i++ ) { %>
                     <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
-                        <div class="mr-1"><img class="rounded" src="https://i.imgur.com/XiFJkhI.jpg" width="70"></div>
-                        <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">Basic T-shirt</span>
+                        <div class="mr-1"><img class="rounded" src="<%=data[i].image%> " width="80" height="50"></div>
+                        <div class="d-flex flex-column align-items-center product-details">
+                            <span class="font-weight-bold" >
+                                <h4 style="color: #023859;">
+                                    <%=data[i].service%> 
+                                </h4>
+                            </span>
                             <div class="d-flex flex-row product-desc">
-                                <div class="size mr-1"><span class="text-grey">Size:</span><span class="font-weight-bold">&nbsp;M</span></div>
-                                <div class="color"><span class="text-grey">Color:</span><span class="font-weight-bold">&nbsp;Grey</span></div>
+                                <div class="size mr-1">
+                                    <span class="font-weight-bold">Price:</span>
+                                    <span class="font-weight-bold">&nbsp;<%=data[i].price%></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex flex-row align-items-center qty"><i class="fa fa-minus text-danger"></i>
-                            <h5 class="text-grey mt-1 mr-1 ml-1">2</h5><i class="fa fa-plus text-success"></i></div>
                         <div>
-                            <h5 class="text-grey">$20.00</h5>
+                            <form  method="POST">
+                                <span class="font-weight-bold">
+                                    <h5 style="color: #023859;">
+                                        Amount :
+                                    </h5>
+                                </span>
+                                <input type="hidden" name="cartId" value="<%= data[i]._id%>">
+                                <input type="number" name="amount" value="<%= data[i].amount%>">
+                                <input type="submit" class="pay-button" style="border-radius: 10px;" value="save" formaction="/cart/update" >
+                            
                         </div>
-                        <div class="d-flex align-items-center"><i class="fa fa-trash mb-1 text-danger"></i></div>
+                        <div class="size mr-1">
+                            <span class="font-weight-bold">
+                                <h5 style="color: #023859;">
+                                    Total Price :
+                                </h5>
+                            </span>
+                            <span class="font-weight-bold">&nbsp;<%= data[i].amount * data[i].price%></span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-trash mb-1 text-danger">
+                                <input type="submit"  class="pay-button" value="d" formaction="/cart/delete" >
+                            </i>
+                        </div>
+                        </form>
                     </div>
-                    <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
-                        <div class="mr-1"><img class="rounded" src="https://i.imgur.com/XiFJkhI.jpg" width="70"></div>
-                        <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">Basic T-shirt</span>
-                            <div class="d-flex flex-row product-desc">
-                                <div class="size mr-1"><span class="text-grey">Size:</span><span class="font-weight-bold">&nbsp;M</span></div>
-                                <div class="color"><span class="text-grey">Color:</span><span class="font-weight-bold">&nbsp;Grey</span></div>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center qty"><i class="fa fa-minus text-danger"></i>
-                            <h5 class="text-grey mt-1 mr-1 ml-1">2</h5><i class="fa fa-plus text-success"></i></div>
-                        <div>
-                            <h5 class="text-grey">$20.00</h5>
-                        </div>
-                        <div class="d-flex align-items-center"><i class="fa fa-trash mb-1 text-danger"></i></div>
-                    </div>
-                    <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
-                        <div class="mr-1"><img class="rounded" src="https://i.imgur.com/XiFJkhI.jpg" width="70"></div>
-                        <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">Basic T-shirt</span>
-                            <div class="d-flex flex-row product-desc">
-                                <div class="size mr-1"><span class="text-grey">Size:</span><span class="font-weight-bold">&nbsp;M</span></div>
-                                <div class="color"><span class="text-grey">Color:</span><span class="font-weight-bold">&nbsp;Grey</span></div>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center qty"><i class="fa fa-minus text-danger"></i>
-                            <h5 class="text-grey mt-1 mr-1 ml-1">2</h5><i class="fa fa-plus text-success"></i></div>
-                        <div>
-                            <h5 class="text-grey">$20.00</h5>
-                        </div>
-                        <div class="d-flex align-items-center"><i class="fa fa-trash mb-1 text-danger"></i></div>
-                    </div>
-                    <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
-                        <div class="mr-1"><img class="rounded" src="https://i.imgur.com/XiFJkhI.jpg" width="70"></div>
-                        <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">Basic T-shirt</span>
-                            <div class="d-flex flex-row product-desc">
-                                <div class="size mr-1"><span class="text-grey">Size:</span><span class="font-weight-bold">&nbsp;M</span></div>
-                                <div class="color"><span class="text-grey">Color:</span><span class="font-weight-bold">&nbsp;Grey</span></div>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center qty"><i class="fa fa-minus text-danger"></i>
-                            <h5 class="text-grey mt-1 mr-1 ml-1">2</h5><i class="fa fa-plus text-success"></i></div>
-                        <div>
-                            <h5 class="text-grey">$20.00</h5>
-                        </div>
-                        <div class="d-flex align-items-center"><i class="fa fa-trash mb-1 text-danger"></i></div>
-                    </div>
+                    <% } %>
                     <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
                         <a class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button" href="/pay" >Proceed to Pay</a>
                         <!-- <button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">Proceed to Pay</button></div> -->
@@ -179,10 +162,10 @@
         </form>
     <!-- form itself end -->
 	
-	                                <style>::-webkit-scrollbar {
-                                  width: 8px;
-                                }
-                                body {
+<style>::-webkit-scrollbar {
+    width: 8px;
+    }
+    body {
   font-family: 'Manrope', sans-serif;
   background:#f1f1e6;
 }
@@ -204,7 +187,7 @@
 }
 
 .pay-button {
-  color: #fff;
+  color: #daa520;
   background-color: #023859;
   border:none;
 }
@@ -225,7 +208,21 @@
 
 .qty i {
   font-size: 22px;
-}</style>
+}
+div {
+    text-align: center ;
+}
+
+span{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+input{  
+    border: 0;
+    width: 18%;
+}
+</style>
 	<!-- JS here -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
@@ -264,7 +261,7 @@
         $('#datepicker2').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
-             rightIcon: '<span class="fa fa-caret-down"></span>'
+            rightIcon: '<span class="fa fa-caret-down"></span>'
          }
 
         });
@@ -277,8 +274,22 @@
                                 <script type='text/javascript'src='#'></script>
                                 <script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
                                 myLink.addEventListener('click', function(e) {
-                                  e.preventDefault();
+                                    e.preventDefault();
                                 });</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.count').prop('disabled', true);
+            $(document).on('click','.plus',function(){
+            $('.count').val(parseInt($('.count').val()) + 1 );
+        });
+        $(document).on('click','.minus',function(){
+            $('.count').val(parseInt($('.count').val()) - 1 );
+                if ($('.count').val() == 0) {
+                    $('.count').val(1);
+                }
+            });
+    });
+</script>
 
 </body>
 

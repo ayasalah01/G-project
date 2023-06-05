@@ -69,7 +69,7 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="/sp_profile_forClient">
+                                <a class="d-inline-block" href="/sp_profile_forClient/<%=user.sp_id%>">
                                     <h3 style="color: #daa520;"><%= user.serviceName %></h3>
                                 </a>
                                 <h3 style="color: #daa520;">
@@ -80,14 +80,23 @@
                                     OfferPrice :
                                     <p style="color:black; font-size: 20px;"><%= user.price %></p>
                                 </h3>
+                        <form  method="post" >
                         <div class="qty mt-5">
                         <span class="minus">-</span>
                         <input type="number" class="count" name="qty" value="0">
                         <span class="plus">+</span>
                         <br></br>
+                        
                         <div class="col-sm-12">
-                            <a  class="btn btn-info " target="__blank" href="/order">Order</a>
-						    <a class="btn btn-info " target="__blank"href="/cart" >Add To Cart</a>
+                                <input type="number" name=" qauntity" value="<%=user.qauntity%>" />
+                                <input type="hidden" name="service" value="<%=user.offerTitle%>">
+                                <input type="hidden" name="price" value="<%=user.price%>">
+                                <input type="hidden" name="category" value="<%=user.category%>">
+                                <input type="hidden" name="image" value="<%=user.image%>">
+                                <!-- <a class="btn btn-info " target="__blank" style="background-color: #daa520; color: white;" type="button" href="/order">Order</a> -->
+                                <input class="btn btn-info " target="__blank" type="submit" style="background-color: #daa520;" value="Order Now" formaction="/order"/>
+                                <input class="btn btn-info " target="__blank" type="submit" style="background-color: #daa520;" value="Add to Cart" formaction="/cart"/>
+                        </form>
                         </div>
 						
                     </div>
@@ -137,7 +146,7 @@
     </form>
     <!-- form itself end -->
 
- <style type="text/css">
+<style type="text/css">
         .qty .count {
     color: #023859;
     display: inline-block;
@@ -149,17 +158,17 @@
     ;min-width: 35px;
     text-align: center;
 }
-.col-sm-12 a{
+/* .col-sm-12 a{
     
     color:#023859;
     background-color:#daa520;
     border:none;
-}
-.col-sm-12 a:hover{
+} */
+/* .col-sm-12 a:hover{
     color:#b7a6a6;
     background-color:#daa520;
     border:none;
-}
+} */
 .qty .plus {
     cursor: pointer;
     display: inline-block;
@@ -200,9 +209,9 @@ span{
 }
 input{  
     border: 0;
-    width: 2%;
+    width: 20%;
 }
-nput::-webkit-outer-spin-button,
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -210,7 +219,6 @@ input::-webkit-inner-spin-button {
 input:disabled{
     background-color:white;
 }
-         
     </style>
     <!-- JS here -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
