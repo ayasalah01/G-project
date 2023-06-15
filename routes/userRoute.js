@@ -20,10 +20,11 @@ const upload = multer({storage:storage});
 
 router.use(session({secret:config.sessionSecret}));
 
-
 const {
     signupValidator,
     loginValidator,
+    changePassword_Validator,
+    resetValidator
 }= require("../utils/validators/authValidator")
 
 const userController = require("../controllers/userController");
@@ -39,14 +40,14 @@ router.get("/logout",userController.userlogout);
 router.get("/forgetPassword",userController.getforget_Password);
 router.post("/forgetPassword",userController.postforget_Password);
 router.get("/resetPassword",userController.getReset_Password);
-router.post("/resetPassword",userController.postReset_Password);
+router.post("/resetPassword",resetValidator,userController.postReset_Password);
 router.get("/verification",userController.getVerification);
 router.post("/verification",userController.sendVerificationLink);
 router.get("/clientProfile",userController.getUserProfile);
 router.get("/setting",userController.editUserProfile);
 router.post("/setting",userController.updateProfile);
 router.post("/delete",userController.deleteUserAccount);
-router.post("/change",userController.updatePassword);
+router.post("/change",changePassword_Validator,userController.update_password);
 router.get("/pay",userController.getPayment);
 router.post("/pay",upload.single('image'),userController.postPayment);
 router.get("/clientChat",userController.Load_Chat);
@@ -57,4 +58,6 @@ router.post("/cart",upload.single('image'),userController.addToCart);
 router.post("/cart/update",userController.updateItem);
 router.post("/cart/delete",userController.deleteItem);
 router.post("/order",userController.createOrder);
+router.get("/search",userController.getSearch);
+router.post("/search",userController.postSearch);
 module.exports = router;

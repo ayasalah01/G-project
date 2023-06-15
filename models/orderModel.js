@@ -8,7 +8,8 @@ const orderSchema = mongoose.Schema({
     },
     qauntity:{
         type:Number,
-        default:0
+        required:true
+        // default:0
     },
     price:{
         type:String,

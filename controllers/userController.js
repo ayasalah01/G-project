@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const session = require("express-session");
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
-const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const path = require('path');
 
@@ -174,17 +173,14 @@ const getReset_Password = async(req,res,next)=>{
 }
 const postReset_Password = async(req,res,next)=>{
     try {
-        const password = req.body.password;
+        const new_password = req.body.new_password;
         const user_id = req.body.user_id;
-        const secure_Password = securePassword(password);
-        console.log(password)
-        await User.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password ,token:""}});
+        const  hashedPassword = await securePassword(new_password);
+        await User.updateOne({ _id:user_id},{$set:{ password:hashedPassword,token:""}});
         res.redirect("/signin")  
         
-
     } catch (error) {
         console.log(error)
-
     }
 }
 //user profile
@@ -231,18 +227,47 @@ const deleteUserAccount = async(req,res,next)=>{
     }
 }
 }
-
-const updatePassword = async(req,res,next)=>{
+// change password
+const update_password = async(req,res,next)=>{
     try {
-        //const user_id = req.session.user_id;
-        //const password = req.body.password;
-        const hashPassword = await securePassword (req.body.password);
-        User.findByIdAndUpdate({_id:req.body.user_id},{$set:{password:hashPassword}});
-        res.redirect("/HomeAfterlogin");
+        const id = req.session.user_id;
+        const old_password = req.body.old_password
+        const new_password = req.body.new_password
+        const userData = await User.findById({_id:id})
+        
+        if (userData) {
+            const passwordMatch = await bcrypt.compare(old_password,userData.password)
+            if (passwordMatch){
+                console.log(new_password)
+                const hashedPassword = await securePassword(new_password)
+                await User.updateOne({_id:userData._id},{$set:{password:hashedPassword}});
+                req.session.user_id = userData._id
+                
+                res.redirect("/HomeAfterlogin");
+                
+            }
+            else{
+                res.redirect("/setting",{message:"password is incorrect"});
+            }
+        }
+        else{
+            res.redirect("/setting",{message:"password is incorrect"});
+        }
     } catch (error) {
-        console.log(error.message);
+        console.log(error)
     }
 }
+// const updatePassword = async(req,res,next)=>{
+//     try {
+//         //const user_id = req.session.user_id;
+//         //const password = req.body.password;
+//         const hashPassword = await securePassword (req.body.password);
+//         User.findByIdAndUpdate({_id:req.body.user_id},{$set:{password:hashPassword}});
+//         res.redirect("/HomeAfterlogin");
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
 const getVerification = (req,res,next)=>
 {
     try {
@@ -269,8 +294,12 @@ const sendVerificationLink = async (req,res,next)=>{
         console.log(error.message);
     }
 }
-const getPayment = (req,res,next)=>{
+const getPayment = async(req,res,next)=>{
     try {
+        // const service = req.body.service;
+        // console.log(service);
+        // const data = await Order.findOne({service:service})
+        // //console.log(data);
         res.render("pay");
     } catch (error) {
         console.log(error.message);
@@ -279,7 +308,9 @@ const getPayment = (req,res,next)=>{
 const postPayment = async(req,res,next)=>{
     try {
         const pay = new Pay({
-            image:req.file.filename
+            image:req.file.filename,
+            //service:req.body.service,
+            //price:req.body.price
         });
         const data = await pay.save();
         if(data){
@@ -302,7 +333,6 @@ const get_SP_Profile = async(req,res,next)=>{
         console.log(error.message);
     }
 }
-
 //chat dashborad
 const Load_Chat = async(req,res,next)=>{
     try {
@@ -504,7 +534,6 @@ const getCart = async(req,res,next)=>{
         console.log(error)
     }
 }
-
 const updateItem = async(req,res,next)=>{
     try {
         const id = req.body.cartId
@@ -514,7 +543,6 @@ const updateItem = async(req,res,next)=>{
         console.log(error)
     }
 }
-
 const deleteItem = async(req,res,next)=>{
     try {
         const id = req.body.cartId
@@ -524,7 +552,6 @@ const deleteItem = async(req,res,next)=>{
         console.log(error)
     }
 }
-
 //order
 const createOrder = async(req,res,next)=>{
     try {
@@ -536,7 +563,31 @@ const createOrder = async(req,res,next)=>{
             userId:req.session.user_id,
         })
         const data = await order.save();
-        res.render("order",{data:data})
+        console.log(data.qauntity)
+        res.render("order",{data:data});
+    } 
+    catch (error) {
+        console.log(error)
+    }
+}
+//search 
+const getSearch = (req,res,next)=>
+{
+    try {
+        res.render("search");
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+const postSearch = async(req,res,next)=>{
+    try {
+        const service = req.body.service;
+        console.log(service)
+        const data = await Services.findOne({serviceName:service});
+        console.log(data)
+        res.render("resultSearch",{data:data});
+        // res.redirect("/search",{data:data})
     } catch (error) {
         console.log(error)
     }
@@ -558,7 +609,7 @@ module.exports ={
     editUserProfile,
     updateProfile,
     deleteUserAccount,
-    updatePassword,
+    update_password,
     getVerification,
     sendVerificationLink,
     getPayment,
@@ -572,5 +623,7 @@ module.exports ={
     addToCart,
     updateItem,
     deleteItem,
-    createOrder
+    createOrder,
+    getSearch,
+    postSearch
 }

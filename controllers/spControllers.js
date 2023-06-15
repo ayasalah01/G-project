@@ -24,7 +24,6 @@ const securePassword = (password)=>{
         console.log(error.message);
     }
 }
-
 // signup
 const getSignup = (req,res,next) =>{
     try {
@@ -175,18 +174,16 @@ const getReset_Password = async(req,res,next)=>{
     }
         
 }
-const postReset_Password = (req,res,next)=>{
+const postReset_Password = async(req,res,next)=>{
     try {
-        const password = req.body.password;
+        const new_password = req.body.new_password;
         const user_id = req.body.serviceProvider_id;
-        console.log(user_id);
-        const secure_Password = securePassword(password);
-        ServiceProvider.findByIdAndUpdate({_id:user_id},{$set:{password:secure_Password,token:""}})
-        res.redirect("/spSignin")
-
+        const  hashedPassword = await securePassword(new_password);
+        await User.updateOne({ _id:user_id},{$set:{ password:hashedPassword,token:""}});
+        res.redirect("/spSignin",{message:"password has been reseted"})  
+        
     } catch (error) {
         console.log(error)
-
     }
 }
 
@@ -213,7 +210,6 @@ const editUserProfile = async(req,res,next)=>{
         console.log(error.message)
     }
 }
-
 const updateProfile = async(req,res,next)=>{
     try {
         req.body.serviceProvider_id = req.session.serviceProvider_id
@@ -224,7 +220,6 @@ const updateProfile = async(req,res,next)=>{
         console.log(error.message)
     }
 }
-
 const deleteUserAccount = async(req,res,next)=>{
     if(req.body.serviceProvider_id === req.session.serviceProvider_id){
     try {
@@ -237,17 +232,37 @@ const deleteUserAccount = async(req,res,next)=>{
 }
 }
 
+// change password
 const updatePassword = async(req,res,next)=>{
     try {
-        //const user_id = req.session.serviceProvider_id;
-        const password = req.body.password;
-        const newPassword = await securePassword(password);
-        const changeData = ServiceProvider.findByIdAndUpdate({_id:req.body.serviceProvider_id},{$set:{password:newPassword}});
-            res.redirect("/HomeSPAfterlogin");
+        const id = req.session.serviceProvider_id;
+        const old_password = req.body.old_password
+        const new_password = req.body.new_password
+        const userData = await User.findById({_id:id})
+        
+        if (userData) {
+            const passwordMatch = await bcrypt.compare(old_password,userData.password)
+            if (passwordMatch){
+                console.log(new_password)
+                const hashedPassword = await securePassword(new_password)
+                await User.updateOne({_id:userData._id},{$set:{password:hashedPassword}});
+                req.session.serviceProvider_id = userData._id
+                
+                res.redirect("/HomeSPAfterlogin");
+                
+            }
+            else{
+                res.redirect("/setting",{message:"password is incorrect"});
+            }
+        }
+        else{
+            res.redirect("/setting",{message:"password is incorrect"});
+        }
     } catch (error) {
-        console.log(error.message);
+        console.log(error)
     }
 }
+// reset verification email
 const getVerification = (req,res,next)=>
 {
     try {

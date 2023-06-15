@@ -21,7 +21,9 @@ router.use(session({secret:config.sessionSecret}));
 
 const {
     signupValidator,
-    loginValidator
+    loginValidator,
+    changePassword_Validator,
+    resetValidator
 }= require("../utils/validators/authSPValidator")
 
 const spController = require("../controllers/spControllers");
@@ -37,12 +39,12 @@ router.get("/logout",spController.userlogout);
 router.get("/spforgetPassword",spController.getforget_Password);
 router.post("/spforgetPassword",spController.postforget_Password);
 router.get("/spresetPassword",spController.getReset_Password);
-router.post("/spresetPassword",spController.postReset_Password);
+router.post("/spresetPassword",resetValidator,spController.postReset_Password);
 router.get("/spProfile",spController.getUserProfile);
 router.get("/spSetting",spController.editUserProfile);
 router.post("/spSetting",spController.updateProfile);//id 
 router.post("/spDelete",spController.deleteUserAccount);
-router.post("/spChange",spController.updatePassword);
+router.post("/spChange",changePassword_Validator,spController.updatePassword);
 router.get("/spVerification",spController.getVerification);
 router.post("/spVerification",spController.sendVerificationLink);
 router.get("/HomeSPAfterlogin",spController.getPartnerOffer)

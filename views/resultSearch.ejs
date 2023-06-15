@@ -1,0 +1,165 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Search</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/gijgo.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/slicknav.css">
+    <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style 2.css">
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- header-start -->
+    <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid p-0">
+                    <div class="row align-items-center no-gutters">
+                         <div class="col-xl-2 col-lg-2">
+                            <div class="logo-img">
+                                <a href="index.html">
+                                    <img src="img/logo (2).png" alt="">
+                                </a>
+                            </div>
+                        </div>
+						<div class="col-xl-5 col-lg-6">
+                            <div class="main-menu  d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li><a href="Home-1.html">Home</a></li>
+                                        <li><a href="#">Services <i class="ti-angle-down"></i></a>
+										  <ul class="submenu">
+                                                <li><a href="Signin.html">Cinemas</a></li>
+                                                <li><a href="Signin.html">Hotels</a></li>
+												<li><a href="Signin.html">Bazaars</a></li>
+                                                <li><a href="Signin.html">Resorts & Villages</a></li>
+												<li><a href="Signin.html">Natural Preserves</a></li>
+                                                <li><a href="Signin.html">Tourism Companies</a></li>
+												<li><a href="Signin.html">Archaeological Sites</a></li>
+												<li><a href="Signin.html">Restaurants & Cafes</a></li>
+                                                <li><a href="Signin.html">Transportation Companies</a></li>
+                                            </ul>
+											</li>
+                                        <li><a class="active" href="Search-1.html">Search</a></li>
+                                        <li><a href="#">Sign Up <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="SP Signup.html">Service Provider</a></li>
+                                                <li><a href="C-TG Signup.html">Client</a></li>
+                                            </ul>
+                                        </li>
+										<li><a href="Signin.html">Sign In</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header-end -->
+
+    <!-- bradcam_area_start -->
+    <div class="bradcam_area">
+        <h2>Find Your Service</h2>
+<!-- partial:index.partial.html -->
+<div class="main">
+    <!-- Another variation with a button -->
+    <form action="/search" method="post">
+    <div class="input-group">
+    <input type="text" class="form-control" name="service" placeholder="Search here">
+    <div class="input-group-append">
+        <button class="btn btn-secondary" type="button">
+        <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+</form>
+</div>
+<div>
+    <a class="d-inline-block" href="/sp_profile_forClient/<%=data.sp_id%>">
+        <h4 style="color: #daa520;">serviceName:<span><%= data.serviceName %></span></h4>
+        <h4 style="color: #daa520;">category:<span><%= data.category %></span></h4>
+
+    </a>
+</div>
+<!-- partial -->
+</div>
+
+
+<!-- bradcam_area_end -->
+    <!-- JS here -->
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/scrollIt.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/nice-select.min.js"></script>
+    <script src="js/jquery.slicknav.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/gijgo.min.js"></script>
+
+    <!--contact js-->
+    <script src="js/contact.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/mail-script.js"></script>
+
+    <script src="js/main.js"></script>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+             rightIcon: '<span class="fa fa-caret-down"></span>'
+         }
+        });
+        $('#datepicker2').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
+
+        });
+    </script>
+
+
+</body>
+
+</html>

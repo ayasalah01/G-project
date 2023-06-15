@@ -26,7 +26,7 @@
                                     <ul id="navigation">
                                         <li><a href="/HomeAfterlogin">Home</a></li>
                                         <li><a class="active" href="/hotel">Hotels</a></li>
-                                        <li><a href="Search-2.html">Search</a></li>
+                                        <li><a href="/search">Search</a></li>
 										<li><a href="/clientProfile">Your Profile</a></li>
 										<li><a href="/setting">Settings</a></li>
                                     </ul>
@@ -80,15 +80,18 @@
                                     OfferPrice :
                                     <p style="color:black; font-size: 20px;"><%= user.price %></p>
                                 </h3>
-                        <form  method="post" >
-                        <div class="qty mt-5">
+                        <form action=""  method="post" >
+                        <div class="qty mt-5"> 
                         <span class="minus">-</span>
-                        <input type="number" class="count" name="qty" value="0">
-                        <span class="plus">+</span>
-                        <br></br>
+                        <input type="number"  name="qauntity" value="0">
+                        <span class="plus">+</span> 
+                        <!-- <input type="number"  name="qauntity" placeholder="enter amount">
+                        <br></br> --> 
                         
                         <div class="col-sm-12">
-                                <input type="number" name=" qauntity" value="<%=user.qauntity%>" />
+                            <!-- <input type="number"  name="qauntity" placeholder="enter amount" value="<%=user.qauntity%>">
+                            <br></br> -->
+                                <!-- <input type="number" name=" qauntity" value="<%=user.qauntity%>" /> -->
                                 <input type="hidden" name="service" value="<%=user.offerTitle%>">
                                 <input type="hidden" name="price" value="<%=user.price%>">
                                 <input type="hidden" name="category" value="<%=user.category%>">
