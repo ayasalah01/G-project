@@ -14,7 +14,7 @@
                     <div class="row align-items-center no-gutters">
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo-img">
-                                <a href="index.html">
+                                <a href="">
                                     <img src="img/logo (2).png" alt="">
                                 </a>
                             </div>
@@ -68,13 +68,14 @@
                         </div>
 
                         <div class="blog_details">
+                          <!-- <a class="d-inline-block" href="/sp_profile_forClient"> -->
+                            <h3 style="color: #daa520;"><%= user.serviceName %></h3>
+                        <!-- </a> -->
                           <h3 style="color: #daa520;">
                             OfferTitle :
                             <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
                         </h3>
-                        <a class="d-inline-block" href="/sp_profile_forClient">
-                            <h3 style="color: #daa520;"><%= user.serviceName %></h3>
-                        </a>
+                        
                         <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
                         <h3 style="color: #daa520;" >
                             OfferPrice :
@@ -99,13 +100,13 @@
         <section class="post">
           <header>Create Your Post</header>
           <form action="/HomeSPAfterlogin" method="post" enctype="multipart/form-data">
-            <input type="text" name="offerTitle" id="Title" placeholder="Title" required/>
+            <input type="text" name="offerTitle" id="Title" placeholder="Title" style="font-size: 12px;text-align:center; font-weight: bold; border-radius: 10px ;padding: 10px 140px;" required/>
             <textarea name ="postDetails" placeholder="What's on your mind?" spellcheck="false" ></textarea>
             <div class="theme-emoji">
               <img src="icons/theme.svg" alt="theme">
               <img src="icons/smile.svg" alt="smile">
             </div>
-            <input type="text" name="price" placeholder="Offer Price"/> 
+            <input type="text" name="price" style="font-size: 12px; font-weight: bold; border-radius: 10px ;padding: 10px 140px; text-align:center;" placeholder="Offer Price" /> 
             <div class="options">
               <input type="file" name="image" >
               <ul class="list">
@@ -279,18 +280,18 @@
 	<!-- Post_area_end -->
 	
 	<!-- form itself end-->
-  <form action="/logout" id="log-out-form" class="white-popup-block mfp-hide">
+  <form action="/logout" id="log-out-form" method="post" class="white-popup-block mfp-hide">
     <div class="popup_box ">
             <div class="popup_inner">
                 <h3>Are You Sure You Want To Sign Out?</h3>
-                  <a href="/logout" class="boxed-btn3">Yes</a>
+                <a href="/logout" class="boxed-btn3">Yes</a>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 </form>
-    <!-- form itself end -->
+<!-- form itself end -->
 
     <!-- JS here -->
     <%- include('./parts/homefooter.ejs')%>

@@ -60,4 +60,5 @@ router.post("/cart/delete",userController.deleteItem);
 router.post("/order",userController.createOrder);
 router.get("/search",userController.getSearch);
 router.post("/search",userController.postSearch);
+router.get("/edit/:id",userController.get_SP_Profile);
 module.exports = router;

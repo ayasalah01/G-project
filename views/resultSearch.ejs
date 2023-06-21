@@ -39,7 +39,7 @@
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
                     <div class="row align-items-center no-gutters">
-                         <div class="col-xl-2 col-lg-2">
+                        <div class="col-xl-2 col-lg-2">
                             <div class="logo-img">
                                 <a href="index.html">
                                     <img src="img/logo (2).png" alt="">
@@ -52,27 +52,20 @@
                                     <ul id="navigation">
                                         <li><a href="Home-1.html">Home</a></li>
                                         <li><a href="#">Services <i class="ti-angle-down"></i></a>
-										  <ul class="submenu">
-                                                <li><a href="Signin.html">Cinemas</a></li>
-                                                <li><a href="Signin.html">Hotels</a></li>
-												<li><a href="Signin.html">Bazaars</a></li>
-                                                <li><a href="Signin.html">Resorts & Villages</a></li>
-												<li><a href="Signin.html">Natural Preserves</a></li>
-                                                <li><a href="Signin.html">Tourism Companies</a></li>
-												<li><a href="Signin.html">Archaeological Sites</a></li>
-												<li><a href="Signin.html">Restaurants & Cafes</a></li>
-                                                <li><a href="Signin.html">Transportation Companies</a></li>
-                                            </ul>
-											</li>
-                                        <li><a class="active" href="Search-1.html">Search</a></li>
-                                        <li><a href="#">Sign Up <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                <li><a href="SP Signup.html">Service Provider</a></li>
-                                                <li><a href="C-TG Signup.html">Client</a></li>
+                                                <li><a href="/hotel">Hotels</a></li>
+                                                <li><a href="/cinema">Cinemas</a></li>
+                                                <li><a href="/bazaar">Bazaars</a></li>
+                                                <li><a href="/resort&village">Resorts & Villages</a></li>
+                                                <li><a href="/naturalPreserve">Natural Preserves</a></li>
+                                                <li><a href="/tourismCompany">Tourism Companies</a></li>
+                                                <li><a href="/archaeologicalSite">Archaeological Sites</a></li>
+                                                <li><a href="/restaurant&cafe">Restaurants & Cafes</a></li>
+                                                <li><a href="/transportationCompany">Transportation Companies</a></li>
                                             </ul>
-                                        </li>
-										<li><a href="Signin.html">Sign In</a></li>
-                                    </ul>
+                                            <li><a class="active" href="/search">Search</a></li>
+                                            <li><a href="/clientProfile">Your Profile</a></li>
+                                            <li><a href="/setting">Settings</a></li>
                                 </nav>
                             </div>
                         </div>
@@ -104,7 +97,7 @@
 </form>
 </div>
 <div>
-    <a class="d-inline-block" href="/sp_profile_forClient/<%=data.sp_id%>">
+    <a class="d-inline-block" href="/sp_profile_forClient">
         <h4 style="color: #daa520;">serviceName:<span><%= data.serviceName %></span></h4>
         <h4 style="color: #daa520;">category:<span><%= data.category %></span></h4>
 

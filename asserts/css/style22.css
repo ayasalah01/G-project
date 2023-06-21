@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 .Post_area .container{
   width: 530px;
-  height: 500px;
+  height: 550px;
   overflow: hidden;
   background: #f1f1e6;
   border-radius: 10px;
@@ -90,7 +90,7 @@
 .Post_area form textarea{
   resize: none;
   font-size: 22px;
-  margin-top: 30px;
+  margin-top: 10px;
   min-height: 100px;
   color:#023859;
   
@@ -266,35 +266,15 @@
 .Post_area .list li.active .radio::before{
   background: #4599FF;
 }
-.cursor-pointer{
-  cursor: pointer;
-}
-#chat-container{
-background-color:lightblue;
-width: 100%;
-height: 400px;
-overflow: scroll;
-}
-.border{
-  width: 80;
-}
-/* .chat-section{
-  display: none;
-} */
-
-.current-user-chat{
-  text-align: right;
-  margin: 10px;
-  color: #000;
-}
-.distance-user-chat{
-  text-align: left;
-  margin: 10px;
-  color: #000;
-}
-.online-status{
-  color: green;
-}
-.offline-status{
-  color:red;
+select {
+	color: #daa520;
+	border: 1px solid #daa520;
+	height: 45px;
+	width: 100%;
+	background-color:#fff;
+	font-size: 16px;
+	margin-top:10px;
+	font-weight: bold;
+	text-align: center;
+	border-radius:20px;
 }

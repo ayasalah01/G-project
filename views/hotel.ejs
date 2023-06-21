@@ -3,11 +3,6 @@
 <%- include('./parts/homehead.ejs')%>
 
 <body>
-    <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
-
-    <!-- header-start -->
     <header>
         <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
@@ -69,7 +64,7 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="/sp_profile_forClient/<%=user.sp_id%>">
+                                <a class="d-inline-block" href="/edit/<%=user.sp_id%>">
                                     <h3 style="color: #daa520;"><%= user.serviceName %></h3>
                                 </a>
                                 <h3 style="color: #daa520;">

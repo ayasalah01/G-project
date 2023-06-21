@@ -327,11 +327,14 @@ const postPayment = async(req,res,next)=>{
 // get serviceprovider profile for client
 const get_SP_Profile = async(req,res,next)=>{
     try {
-        const users = await Services.findOne({})
-        res.render("sp_profile_forClient",{data:users})
+        const id = req.params.id
+        const data = await ServiceProvider.findById({_id:id});
+        console.log(data);
+        res.render('edit',{user:data});
     } catch (error) {
-        console.log(error.message);
+        console.log(error)
     }
+    
 }
 //chat dashborad
 const Load_Chat = async(req,res,next)=>{
@@ -587,7 +590,7 @@ const postSearch = async(req,res,next)=>{
         const data = await Services.findOne({serviceName:service});
         console.log(data)
         res.render("resultSearch",{data:data});
-        // res.redirect("/search",{data:data})
+        //res.render("/search",{data:data})
     } catch (error) {
         console.log(error)
     }

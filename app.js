@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session')
+const SessionStore = require('connect-mongodb-session')(session)
 const fs = require("fs")
 const path = require('path');
 const bodyparser = require('body-parser');
@@ -87,10 +89,21 @@ app.set('view engine' , 'ejs')
 app.set('views','views')
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname,'asserts')))
+app.use(express.static(path.join(__dirname,'/asserts')))
 app.use(express.static(path.join(__dirname,'./public/userImages')))      //to use style files 
 app.use(express.urlencoded({extended:false}));
 app.use(flash());
+
+// const STORE = new SessionStore({
+//     uri : "mongodb://127.0.0.1:27017/mydatabase",
+//     collection:'sessions'
+// })
+
+// app.use(session({
+//     secret:"this is my secret secret to hash express sessions---",
+//     saveUninitialized:false, 
+//     store:STORE
+// }))
 
 //for router
 const adminRouter = require("./routes/adminRoute");
