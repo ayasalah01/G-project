@@ -39,10 +39,10 @@ const createNewUser = async(req,res,next)=>{
     try{
         const hashPassword = await securePassword (req.body.password);
         const user = new ServiceProvider({
-            username:req.body.username,
             serviceName:req.body.serviceName,
             email : req.body.email,
             Address: req.body.Address,
+            phoneNumber:req.body.phoneNumber,
             password : hashPassword,
             category:req.body.category,
         });
@@ -214,7 +214,7 @@ const updateProfile = async(req,res,next)=>{
     try {
         req.body.serviceProvider_id = req.session.serviceProvider_id
         console.log(req.body.serviceProvider_id);
-        const userData = await ServiceProvider.findByIdAndUpdate({_id:req.body.serviceProvider_id},{$set:{username:req.body.username,serviceName:req.body.serviceName,email:req.body.email,phoneNumber:req.body.phoneNumber,Address:req.body.Address}})
+        const userData = await ServiceProvider.findByIdAndUpdate({_id:req.body.serviceProvider_id},{$set:{serviceName:req.body.serviceName,email:req.body.email,phoneNumber:req.body.phoneNumber,Address:req.body.Address}})
         res.redirect("/HomeSPAfterlogin")
     } catch (error) {
         console.log(error.message)
@@ -401,6 +401,7 @@ const spCreatePost = async(req,res,next)=>{
 const getSPProfile_forClient = async(req,res,next)=>{
     try {
         const id = req.params.id
+        console.log(id)
         const data = await ServiceProvider.findById({_id:id});
         console.log(data);
         res.render('sp_profile_forClient',{user:data});

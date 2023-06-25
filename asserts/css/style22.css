@@ -96,7 +96,7 @@
   
 }
 .Post_area form textarea::placeholder{
-  color: #daa520;
+  color: #023859;
   font-size: 22px;
 }
 .Post_area form textarea:focus::placeholder{

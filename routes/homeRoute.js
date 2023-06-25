@@ -22,7 +22,7 @@ router.get("/archaeologicalSite",homeController.ArchaeologicalSite);
 router.get("/restaurant&cafe",homeController.RestaurantAndCafe);
 router.get("/transportationCompany",homeController.TransportationCompany);
 router.get("/order",homeController.getOrder);
-router.get("/rate",homeController.getRate);
+// router.get("/rate/:id",homeController.getRate);
 
 
 

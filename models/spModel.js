@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 
 
 const serviceProviderSchema = mongoose.Schema({
-    username:{
-        type:String,
-        required:true,
-        unique: true
-    },
     serviceName:{
         type:String,
         required:true
@@ -26,7 +21,7 @@ const serviceProviderSchema = mongoose.Schema({
     category:{
         type:String,
         required:true,
-        enum:["Hotel","Cinema","Bazaar","Resort & Village","Natural Preserve","Tourism Company","Archaeological Site","Restaurant & Cafe","Transportation Company"]
+        enum:["Hotel","Cinema","Bazaar","Resort & Village","Restaurant & Cafe","Transportation Company"]
     },
     phoneNumber:{
         type:String,

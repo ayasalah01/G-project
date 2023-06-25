@@ -99,7 +99,7 @@
 <h4 style="color:#023859"><%= user.username %></h4>
 <p class="text-secondary mb-1"></p>
 <a href="/clientChat" class="btn btn-outline-primary">Message</a>
-<a href="/rate" class="btn btn-outline-primary">Add Review</a>
+<a href="/rate/<%= user._id %>" class="btn btn-outline-primary">Add Review</a>
 </div>
 </div>
 </div>
@@ -132,7 +132,7 @@
 <h6 class="mb-0">Phone</h6>
 </div>
 <div class="col-sm-9 text-secondary">
-    <%= user.phoneNumber%>
+    <%= user._id %>
 </div>
 </div>
 <hr>

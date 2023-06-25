@@ -12,6 +12,7 @@ const Chat = require("../models/chatModel");
 const Pay = require("../models/payModel");
 const Cart = require("../models/cartModel");
 const Order = require("../models/orderModel");
+const Review = require("../models/reviewModel");
 const sendMail = require("../utils/sendEmail");
 
 // bycrpt password
@@ -595,6 +596,38 @@ const postSearch = async(req,res,next)=>{
         console.log(error)
     }
 }
+//review
+const getRate = async (req,res,next)=>{
+    try {
+        res.render("rate")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+const review = async(req,res,next)=>{
+    try {
+        const id =req.params.id
+        console.log(id)
+        // const data = new Review({
+        //     rate:req.body.rate,
+        //     comment:req.body.comment,
+        //     sp_id:id,
+        //     userId:req.session.user_id
+        // })
+        // const review = await data.save();
+        // res.redirect("/rate")
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getReview = async(req,res,next)=>{
+    try {
+        const data = await Review.find();
+        res.render("/rate",{data,data})
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 module.exports ={
@@ -628,5 +661,8 @@ module.exports ={
     deleteItem,
     createOrder,
     getSearch,
-    postSearch
+    postSearch,
+    getRate,
+    review,
+    getReview
 }

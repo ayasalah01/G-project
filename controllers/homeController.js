@@ -114,13 +114,13 @@ const getOrder = async (req,res,next)=>{
     }
 }
 
-const getRate = async (req,res,next)=>{
-    try {
-        res.render("rate")
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+// const getRate = async (req,res,next)=>{
+//     try {
+//         res.render("rate")
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
 
 
 module.exports ={
@@ -136,6 +136,6 @@ module.exports ={
     RestaurantAndCafe,
     TransportationCompany,
     getOrder,
-    getRate,
+    //getRate,
     
 }

@@ -3,7 +3,6 @@ const validatorMiddleware = require('../../middlewares/validatorMiddleware');
 const User = require('../../models/spModel');
 
 exports.signupValidator = [
-check('username').not().isEmpty().withMessage('Username is required'),
 check('serviceName').not().isEmpty().withMessage('serviceName is required'),
 check('email')
     .notEmpty()
@@ -20,6 +19,9 @@ check('email')
 check('Address')
     .not().isEmpty()
     .withMessage('Address is required'),
+check('Address')
+    .not().isEmpty()
+    .withMessage('phoneNumber is required'),
 check('password')
     .notEmpty()
     .withMessage('Password required')
