@@ -42,7 +42,7 @@ router.get("/spresetPassword",spController.getReset_Password);
 router.post("/spresetPassword",resetValidator,spController.postReset_Password);
 router.get("/spProfile",spController.getUserProfile);
 router.get("/spSetting",spController.editUserProfile);
-router.post("/spSetting",spController.updateProfile);//id 
+router.post("/spUpdateProfile",spController.updateProfile);//id 
 router.post("/spDelete",spController.deleteUserAccount);
 router.post("/spChange",changePassword_Validator,spController.updatePassword);
 router.get("/spVerification",spController.getVerification);

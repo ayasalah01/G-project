@@ -123,7 +123,7 @@ Our Application
         <div class="form-group small text-muted">
         All of the fields on this page are optional and can be deleted at any time, and by filling them out, you're giving us consent to share this data wherever your user profile appears.
         </div>
-        <input type="submit" style="background-color:#023859; color: white;" value="Update Profile">
+        <input type="submit"  class="btn btn-primary" style="background-color:#023859; border-color:#023859;" value="Update Profile">
         
 </form>
 </div>
@@ -143,14 +143,14 @@ Our Application
     <input type="password" class="form-control mt-1" name="new_password" placeholder="New password">
     <input type="password" class="form-control mt-1" name="passwordConfirm" placeholder="Confirm new password">
     <hr>
-    <input type="submit" style="background-color:#023859;" value="change" formaction="/change">
+    <input type="submit" class="btn btn-primary" style="background-color:#023859; border-color:#023859;" value="Submit" formaction="/change">
     </div>
 <hr>
 <div class="form-group">
 <label class="d-block text-danger">Delete Account</label>
 <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain.</p>
 </div>
-<input type="submit" style="background-color:#023859;" value="Delete Account" formaction="/delete">
+<input type="submit" class="btn btn-danger"  value="Delete Account" formaction="/delete">
 </form>
 </div>
 <div class="tab-pane" id="notification">

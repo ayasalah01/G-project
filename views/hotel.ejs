@@ -60,21 +60,22 @@
                         <% for (let user of data) { %>
                         <article class="blog_item">
                             <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="/<%= user.image%>" alt="">
+                                <img class="card-img rounded-0" src="/<%= user.image%>" width="200" height="300">
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="/sp_profile_forClient/<%=user.sp_id%>">
-                                    <h3 style="color: #daa520;"><%= user.serviceName %></h3>
+                                <a class="d-inline-block" href="/sp_profile_forClient/<%=user.sp_id%>" >
+                                    <span class='fas fa-user-circle' style='font-size:30px;color:#dda520' >
+                                        <%= user.serviceName %></span>
                                 </a>
-                                <h3 style="color: #daa520;">
-                                    OfferTitle :<p style="color:#023859; font-size: 20px;"><%= user.offerTitle %></p>
-                                </h3>
+                                <br></br>
+                                <p style="color:#023859; font-size: 20px;"><%= user.offerTitle %></p>
                                 <p style="color:#023859; font-size: 20px;" ><%= user.postDetails%></p>
-                                <h3 style="color: #daa520;" >
-                                    OfferPrice :
-                                    <p style="color:#023859; font-size: 20px;"><%= user.price %></p>
-                                </h3>
+                                <h4 style="color: #daa520;" >
+                                    Price :
+                                    <span style="color:black; font-size: 20px;"><%= user.price %></span>
+                                    
+                                </h4>
                         <form action=""  method="post" >
                         <div class="qty mt-5"> 
                         <span class="minus">-</span>
@@ -92,8 +93,8 @@
                                 <input type="hidden" name="category" value="<%=user.category%>">
                                 <input type="hidden" name="image" value="<%=user.image%>">
                                 <!-- <a class="btn btn-info " target="__blank" style="background-color: #daa520; color: white;" type="button" href="/order">Order</a> -->
-                                <input class="btn btn-info " target="__blank" type="submit" style="background-color: #daa520;" value="Order Now" formaction="/order"/>
-                                <input class="btn btn-info " target="__blank" type="submit" style="background-color: #daa520;" value="Add to Cart" formaction="/cart"/>
+                                <input class="btn btn-info " target="__blank" type="submit" style="background-color: #023859;" value="Order Now" formaction="/order"/>
+                                <input class="btn btn-info " target="__blank" type="submit" style="background-color: #023859;" value="Add to Cart" formaction="/cart"/>
                         </form>
                         </div>
 						

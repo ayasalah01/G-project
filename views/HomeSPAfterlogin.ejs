@@ -56,7 +56,40 @@
                 </div>
             </div>
             <!--================Blog Area =================-->
-	<section class="blog_area section-padding">
+	<!-- Post_area_start -->
+	<div class="Post_area">
+    <div class="container">
+        <div class="wrapper">
+          <section class="post">
+            <header>Create Your Post</header>
+            <form action="/HomeSPAfterlogin" method="post" enctype="multipart/form-data">
+              <input type="text" name="offerTitle" id="price" placeholder="Title" required></input>
+              <textarea name ="postDetails" placeholder="What's on your mind?" spellcheck="false" ></textarea>
+              <input type="text" name="price" id="price" placeholder="Price"></input>
+              <div class="options">
+                      <p>choose image to Your Post</p>
+                      <input  type="file"   style="position:left; width:150px ;height: 45px;" name="image" >
+              <!-- <div class="btn btn-primary payment" style="position:left; width:150px">Choose File</div> -->
+                    </div>
+                    <button id="signIn">Post</button>
+                  </form>
+            <!-- <form action="/HomeSPAfterlogin" method="post" enctype="multipart/form-data">
+              <input type="text" name="offerTitle" placeholder="Title" style="font-size: 20px;text-align:left; font-weight: bold; border-radius: 10px ;padding: 10px 90px; border: #023859;  background-color: #fff;" required/> 
+              <textarea name ="postDetails" placeholder="What's on your mind?" spellcheck="false" ></textarea>
+              <input type="text" name="price" style="font-size: 20px;text-align:left; font-weight: bold; border-radius: 10px ;padding: 10px 90px; color:#023859; background-color: #fff;" placeholder="Offer Price" /> 
+              <div class="options">
+                <input type="file" name="image" >
+              </div>
+              <button id="signIn">Post</button>
+            </form> -->
+          </section>
+          
+          
+        </div>
+      </div>
+    </div>
+            <!--================Blog Area =================-->
+	<!-- <section class="blog_area section-padding">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mb-5 mb-lg-0">
@@ -68,9 +101,9 @@
                         </div>
 
                         <div class="blog_details">
-                          <!-- <a class="d-inline-block" href="/sp_profile_forClient"> -->
+                           <a class="d-inline-block" href="/sp_profile_forClient"> 
                             <h3 style="color: #daa520;"><%= user.serviceName %></h3>
-                        <!-- </a> -->
+                         </a> 
                           <h3 style="color: #daa520;">
                             OfferTitle :
                             <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
@@ -91,174 +124,123 @@
             </div>
         </div>
     </div>
-</section>
-<!--================Blog Area =================-->
-	<!-- Post_area_start -->
-	<div class="Post_area">
+</section> -->
+<div class="Post_area">
+  <% for (let user of data) { %>
 	<div class="container">
       <div class="wrapper">
         <section class="post">
-          <header>Create Your Post</header>
-          <form action="/HomeSPAfterlogin" method="post" enctype="multipart/form-data">
-            <input type="text" name="offerTitle" id="Title" placeholder="Title" style="font-size: 12px;text-align:center; font-weight: bold; border-radius: 10px ;padding: 10px 140px;" required/>
-            <textarea name ="postDetails" placeholder="What's on your mind?" spellcheck="false" ></textarea>
-            <div class="theme-emoji">
-              <img src="icons/theme.svg" alt="theme">
-              <img src="icons/smile.svg" alt="smile">
-            </div>
-            <input type="text" name="price" style="font-size: 12px; font-weight: bold; border-radius: 10px ;padding: 10px 140px; text-align:center;" placeholder="Offer Price" /> 
-            <div class="options">
-              <input type="file" name="image" >
-              <ul class="list">
-                <li><img src="icons/gallery.svg" alt="gallery"></li>
-              </ul>
-            </div>
-            <button id="signIn">Post</button>
-          </form>
-        </section>
-        <section class="audience">
-          <header>
-            <div class="arrow-back"><i class="fas fa-arrow-left"></i></div>
-            <p>Select Audience</p>
-          </header>
-          <div class="content">
-            <p>Who can see your post?</p>
-            <span>Your post will show up in News Feed, on your profile and in search results.</span>
+          <header><%= user.offerTitle %></header>
+          
+		      <div class="blog_item_img">
+          <img class="card-img rounded-0" src="/<%= user.image%>" width="200px" height="200px">
           </div>
-          <ul class="list">
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-globe-asia"></i></div>
-                <div class="details">
-                  <p>Public</p>
-                  <span>Anyone on or off Facebook</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            <li class="active">
-              <div class="column">
-                <div class="icon"><i class="fas fa-user-friends"></i></div>
-                <div class="details">
-                  <p>Friends</p>
-                  <span>Your friends on Facebook</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-user"></i></div>
-                <div class="details">
-                  <p>Specific</p>
-                  <span>Only show to some friends</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-lock"></i></div>
-                <div class="details">
-                  <p>Only me</p>
-                  <span>Only you can see your post</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-cog"></i></div>
-                <div class="details">
-                  <p>Custom</p>
-                  <span>Include and exclude friends</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-          </ul>
+		      <p><%= user.postDetails%></p>
+          <p><%= user.price %></p>
+            <a href="#" style="color:#daa520;" class="active">View Offer Ditails</a>
         </section>
+  
       </div>
     </div>
+    <% } %>
 	</div>
 <style type="text/css">
-    	body{
-    margin-top:20px;
-    color: #023859;
-    text-align: left;
-    background-color: #f1f1e6;    
+    body{
+  margin-top:20px;
+  color: #023859;
+  text-align: left;
+  background-color: #f1f1e6;    
 }
 .main-body {
-    padding: 15px;
+  padding: 15px;
 }
 .card {
-    box-shadow: 0 10px 20px #daa520;
+  box-shadow: 0 10px 20px #daa520;
 }
 
 .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0 solid #023859;
-    border-radius: .25rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid #023859;
+  border-radius: .25rem;
 }
 
 .card-body {
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1rem;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1rem;
 }
 
 .gutters-sm {
-    margin-right: -8px;
-    margin-left: -8px;
+  margin-right: -8px;
+  margin-left: -8px;
 }
 
 .gutters-sm>.col, .gutters-sm>[class*=col-] {
-    padding-right: 8px;
-    padding-left: 8px;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 .mb-3, .my-3 {
-    margin-bottom: 1rem!important;
+  margin-bottom: 1rem!important;
 }
 
 .bg-gray-300 {
-    background-color: #daa520;
+  background-color: #daa520;
 }
 .h-100 {
-    height: 100%!important;
+  height: 100%!important;
 }
 .shadow-none {
-    box-shadow: none!important;
+  box-shadow: none!important;
 }
 .mt-3 a{
-    color:#daa520;
-	background-color:#023859;
-	border:none;
+  color:#daa520;
+background-color:#023859;
+border:none;
 }
 .mt-3 a:hover{
-    color:#fff;
-	background-color:#daa520;
-	border:none;
+  color:#fff;
+background-color:#daa520;
+border:none;
 }
 .col-sm-12 a{
-    color:#daa520;
-	background-color:#023859;
-	border:none;
+  color:#daa520;
+background-color:#023859;
+border:none;
 }
 .col-sm-12 a:hover{
-    color:#fff;
-	background-color:#daa520;
-	border:none;
+  color:#fff;
+background-color:#daa520;
+border:none;
 }
 .mb-0{
-    color:#023859;
+  color:#023859;
 }
-    </style>
+input {
+background-color: #fff;
+border: none;
+box-shadow:0 7px 14px #daa520;
+padding: 12px 15px;
+margin: 8px 0;
+width: 100%;
+color:#023859;
+border-radius:20px;
+}
+.btn.btn-primary {
+  background-color: #023859;
+  color: #fff;
+  box-shadow: none;
+  border: none;
+  font-size: 20px;
+  width: 100%;
+  height: 80%;
+}
+  </style>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
@@ -280,7 +262,7 @@
 	<!-- Post_area_end -->
 	
 	<!-- form itself end-->
-  <form action="/logout" id="log-out-form" method="post" class="white-popup-block mfp-hide">
+  <form action="/logout" id="log-out-form" class="white-popup-block mfp-hide">
     <div class="popup_box ">
             <div class="popup_inner">
                 <h3>Are You Sure You Want To Sign Out?</h3>
@@ -291,22 +273,56 @@
             </div>
         </div>
 </form>
-<!-- form itself end -->
+                        </div>
+                    </div>
+            </form>
+    <!-- form itself end -->
 
     <!-- JS here -->
-    <%- include('./parts/homefooter.ejs')%>
-    <script  src="js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script type="text/javascript">
-            var socket = io("http://localhost:3000")
-            $("#signIn").on( "click", function() {
-            var offerTitle =  $("#Title").val() 
-            socket.emit("signIn",{
-                "offerTitle":offerTitle
-            })
-            } );
-            </script> 
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/scrollIt.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/nice-select.min.js"></script>
+    <script src="js/jquery.slicknav.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/gijgo.min.js"></script>
+
+    <!--contact js-->
+    <script src="js/contact.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/mail-script.js"></script>
+
+    <script src="js/main.js"></script>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+             rightIcon: '<span class="fa fa-caret-down"></span>'
+         }
+        });
+        $('#datepicker2').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+            rightIcon: '<span class="fa fa-caret-down"></span>'
+        }
+
+        });
+    </script>
+
+
 
 </body>
 

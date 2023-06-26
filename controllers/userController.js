@@ -608,14 +608,14 @@ const review = async(req,res,next)=>{
     try {
         const id =req.params.id
         console.log(id)
-        // const data = new Review({
-        //     rate:req.body.rate,
-        //     comment:req.body.comment,
-        //     sp_id:id,
-        //     userId:req.session.user_id
-        // })
-        // const review = await data.save();
-        // res.redirect("/rate")
+        const data = new Review({
+            rate:req.body.rate,
+            comment:req.body.comment,
+            sp_id:id,
+            userId:req.session.user_id
+        })
+        const review = await data.save();
+        res.redirect("/rate")
     } catch (error) {
         console.log(error)
     }
@@ -623,7 +623,7 @@ const review = async(req,res,next)=>{
 const getReview = async(req,res,next)=>{
     try {
         const data = await Review.find();
-        res.render("/rate",{data,data})
+        res.render("rate",{data,data})
     } catch (error) {
         console.log(error)
     }

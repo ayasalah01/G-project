@@ -10,6 +10,8 @@ const config = require("../config/config");
 const sendMail = require("../utils/sendEmail");
 const Services = require('../models/serviceModel');
 const Chat = require("../models/chatModel");
+const Natural = require("../models/natural");
+
 
 
 
@@ -375,7 +377,7 @@ const spCreatePost = async(req,res,next)=>{
         const userData = await ServiceProvider.findById({_id:id})
         console.log(userData._id);
             const service = new Services({
-                offerTitle:req.body.offerTitle,
+                offerTitle :req.body.offerTitle,
                 postDetails:req.body.postDetails,
                 price:req.body.price,
                 category:userData.category,

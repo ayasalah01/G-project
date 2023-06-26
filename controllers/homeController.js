@@ -2,6 +2,7 @@ const session = require("express-session");
 const User = require("../models/userModel");
 const ServiceProvider = require("../models/spModel");
 const Services = require("../models/serviceModel");
+const Natural= require("../models/natural");
 
 
 const getHome = async(req,res,next) =>{
@@ -13,8 +14,8 @@ const getHome = async(req,res,next) =>{
         const cinema = await Services.find({category:"Cinema"});
         const bazaar = await Services.find({category:"Bazaar"});
         const transportation = await Services.find({category:"Transportation Company"});
-        const Site = await Services.find({category:"Archaeological Site"});
-        const natural = await Services.find({category:"Natural Preserve"});
+        const Site = await Natural.find({category:"Archaeological Site"});
+        const natural = await Natural.find({category:"Natural Preserve"});
         res.render("home1",{data:hotel,rest:restaurant,resort:resort,tourism:tourism,cinema:cinema,bazaar:bazaar,transportation:transportation,Site:Site,natural:natural});
     } catch (error) {
         console.log(error.message);
@@ -26,7 +27,12 @@ const getHomeAfterlogin = async(req,res,next) =>{
         const restaurant = await Services.find({category:"Restaurant & Cafe"});
         const resort = await Services.find({category:"Resort & Village"});
         const tourism = await Services.find({category:"Tourism Company"});
-        res.render("HomeAfterlogin",{data:hotel,rest:restaurant,resort:resort,tourism:tourism});
+        const cinema = await Services.find({category:"Cinema"});
+        const bazaar = await Services.find({category:"Bazaar"});
+        const transportation = await Services.find({category:"Transportation Company"});
+        const Site = await Natural.find({category:"Archaeological Site"});
+        const natural = await Natural.find({category:"Natural Preserve"});
+        res.render("HomeAfterlogin",{data:hotel,rest:restaurant,resort:resort,tourism:tourism,cinema:cinema,bazaar:bazaar,transportation:transportation,Site:Site,natural:natural});
     } catch (error) {
         console.log(error.message);
     }
@@ -75,7 +81,7 @@ const ResortAndVillage = async(req,res,next)=>{
 }
 const NaturalPreserve = async(req,res,next)=>{
     try {
-        const offers = await Services.find({category:"Natural Preserve"});
+        const offers = await Natural.find({category:"Natural Preserve"});
         res.render("naturalPreserve",{data:offers});
     } catch (error) {
         console.log(error.message);
@@ -83,7 +89,8 @@ const NaturalPreserve = async(req,res,next)=>{
 }
 const ArchaeologicalSite = async(req,res,next)=>{
     try {
-        const offers = await Services.find({category:"Archaeological Site"});
+        const offers = await Natural.find({category:"Archaeological Site"});
+        console.log(offers)
         res.render("archaeologicalSite",{data:offers});
     } catch (error) {
         console.log(error.message);

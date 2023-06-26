@@ -213,6 +213,7 @@
 			<div class="col-sm-7">
 				<hr/>
 				<div class="review-block">
+					<% for (let user of data) { %>
 					<div class="row">
 						<div class="col-sm-3">
 							<img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
@@ -221,26 +222,20 @@
 						</div>
 						<div class="col-sm-9">
 							<div class="review-block-rate">
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+								
+								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+									<span class="glyphicon glyphicon-star" aria-hidden="true"> </span>
 								</button>
 								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+									<span class="glyphicon glyphicon-star" aria-hidden="true"><%=user.rate%> </span>
 								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
+								
 							</div>
-							<div class="review-block-title">this was nice in buy</div>
+							<div class="review-block-title"><%=user.comment%></div>
 							<div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
 						</div>
 					</div>
+					<% } %>
 					<hr/>
 					<div class="row">
 						<div class="col-sm-3">
@@ -251,7 +246,7 @@
 						<div class="col-sm-9">
 							<div class="review-block-rate">
 								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+								<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 								</button>
 								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
 								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -270,86 +265,7 @@
 							<div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
 						</div>
 					</div>
-					<hr/>
-					<div class="row">
-						<div class="col-sm-3">
-							<img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-							<div class="review-block-name"><a href="#">nktailor</a></div>
-							<div class="review-block-date">January 29, 2016<br/>1 day ago</div>
-						</div>
-						<div class="col-sm-9">
-							<div class="review-block-rate">
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-							</div>
-							<div class="review-block-title">this was nice in buy</div>
-							<div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
-						</div>
-					</div>
-					<div class="row">
-					<div class="col-sm-9">
-						<div class="comment-box ml-2">                         
-    <h2>Add a review</h2>
-	<form method="post" action="/rate">
-    <div class="rating"> 
-    <input type="radio" name="rate" value="5" id="5"><label for="5">☆</label>
-    <input type="radio" name="rate" value="4" id="4"><label for="4">☆</label> 
-    <input type="radio" name="rate" value="3" id="3"><label for="3">☆</label>
-    <input type="radio" name="rate" value="2" id="2"><label for="2">☆</label>
-    <input type="radio" name="rate" value="1" id="1"><label for="1">☆</label>
-                        </div>
-                        
-                        <div class="comment-area">
-                            
-                            <textarea class="form-control" placeholder="what is your view?" rows="4" name="comment"></textarea>
-                          
-                          </div>
-                          
-                          <div class="comment-btns mt-2">
-                              
-                              <div class="row">
-                                  
-                                  <div class="col-6">
-                                      
-                                      <div class="pull-left">
-                                      
-                                      <button class="btn btn-success btn-sm" style="background-color:#daa520;border-color:#daa520;">Cancel</button>      
-                                          
-                                      </div>
-                                  
-                                  </div>
-                                  
-                                  <div class="col-6">
-                                      
-                                      <div class="pull-right">
-                                      
-                                      <button class="btn btn-success send btn-sm">Send <i class="fa fa-long-arrow-right ml-1"></i></button>      
-                                          
-                                      </div>
-                                  
-                                  </div>
-                              
-                              </div>
-                          
-                          </div>
-                      
-						</form>
-                      </div>
-					  </div>
-					</div>
+					
 				</div>
 			</div>
 		</div>

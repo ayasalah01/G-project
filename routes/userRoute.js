@@ -63,4 +63,5 @@ router.post("/search",userController.postSearch);
 router.get("/edit/:id",userController.get_SP_Profile);
 router.get("/rate/:id",userController.getRate);
 router.post ("/rate",userController.review);
+router.get("/rate",userController.getReview)
 module.exports = router;
