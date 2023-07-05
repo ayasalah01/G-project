@@ -11,7 +11,7 @@ const reviewSchema = mongoose.Schema({
         required:true
     },
     sp_id:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:"serviceProvider",
         // required:true
     },
@@ -20,6 +20,10 @@ const reviewSchema = mongoose.Schema({
         required:[true,'user id is required'],
         ref:"user"
     },
+    username:{
+        type:String,
+        ref:"user"
+    }
 },
 {timestamps:true}
 );

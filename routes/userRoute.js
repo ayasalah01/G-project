@@ -48,9 +48,10 @@ router.get("/setting",userController.editUserProfile);
 router.post("/updateProfile",userController.updateProfile);
 router.post("/delete",userController.deleteUserAccount);
 router.post("/change",changePassword_Validator,userController.update_password);
-router.get("/pay",userController.getPayment);
+router.get("/pay/:id",userController.getPayment);
+//router.get("/pay",userController.getPay);
 router.post("/pay",upload.single('image'),userController.postPayment);
-router.get("/clientChat",userController.Load_Chat);
+router.get("/clientChat/:id",userController.Load_Chat);
 router.post("/saveChat",userController.saveChat);
 //router.get("/chat",userController.ChatDashboard);//try with it 
 router.get("/cart",userController.getCart);

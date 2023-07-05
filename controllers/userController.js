@@ -14,6 +14,7 @@ const Cart = require("../models/cartModel");
 const Order = require("../models/orderModel");
 const Review = require("../models/reviewModel");
 const sendMail = require("../utils/sendEmail");
+const Natural = require("../models/natural");
 
 // bycrpt password
 const securePassword = (password)=>{
@@ -24,7 +25,6 @@ const securePassword = (password)=>{
         console.log(error.message);
     }
 }
-
 // signup
 const getSignup = (req,res,next) =>{
     try {
@@ -208,7 +208,6 @@ const editUserProfile = async(req,res,next)=>{
         console.log(error.message)
     }
 }
-
 const updateProfile = async(req,res,next)=>{
     try {
         const userData = await User.findByIdAndUpdate({_id:req.body.user_id},{$set:{username:req.body.username,email:req.body.email,phoneNumber:req.body.phoneNumber}})
@@ -297,34 +296,38 @@ const sendVerificationLink = async (req,res,next)=>{
 }
 const getPayment = async(req,res,next)=>{
     try {
-        // const service = req.body.service;
-        // console.log(service);
-        // const data = await Order.findOne({service:service})
-        // //console.log(data);
-        res.render("pay");
+        const id = req.params.id;
+        const data = await Order.findById({_id:id})
+        //console.log(data);
+        res.render("pay",{data:data});
     } catch (error) {
         console.log(error.message);
     }
 }
 const postPayment = async(req,res,next)=>{
     try {
+        const user = await User.findById({_id:req.session.user_id});
+        const sp = await ServiceProvider.findById({_id:req.body.sp_id});
         const pay = new Pay({
+            sp_id:req.body.sp_id,
+            userId:req.session.user_id,
+            service:req.body.service,
+            price:req.body.price,
             image:req.file.filename,
-            //service:req.body.service,
-            //price:req.body.price
+            
         });
+        sendMail.sendSPNotifyMailforPay(sp.email,user.username);
         const data = await pay.save();
         if(data){
-            res.render('pay',{message:"payment process has been successfully "})
+            res.render('confirmation')
         }
         else{
-            res.render('pay',{message:"payment process has been failed please try again "})
+            res.render('pay')
         }
     } catch (error) {
         console.log(error.message);
     }
 }
-
 // get serviceprovider profile for client
 const get_SP_Profile = async(req,res,next)=>{
     try {
@@ -341,9 +344,10 @@ const get_SP_Profile = async(req,res,next)=>{
 const Load_Chat = async(req,res,next)=>{
     try {
             const user = await User.findById({_id:req.session.user_id});
-            const userData = await Services.findOne({category:"Hotel"});
-            console.log(userData.serviceName);
-            const data = await ServiceProvider.findOne({serviceName:userData.serviceName});
+            const id = req.params.id
+            // const userData = await Services.findOne({category:"Hotel"});
+            // console.log(userData.serviceName);
+            const data = await ServiceProvider.findById({_id:id});
             console.log(data);
             res.render("clientChat",{
                 user:user,
@@ -385,7 +389,6 @@ const saveChat = async(req,res,next)=>{
         res.status(400).send({success:false,msg:error.message});
     }
 }
-
 const ChatDashboard = async(req,res,next)=>{
     try {
         const userData = await User.findById({_id:req.session.user_id});
@@ -521,7 +524,7 @@ const addToCart = async(req,res,next)=>{
 
         })
         const cart = await data.save();
-        console.log(cart);
+        //console.log(cart);
         res.redirect("/cart");
     } catch (error) {
         console.log(error)
@@ -530,9 +533,8 @@ const addToCart = async(req,res,next)=>{
 const getCart = async(req,res,next)=>{
     try {
         const id = req.session.user_id
-        console.log(id);
         const items = await Cart.find({userId:id})
-        console.log(items)
+        //console.log("cartid"+ items.cartId)
         res.render("cart",{data:items});
     } catch (error) {
         console.log(error)
@@ -559,15 +561,19 @@ const deleteItem = async(req,res,next)=>{
 //order
 const createOrder = async(req,res,next)=>{
     try {
+        const id = req.session.user_id
+        const user = await User.findById({_id:id});
         const order = await new Order({
             service:req.body.service,
             qauntity:req.body.qauntity,
             price:req.body.price,
             category:req.body.category,
-            userId:req.session.user_id,
+            userId:id,
+            sp_id:req.body.sp_id
         })
         const data = await order.save();
-        console.log(data.qauntity)
+        const sp = await ServiceProvider.findById({_id:data.sp_id});
+        await sendMail.sendSPNotifyMail(sp.email,user.username);
         res.render("order",{data:data});
     } 
     catch (error) {
@@ -589,8 +595,14 @@ const postSearch = async(req,res,next)=>{
         const service = req.body.service;
         console.log(service)
         const data = await Services.findOne({serviceName:service});
-        console.log(data)
-        res.render("resultSearch",{data:data});
+        if(data){
+            res.render("resultSearch",{data:data});
+        }
+        else{
+            const info = await Natural.findOne({serviceName:service});
+            res.render("resultSearch",{data:info});
+        }
+        // res.render("resultSearch",{data:data});
         //res.render("/search",{data:data})
     } catch (error) {
         console.log(error)
@@ -599,22 +611,30 @@ const postSearch = async(req,res,next)=>{
 //review
 const getRate = async (req,res,next)=>{
     try {
-        res.render("rate")
+        const id = req.params.id
+        const user_id = req.session.user_id
+        const data = await Review.find({userId:user_id});
+
+        res.render("rate",{data:id,datas:data})
     } catch (error) {
         console.log(error.message);
     }
 }
 const review = async(req,res,next)=>{
     try {
-        const id =req.params.id
-        console.log(id)
+        const userData = await User.findOne({_id:req.session.user_id})
         const data = new Review({
-            rate:req.body.rate,
+            rate:req.body.rating,
             comment:req.body.comment,
-            sp_id:id,
-            userId:req.session.user_id
+            sp_id:req.body.sp_id,
+            userId:req.session.user_id,
+            username:userData.username
         })
         const review = await data.save();
+        // res.redirect("/rate"({
+        //     pathname:"/",
+        //     query:req.query,
+        // }))
         res.redirect("/rate")
     } catch (error) {
         console.log(error)
@@ -622,8 +642,10 @@ const review = async(req,res,next)=>{
 }
 const getReview = async(req,res,next)=>{
     try {
-        const data = await Review.find();
-        res.render("rate",{data,data})
+        const id = req.params.id
+        const user_id = req.session.user_id
+        const data = await Review.find({userId:user_id});
+        res.render("rate",{data:id,datas:data})
     } catch (error) {
         console.log(error)
     }
@@ -662,7 +684,7 @@ module.exports ={
     createOrder,
     getSearch,
     postSearch,
-    getRate,
     review,
-    getReview
+    getRate,
+    getReview,
 }

@@ -65,7 +65,7 @@
                     <div class="row align-items-center no-gutters">
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo-img">
-                                <a href="index.html">
+                                <a href="">
                                     <img src="img/logo (2).png" alt="">
                                 </a>
                             </div>
@@ -75,7 +75,7 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a  href="/HomeSPAfterlogin">Home</a></li>
-                                        <li><a href="Inbox.html">Inbox</a></li>
+                                        <li><a href="/spChat">Inbox</a></li>
                                         <li><a class="active" href="/spReview">My Reviews</a></li>
                                         <li><a href="/spProfile">Your profile</a></li>
 										<li><a href="/spSetting">Settings</a></li>
@@ -100,7 +100,7 @@
     </header>
     <!-- header-end -->
 	
- <!-- Fixed navbar -->
+<!-- Fixed navbar -->
 	<div class="row">
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
@@ -115,7 +115,7 @@
 					<h4>Average user rating</h4>
 					<h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
 					<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-					  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+					    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 					</button>
 					<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
 					  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -205,92 +205,121 @@
 			<div class="col-sm-7">
 				<hr/>
 				<div class="review-block">
+					<% for (let user of data) { %>
 					<div class="row">
 						<div class="col-sm-3">
-							<img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-							<div class="review-block-name"><a href="#">nktailor</a></div>
-							<div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+							<div class="review-block-name"><a href="#"><%= user.username%></a></div>
+							<div class="review-block-date"><%=user.createdAt%></div>
 						</div>
 						<div class="col-sm-9">
 							<div class="review-block-rate">
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
+								<input type="hidden" value="<%=user.rate %>">
+<% if (user.rate === 5) { %>
+    <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		</button>
+		<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		</button>
+<% } else if (user.rate === 4) { %>
+    <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	    </button>
+	    <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	    </button>
+	    <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	    </button>
+	    <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+		  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		</button>
+		<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+		  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		</button>
+<% } else if (user.rate === 3) { %>
+	    <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+<% } else if (user.rate === 2) { %>
+			<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+					<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+				    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+						<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+<% } else if (user.rate === 1) { %>
+			<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+					<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+						<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+<% } else { %>
+	        <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+			<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</button>
+<% } %>
+											
+
 							</div>
-							<div class="review-block-title">this was nice in buy</div>
-							<div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
+							<div class="review-block-title"><%= user.comment %></div>
+							
 						</div>
 					</div>
 					<hr/>
-					<div class="row">
-						<div class="col-sm-3">
-							<img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-							<div class="review-block-name"><a href="#">nktailor</a></div>
-							<div class="review-block-date">January 29, 2016<br/>1 day ago</div>
-						</div>
-						<div class="col-sm-9">
-							<div class="review-block-rate">
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-							</div>
-							<div class="review-block-title">this was nice in buy</div>
-							<div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
-						</div>
-					</div>
-					<hr/>
-					<div class="row">
-						<div class="col-sm-3">
-							<img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-							<div class="review-block-name"><a href="#">nktailor</a></div>
-							<div class="review-block-date">January 29, 2016<br/>1 day ago</div>
-						</div>
-						<div class="col-sm-9">
-							<div class="review-block-rate">
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
-							</div>
-							<div class="review-block-title">this was nice in buy</div>
-							<div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
-						</div>
-					</div>
+					<% } %>
 				</div>
 			</div>
 		</div>

@@ -23,6 +23,11 @@ const orderSchema = mongoose.Schema({
         type:String,
         required:[true,'user id is required'],
         ref:"user"
+    },
+    sp_id:{
+        type:String,
+        required:[true,'partner id is required'],
+        ref:"serviceProvider"
     }
     
 },

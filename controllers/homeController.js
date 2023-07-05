@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 const ServiceProvider = require("../models/spModel");
 const Services = require("../models/serviceModel");
 const Natural= require("../models/natural");
+const Review = require("../models/reviewModel");
 
 
 const getHome = async(req,res,next) =>{
@@ -48,7 +49,10 @@ const tourismCompany = async(req,res,next)=>{
 }
 const Hotel = async(req,res,next)=>{
     try {
+        
         const offers = await Services.find({category:"Hotel"});
+        //const review = await Review.findOne({sp_id:req.body.sp_id});
+        //console.log(req.body.sp_id);
         res.render("hotel",{data:offers});
     
     } catch (error) {

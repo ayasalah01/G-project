@@ -29,6 +29,11 @@ const userSchema = mongoose.Schema({
         type:Number,
         required:true
     },
+    category:{
+        type:String,
+        required:true,
+        enum:["Hotel","Cinema","Bazaar","Resort & Village","Tourism Company","Restaurant & Cafe","Transportation Company"]
+    },
     is_varified:{
         type:Number,
         default:0

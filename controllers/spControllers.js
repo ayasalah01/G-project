@@ -10,6 +10,7 @@ const config = require("../config/config");
 const sendMail = require("../utils/sendEmail");
 const Services = require('../models/serviceModel');
 const Chat = require("../models/chatModel");
+const Review = require("../models/reviewModel");
 const Natural = require("../models/natural");
 
 
@@ -403,9 +404,7 @@ const spCreatePost = async(req,res,next)=>{
 const getSPProfile_forClient = async(req,res,next)=>{
     try {
         const id = req.params.id
-        console.log(id)
         const data = await ServiceProvider.findById({_id:id});
-        console.log(data);
         res.render('sp_profile_forClient',{user:data});
     } catch (error) {
         console.log(error)
@@ -521,7 +520,10 @@ const getSPProfile_forClient = async(req,res,next)=>{
 // }
 const getRate = async (req,res,next)=>{
     try {
-        res.render("spReview")
+        const id = req.session.serviceProvider_id;
+        const data = await Review.find({sp_id:id});
+        console.log(data)
+        res.render("spReview",{data:data})
     } catch (error) {
         console.log(error.message);
     }
