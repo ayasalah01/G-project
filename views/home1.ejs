@@ -424,6 +424,12 @@
                         <div class="about_thumb">
                             <img src="<%=user.image%>" width="50" height="200">
                         </div>
+                        <br>
+                        <a class="d-inline-block"  >
+                            <span class='fas fa-user-circle' style='font-size:30px;color:#dda520' >
+                                <%= user.serviceName %></span>
+                        </a>
+                    
                         <ul>
                             <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
                             <a href="/signin" style="color:#daa520;" class="active">View more </a>
@@ -438,7 +444,7 @@
     <!-- offers_area_end -->	
 	
     <!--Natural Preserves offers_area_start -->
-    <div class="offers_area">
+    <div class="offers_area">   
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -454,7 +460,11 @@
                         <div class="about_thumb">
                             <img src="<%=user.image%>" alt="">
                         </div>
-        
+                        <br>
+                        <a class="d-inline-block"  >
+                            <span class='fas fa-user-circle' style='font-size:30px;color:#dda520' >
+                                <%= user.serviceName %></span>
+                        </a>
                         <ul>
                             <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
                             <a href="/signin" style="color:#daa520;" class="active">View more </a>

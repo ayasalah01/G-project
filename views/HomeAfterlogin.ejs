@@ -461,13 +461,16 @@
                         <div class="about_thumb">
                             <img src="<%=user.image%>" width="50" height="200">
                         </div>
-                        <ul>
+                        <br></br>
+                        <a class="d-inline-block"  >
+                            <span class='fas fa-user-circle' style='font-size:30px;color:#dda520' >
+                                <%= user.serviceName %></span>
+                        </a>
+                    <ul>
+                    
+                            <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
+                        
                             <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
-                            <h4 style="color: #daa520;" >
-                                Time :
-                                <span style="color:black; font-size: 20px;"><%= user.available_time %></span>
-                                
-                            </h4>
                             <a href="/archaeologicalSite" style="color:#daa520;" class="active">View more </a>
                             
                         </ul>
@@ -497,13 +500,15 @@
                             <img src="<%=user.image%>" alt="">
                         </div>
         
-                        <ul>
+                        <br></br>
+                        <a class="d-inline-block"  >
+                            <span class='fas fa-user-circle' style='font-size:30px;color:#dda520' >
+                                <%= user.serviceName %></span>
+                        </a>
+                    <ul>
+                    
+                            <p style="color:black; font-size: 20px;"><%= user.offerTitle %></p>
                             <p style="color:black; font-size: 20px;" ><%= user.postDetails%></p>
-                            <h4 style="color: #daa520;" >
-                                Time :
-                                <span style="color:black; font-size: 20px;"><%= user.available_time %></span>
-                                
-                            </h4>
                             <a href="/naturalPreserve" style="color:#daa520;" class="active">View more </a>
                             
                         </ul>

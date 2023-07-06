@@ -17,10 +17,13 @@
                     <h2>Sign In</h2>
                     <input type="email" name="email" placeholder="Email" />
                     <input type="password" name="password" placeholder="Password" />
-                    <a href="/forgetPassword">Forgot your password?</a>
+                    <div>
+                    <a href="/forgetPassword">Forgot your password?</a> 
+                    <br>
                     <a href="/verification"> verification ? </a>
+                </div>
                     <% if(typeof message !== "undefined"){ %>
-                        <h4><%=message %></h4>
+                        <p style="font-weight: bold; color: #023859;"><%=message %></p>
                         <% } %>
                     <button id="signIn">Sign In</button>
                 </form>

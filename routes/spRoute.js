@@ -49,6 +49,7 @@ router.get("/spVerification",spController.getVerification);
 router.post("/spVerification",spController.sendVerificationLink);
 router.get("/HomeSPAfterlogin",spController.getPartnerOffer)
 router.post("/HomeSPAfterlogin",upload.single('image'),spController.spCreatePost);
+router.get("/Accept",spController.AcceptOffer);
 router.get('/spReview',spController.getRate);
 router.get("/sp_profile_forClient/:id",spController.getSPProfile_forClient);
 // router.get("/sp_profile_forCinema",spController.cinemaProfile);

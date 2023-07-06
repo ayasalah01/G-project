@@ -11,9 +11,9 @@
                 <p style="color:#023859">Enter your registered email ID </p>
                 <input type="email" name="email" placeholder="Email" required />
                 <% if(typeof message !== "undefined"){ %>
-                    <h4><%=message %></h4>
+                    <p style="font-weight: bold; color: #023859;"><%=message %></p>
                     <% } %>
-                <input type="submit" style="background-color:#114c70; color: #000;" value="Send verification link">
+                <input type="submit" style="background-color:#023859; color: white;" value="Reset verification link">
             </form>
         </div>
         <div class="overlay-container">

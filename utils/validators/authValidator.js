@@ -100,3 +100,17 @@ exports.resetValidator = [
 
 validatorMiddleware,
 ];
+
+exports.rateValidator = [
+    check('rating')
+    .notEmpty()
+    .withMessage('rate required')
+    .isLength({ min: 1 })
+    .withMessage('rate must be at least 1 characters')
+    ,
+    check('comment')
+    .notEmpty()
+    .withMessage('comment required'),
+
+    //validatorMiddleware,
+];

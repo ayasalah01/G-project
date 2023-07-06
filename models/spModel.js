@@ -37,7 +37,12 @@ const serviceProviderSchema = mongoose.Schema({
     User_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
+    },
+    OfferAccepted:{
+        type:Number,
+        default:0
     }
+    
 },
 {timestamps:true}
 );

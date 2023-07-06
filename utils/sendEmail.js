@@ -135,7 +135,7 @@ const sendSPResetPasswordMail = (email,token)=>{
     }
 }
 // send notify mail for admin
-const sendAdminNotifyMail = (title,details,price,category,serviceName,image)=>{
+const sendAdminNotifyMail = (sp_id,title,details,price,category,serviceName,image)=>{
     try {
         const transporter = nodemailer.createTransport
         ({
@@ -153,9 +153,8 @@ const sendAdminNotifyMail = (title,details,price,category,serviceName,image)=>{
                 to: "ayas66223@gmail.com",
                 subject: 'partner created new post offer',
                 html:
-                '<h3> OFFer Details</h3><p>offerTitle:'+title+'<br>postDetails:'+details+'<br>price:'+price+'<br>category:'+category+'<br>serviceName:'+serviceName+'<br>image:'+image+'<p>'
+                '<h3> OFFer Details</h3><p>offerTitle:'+title+'<br>postDetails:'+details+'<br>price:'+price+'<br>category:'+category+'<br>serviceName:'+serviceName+'<br>image:'+image+'<br>'+'Hi if you accept infromation order click here to <a href="http://localhost:3000/Accept?id='+sp_id+'">Accept</a>the Order .'+'<p>'
             };
-            
             transporter.sendMail(mailOptions, function(error, info){
                 if (error) {
                     console.log(error);
@@ -237,7 +236,40 @@ const sendSPNotifyMailforPay = (email,username)=>{
     }
 
 }
+//
+// const sendAdminMail = (title,details,price,category,serviceName,image)=>{
+//     try {
+//         const transporter = nodemailer.createTransport
+//         ({
+//             host:'smtp.gmail.com',
+//             port:587,
+//             secure:false,
+//             requireTLS:true,
+//             auth:{
+//                 user:config.emailUser,
+//                 pass:config.passwordUser
+//             }
+//         });
+//             const mailOptions = {
+//                 from: config.emailUser,
+//                 to: "ayas66223@gmail.com",
+//                 subject: 'partner created new post offer',
+//                 html:
+//                 '<h3> OFFer Details</h3><p>offerTitle:'+title+'<br>postDetails:'+details+'<br>price:'+price+'<br>category:'+category+'<br>serviceName:'+serviceName+'<br>image:'+image+'<p>'
+//             };
+//             transporter.sendMail(mailOptions, function(error, info){
+//                 if (error) {
+//                     console.log(error);
+//                 } else {
+//                     console.log('Email sent: ' + info.response);
+//                 }
+//             })
 
+//     } catch (error) {
+//         console.log(error)
+//     }
+
+// }
 module.exports = {
     sendVerificationEmail,
     sendSPVerificationMail,

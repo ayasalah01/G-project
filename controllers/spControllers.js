@@ -12,6 +12,7 @@ const Services = require('../models/serviceModel');
 const Chat = require("../models/chatModel");
 const Review = require("../models/reviewModel");
 const Natural = require("../models/natural");
+const natural = require('../models/natural');
 
 
 
@@ -170,7 +171,7 @@ const getReset_Password = async(req,res,next)=>{
             res.render("spresetPassword",{pageTitle:"ResetPassword",serviceProvider_id:tokenData._id});
         }
         else{
-            res.render("404",{message:"token is invalid"});
+            res.render("sp404",{message:"token is invalid"});
         }
     } catch (error) {
         console.log(error.message);
@@ -234,7 +235,6 @@ const deleteUserAccount = async(req,res,next)=>{
     }
 }
 }
-
 // change password
 const updatePassword = async(req,res,next)=>{
     try {
@@ -378,6 +378,7 @@ const spCreatePost = async(req,res,next)=>{
         const userData = await ServiceProvider.findById({_id:id})
         console.log(userData._id);
             const service = new Services({
+
                 offerTitle :req.body.offerTitle,
                 postDetails:req.body.postDetails,
                 price:req.body.price,
@@ -389,13 +390,44 @@ const spCreatePost = async(req,res,next)=>{
             const post = await service.save();
             console.log(post)
             if(post){
-                sendMail.sendAdminNotifyMail(post.offerTitle,post.postDetails,post.price,post.category,post.serviceName,req.file.filename);
+               // sendMail.sendAdminNotifyMail(post.offerTitle,post.postDetails,post.price,post.category,post.serviceName,req.file.filename);
                 res.redirect("/HomeSPAfterlogin")
             }
             else{
                 console.log("error when creating post");
             }
+            // await sendMail.sendAdminNotifyMail(userData._id,req.body.offerTitle,req.body.postDetails,req.body.price,userData.category,userData.serviceName,req.file.filename);
+            // res.redirect("/HomeSPAfterlogin");
+            // if(userData.AcceptOffer === 1){
+            //     const post = await service.save();
+            //     userData.AcceptOffer = 0;
+            // }
+            //     else{
+            //     console.log("error");
+            // }
         
+            
+            // const post = await service.save();
+            // console.log(post)
+        //     if(post){
+        //        // sendMail.sendAdminNotifyMail(post.offerTitle,post.postDetails,post.price,post.category,post.serviceName,req.file.filename);
+        //         res.redirect("/HomeSPAfterlogin")
+        //     }
+        //     else{
+        //         console.log("error when creating post");
+        //     }
+        // }
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const AcceptOffer = async(req,res,next)=>{
+    try {
+        const updateinfo = await ServiceProvider.updateOne({_id:req.query.id},{$set:{OfferAccepted:1} });
+        console.log(updateinfo);
+        res.render("spVerifyEmail")
     } catch (error) {
         console.log(error.message);
     }
@@ -583,6 +615,7 @@ module.exports ={
     getSPProfile_forClient,
     Load_Chat,
     saveChat,
+    AcceptOffer
 
     
 }

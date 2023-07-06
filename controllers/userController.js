@@ -15,6 +15,7 @@ const Order = require("../models/orderModel");
 const Review = require("../models/reviewModel");
 const sendMail = require("../utils/sendEmail");
 const Natural = require("../models/natural");
+const validationResult = require('express-validator').validationResult;
 
 // bycrpt password
 const securePassword = (password)=>{
@@ -615,13 +616,21 @@ const getRate = async (req,res,next)=>{
         const user_id = req.session.user_id
         const data = await Review.find({userId:user_id});
 
-        res.render("rate",{data:id,datas:data})
+        // res.render("rate",{
+        //     data:id,datas:data})
+        res.render("rate",{
+            data:id,
+            datas:data,
+            authError:req.flash('authError')[0],
+            validationErrors:req.flash('validationErrors')
+        })
     } catch (error) {
         console.log(error.message);
     }
 }
 const review = async(req,res,next)=>{
     try {
+        if(validationResult(req).isEmpty()){
         const userData = await User.findOne({_id:req.session.user_id})
         const data = new Review({
             rate:req.body.rating,
@@ -635,7 +644,13 @@ const review = async(req,res,next)=>{
         //     pathname:"/",
         //     query:req.query,
         // }))
+        req.flash('authError',err)
         res.redirect("/rate")
+    }
+    else{
+        req.flash('validationErrors',validationResult(req).array())
+        res.redirect('/rate')
+    }
     } catch (error) {
         console.log(error)
     }
@@ -645,7 +660,10 @@ const getReview = async(req,res,next)=>{
         const id = req.params.id
         const user_id = req.session.user_id
         const data = await Review.find({userId:user_id});
-        res.render("rate",{data:id,datas:data})
+        res.render("rate",{data:id,datas:data,
+            authError:req.flash('authError')[0],
+            validationErrors:req.flash('validationErrors')
+        })
     } catch (error) {
         console.log(error)
     }

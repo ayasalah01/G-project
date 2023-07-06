@@ -45,8 +45,7 @@ const userSchema = mongoose.Schema({
     is_online:{
         type:String,
         default:"0"
-    },
-    
+    }
 },
 {timestamps:true}
 );

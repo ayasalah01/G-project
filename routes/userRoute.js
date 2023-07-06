@@ -24,7 +24,8 @@ const {
     signupValidator,
     loginValidator,
     changePassword_Validator,
-    resetValidator
+    resetValidator,
+    rateValidator
 }= require("../utils/validators/authValidator")
 
 const userController = require("../controllers/userController");
@@ -63,6 +64,6 @@ router.get("/search",userController.getSearch);
 router.post("/search",userController.postSearch);
 router.get("/edit/:id",userController.get_SP_Profile);
 router.get("/rate/:id",userController.getRate);
-router.post ("/rate",userController.review);
+router.post ("/rate",rateValidator,userController.review);
 router.get("/rate",userController.getReview)
 module.exports = router;
