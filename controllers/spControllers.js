@@ -400,6 +400,7 @@ const spCreatePost = async(req,res,next)=>{
             // res.redirect("/HomeSPAfterlogin");
             // if(userData.AcceptOffer === 1){
             //     const post = await service.save();
+            //     console.log(post);
             //     userData.AcceptOffer = 0;
             // }
             //     else{
@@ -407,8 +408,8 @@ const spCreatePost = async(req,res,next)=>{
             // }
         
             
-            // const post = await service.save();
-            // console.log(post)
+        //     const post = await service.save();
+        //     console.log(post)
         //     if(post){
         //        // sendMail.sendAdminNotifyMail(post.offerTitle,post.postDetails,post.price,post.category,post.serviceName,req.file.filename);
         //         res.redirect("/HomeSPAfterlogin")
